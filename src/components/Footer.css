@@ -1,0 +1,90 @@
+/* Footer — Mobile First */
+.footer {
+  position: relative;
+  background: var(--green-dark);
+  color: var(--white);
+  padding-top: 2.5rem;
+  margin-top: 3rem;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    padding-top: 3rem;
+    margin-top: 4rem;
+  }
+}
+
+.footer__swoosh {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: var(--gradient-swoosh-bottom);
+  opacity: 0.9;
+}
+
+.footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  display: grid;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .footer__inner {
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.footer__logo-reset {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.footer__logo-sub {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--green-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer__tagline {
+  font-size: 0.9rem;
+  color: var(--orange);
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.footer__links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer__links a {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer__links a:hover {
+  color: var(--green-light);
+}
+
+.footer__copy {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}

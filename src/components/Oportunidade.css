@@ -1,0 +1,86 @@
+/* Oportunidade — Mobile First */
+.oportunidade {
+  padding: 2.5rem 1rem 3rem;
+  background: var(--green-dark);
+  color: var(--white);
+}
+
+.oportunidade__container {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.oportunidade__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .oportunidade {
+    padding: 4rem 1.5rem;
+  }
+
+  .oportunidade__title {
+    font-size: 1.75rem;
+  }
+}
+
+.oportunidade__swoosh {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.oportunidade__intro {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.95;
+  margin-bottom: 2rem;
+}
+
+.oportunidade__list {
+  list-style: none;
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.oportunidade__list li {
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.oportunidade__list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green-light);
+  font-weight: 700;
+}
+
+.oportunidade__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  min-height: var(--tap-min);
+  background: var(--gradient-swoosh-top);
+  color: var(--green-dark);
+  font-weight: 700;
+  border-radius: 999px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+@media (min-width: 480px) {
+  .oportunidade__btn {
+    padding: 1rem 2rem;
+  }
+}
+
+.oportunidade__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(248, 141, 0, 0.4);
+}

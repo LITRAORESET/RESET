@@ -1,0 +1,184 @@
+/* Bebida — Mobile First: base = uma coluna, garrafa em cima */
+
+.bebida {
+  padding: 2.5rem 1rem 3rem;
+  background: var(--gray-bg);
+}
+
+.bebida__container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bebida__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.bebida__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0.5rem 0 0;
+}
+
+.bebida__title-main {
+  font-size: clamp(1.75rem, 6vw, 2.75rem);
+  font-weight: 800;
+  color: var(--green-dark);
+  letter-spacing: -0.02em;
+}
+
+.bebida__title-sub {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  opacity: 0.9;
+}
+
+.bebida__tagline {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--orange);
+  margin-top: 0.75rem;
+}
+
+/* Mobile: uma coluna, visual primeiro */
+.bebida__content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.bebida__visual {
+  order: -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bebida__card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.bebida__card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-bottom: 0.75rem;
+}
+
+.bebida__uso {
+  font-size: 1.05rem;
+  color: var(--gray-text);
+  margin-bottom: 0.75rem;
+}
+
+.bebida__uso-dose {
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
+.bebida__uso-sep {
+  margin: 0 0.5rem;
+  color: var(--green-leaf);
+}
+
+.bebida__texto {
+  color: var(--gray-text);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.bebida__bottle {
+  width: 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bebida__bottle-cap {
+  width: 28px;
+  height: 14px;
+  background: var(--green-dark);
+  border-radius: 4px 4px 0 0;
+}
+
+.bebida__bottle-body {
+  width: 72px;
+  height: 120px;
+  background: var(--white);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.bebida__bottle-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--green-light) 0%, var(--yellow) 40%, var(--orange) 100%);
+  opacity: 0.5;
+}
+
+/* Tablet+: duas colunas, card à esquerda */
+@media (min-width: 641px) {
+  .bebida {
+    padding: 4rem 1.5rem;
+  }
+
+  .bebida__header {
+    margin-bottom: 3rem;
+  }
+
+  .bebida__title-sub {
+    font-size: 1.1rem;
+  }
+
+  .bebida__tagline {
+    font-size: 1.15rem;
+  }
+
+  .bebida__content {
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+  }
+
+  .bebida__visual {
+    order: 0;
+  }
+
+  .bebida__card {
+    padding: 2rem;
+  }
+
+  .bebida__card-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .bebida__uso {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .bebida__bottle {
+    width: 100px;
+  }
+
+  .bebida__bottle-cap {
+    width: 32px;
+    height: 16px;
+  }
+
+  .bebida__bottle-body {
+    width: 80px;
+    height: 140px;
+    border-radius: 0 0 12px 12px;
+  }
+}

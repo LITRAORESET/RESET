@@ -1,0 +1,71 @@
+/* Benefícios — Mobile First */
+.beneficios {
+  padding: 2.5rem 1rem 3rem;
+  background: var(--white);
+}
+
+.beneficios__container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.beneficios__swoosh {
+  margin-bottom: 0.75rem;
+}
+
+.beneficios__title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .beneficios {
+    padding: 4rem 1.5rem;
+  }
+
+  .beneficios__title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.beneficios__list {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.beneficios__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  background: var(--gray-bg);
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--gray-text);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.beneficios__item:hover {
+  background: rgba(160, 209, 80, 0.12);
+  transform: translateX(4px);
+}
+
+.beneficios__check {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-dark);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 50%;
+}
