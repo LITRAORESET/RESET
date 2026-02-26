@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { SwooshTop, SwooshBottom } from '../components/Swoosh'
+import { LOGO_RESET_METABOLICO } from '../constants'
 import './Login.css'
 
 export default function Login() {
@@ -27,7 +28,11 @@ export default function Login() {
         <div className="login__header">
           <SwooshTop className="swoosh--large" />
           <h1 className="login__title">
-            <span className="login__title-main">LITRÃO</span>
+            <img
+              src={LOGO_RESET_METABOLICO}
+              alt="Litrão - Reset Metabólico"
+              className="login__logo-img"
+            />
             <span className="login__title-sub">Área de Membros</span>
           </h1>
           <SwooshBottom className="swoosh--large" />

@@ -58,6 +58,14 @@
   letter-spacing: -0.02em;
 }
 
+.login__logo-img {
+  max-width: 100%;
+  width: min(200px, 70vw);
+  height: auto;
+  display: block;
+  margin: 0 auto 0.25rem;
+}
+
 .login__title-sub {
   font-size: 0.9rem;
   font-weight: 600;

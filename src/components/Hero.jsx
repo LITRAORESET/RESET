@@ -1,16 +1,31 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SwooshTop, SwooshBottom } from './Swoosh'
+import { LOGO_RESET_METABOLICO } from '../constants'
 import './Hero.css'
 
 export default function Hero() {
+  const [logoError, setLogoError] = useState(false)
+
   return (
     <section className="hero">
       <div className="hero__bg" aria-hidden="true" />
       <div className="hero__content">
         <SwooshTop className="swoosh--large" />
         <h1 className="hero__title">
-          <span className="hero__title-main">LITRÃO</span>
-          <span className="hero__title-sub">Reset Metabólico</span>
+          {!logoError ? (
+            <img
+              src={LOGO_RESET_METABOLICO}
+              alt="Litrão - Reset Metabólico"
+              className="hero__logo-img"
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <>
+              <span className="hero__title-main">LITRÃO</span>
+              <span className="hero__title-sub">Reset Metabólico</span>
+            </>
+          )}
         </h1>
         <SwooshBottom className="swoosh--large" />
         <p className="hero__tagline">Energia Natural em Movimento</p>

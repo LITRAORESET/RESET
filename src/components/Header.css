@@ -25,6 +25,14 @@
   line-height: 1.1;
 }
 
+.header__logo-img {
+  height: 40px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
+}
+
 .header__logo-reset {
   font-size: 1.35rem;
   font-weight: 800;

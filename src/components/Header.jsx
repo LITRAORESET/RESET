@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { LOGO_RESET_METABOLICO } from '../constants'
 import './Header.css'
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [logoError, setLogoError] = useState(false)
   const location = useLocation()
   const isHome = location.pathname === '/'
 
@@ -11,8 +13,19 @@ export default function Header() {
     <header className={`header ${menuOpen ? 'header--open' : ''}`}>
       <div className="header__inner">
         <Link to="/" className="header__logo">
-          <span className="header__logo-reset">LITRÃO</span>
-          <span className="header__logo-sub">Reset Metabólico</span>
+          {!logoError ? (
+            <img
+              src={LOGO_RESET_METABOLICO}
+              alt="Litrão - Reset Metabólico"
+              className="header__logo-img"
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <>
+              <span className="header__logo-reset">LITRÃO</span>
+              <span className="header__logo-sub">Reset Metabólico</span>
+            </>
+          )}
         </Link>
 
         <button

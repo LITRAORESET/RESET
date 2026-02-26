@@ -1,0 +1,13 @@
+COLOQUE AQUI A IMAGEM DO RESET METABÓLICO
+
+Nome do arquivo: reset-metabolico.png
+(ou altere em src/constants.js para .jpg / .webp se preferir)
+
+Esta imagem aparecerá:
+- No topo da página (header)
+- No hero da página inicial
+- Na seção "A Bebida"
+
+Tamanhos sugeridos: 
+- Para o header: altura ~80px, largura proporcional
+- Para hero/bebida: largura até ~320px
