@@ -42,6 +42,9 @@ export default function Login() {
     if (error) {
       if (error.message === 'Invalid login credentials') {
         setErro('E-mail ou senha incorretos.')
+        if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
+          setErro((prev) => prev + ' Em produção: confira a senha e no Supabase (Authentication → URL Configuration) adicione esta URL em Site URL e em Redirect URLs.')
+        }
       } else if (error.message === 'Email not confirmed' || error.message?.toLowerCase().includes('email not confirmed')) {
         setErro('E-mail ainda não confirmado. 1) No Supabase: Authentication → Providers → Email, desative "Confirm email". 2) No SQL Editor, execute o arquivo supabase-admin-ja-cadastrado.sql. Depois tente entrar de novo.')
       } else if (error.message?.toLowerCase().includes('email logins are disabled')) {
