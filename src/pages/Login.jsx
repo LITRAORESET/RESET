@@ -11,6 +11,7 @@ export default function Login() {
   const location = useLocation()
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
+  const [mostrarSenha, setMostrarSenha] = useState(false)
   const [erro, setErro] = useState('')
   const [statusMsg, setStatusMsg] = useState(null) // 'aguardando' | 'rejeitado'
   const [loading, setLoading] = useState(false)
@@ -40,18 +41,20 @@ export default function Login() {
     })
     setLoading(false)
     if (error) {
+      let msg = ''
       if (error.message === 'Invalid login credentials') {
-        setErro('E-mail ou senha incorretos.')
+        msg = 'E-mail ou senha incorretos.'
         if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
-          setErro((prev) => prev + ' Em produção: confira a senha e no Supabase (Authentication → URL Configuration) adicione esta URL em Site URL e em Redirect URLs.')
+          msg += ' Em produção: confira a senha e no Supabase (Authentication → URL Configuration) adicione esta URL em Site URL e em Redirect URLs.'
         }
       } else if (error.message === 'Email not confirmed' || error.message?.toLowerCase().includes('email not confirmed')) {
-        setErro('E-mail ainda não confirmado. 1) No Supabase: Authentication → Providers → Email, desative "Confirm email". 2) No SQL Editor, execute o arquivo supabase-admin-ja-cadastrado.sql. Depois tente entrar de novo.')
+        msg = 'E-mail ainda não confirmado. No Supabase: Authentication → Providers → Email, desative "Confirm email" e salve. Depois tente entrar de novo.'
       } else if (error.message?.toLowerCase().includes('email logins are disabled')) {
-        setErro('Login por e-mail está desativado no projeto. No Supabase: Authentication → Providers → Email, ative o provedor "Email" e salve.')
+        msg = 'Login por e-mail está desativado. No Supabase: Authentication → Providers → Email, ative o provedor "Email" e salve.'
       } else {
-        setErro(error.message)
+        msg = error.message
       }
+      setErro(msg)
       return
     }
     const emailLogado = data?.user?.email?.toLowerCase()
@@ -118,14 +121,35 @@ export default function Login() {
           </label>
           <label className="login__label">
             Senha
-            <input
-              type="password"
-              className="login__input"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              placeholder="••••••••"
-              autoComplete="current-password"
-            />
+            <span className="login__senha-wrap">
+              <input
+                type={mostrarSenha ? 'text' : 'password'}
+                className="login__input login__input--senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                placeholder="••••••••"
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className="login__toggle-senha"
+                onClick={() => setMostrarSenha((v) => !v)}
+                aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                tabIndex={0}
+              >
+                {mostrarSenha ? (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                ) : (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                )}
+              </button>
+            </span>
           </label>
           <button type="submit" className="login__btn" disabled={loading}>
             {loading ? 'Entrando…' : 'Entrar'}
