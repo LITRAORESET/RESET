@@ -21,3 +21,27 @@ Caminho: LITRAO RESET/public/videos/capa-video.jpg
 
 É a imagem que o visitante vê no player antes de clicar em play.
 Sugestão: mesmo enquadramento do vídeo (ex.: 16:9), ex.: 1280x720px.
+
+======================================
+VÍDEO DA SEÇÃO A BEBIDA (em pé/vertical)
+======================================
+
+--- VÍDEO ---
+
+Nome do arquivo: bebida.mp4
+
+Onde colocar: nesta pasta (public/videos/)
+Caminho: LITRAO RESET/public/videos/bebida.mp4
+
+Vídeo em pé (formato vertical). Se quiser outro nome, edite src/constants.js (VIDEO_BEBIDA).
+Formatos recomendados: MP4 (H.264) ou WebM.
+
+--- CAPA DO VÍDEO (opcional) ---
+
+Nome do arquivo: capa-bebida.jpg
+(ou .png / .webp — altere em src/constants.js em CAPA_VIDEO_BEBIDA se usar outro nome)
+
+Onde colocar: nesta pasta (public/videos/)
+Caminho: LITRAO RESET/public/videos/capa-bebida.jpg
+
+Imagem que aparece antes de dar play. Sugestão: mesmo enquadramento do vídeo (vertical 9:16).

@@ -25,7 +25,7 @@ export default function Oportunidade() {
           </video>
         </div>
         <p className="oportunidade__intro">
-          Como distribuidor do projeto Litrão, você faz parte de um movimento de 
+          Como parte do projeto Litrão, você faz parte de um movimento de 
           bebidas funcionais com a força da Herbalife: produto reconhecido e 
           suporte para crescer no negócio.
         </p>

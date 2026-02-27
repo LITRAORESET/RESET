@@ -13,6 +13,13 @@ export const VIDEO_OPORTUNIDADE = '/videos/oportunidade.mp4'
 // Nome padrão: capa-video.jpg (ou .png, .webp)
 export const CAPA_VIDEO_OPORTUNIDADE = '/videos/capa-video.jpg'
 
+// Vídeo da seção A Bebida (em pé/vertical) — coloque em public/videos/
+// Nome padrão: bebida.mp4
+export const VIDEO_BEBIDA = '/videos/bebida.mp4'
+
+// Capa do vídeo da bebida (opcional) — coloque em public/videos/
+export const CAPA_VIDEO_BEBIDA = '/videos/capa-bebida.jpg'
+
 // Supabase (definido em .env.local)
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || ''
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || ''

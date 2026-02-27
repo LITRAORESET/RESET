@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SwooshTop, SwooshBottom } from './Swoosh'
-import { LOGO_RESET_METABOLICO } from '../constants'
+import { LOGO_RESET_METABOLICO, VIDEO_BEBIDA, CAPA_VIDEO_BEBIDA } from '../constants'
 import './Bebida.css'
 
 export default function Bebida() {
@@ -31,24 +31,18 @@ export default function Bebida() {
         </div>
 
         <div className="bebida__content">
-          <div className="bebida__card">
-            <h3 className="bebida__card-title">Como usar</h3>
-            <p className="bebida__uso">
-              <strong className="bebida__uso-dose">1L</strong>
-              <span className="bebida__uso-sep">|</span>
-              Diluir em 1L de água
-            </p>
-            <p className="bebida__texto">
-              Bebida funcional concentrada. Basta diluir em 1 litro de água e consumir ao longo do dia para aproveitar energia e benefícios.
-            </p>
-          </div>
-
           <div className="bebida__visual">
-            <div className="bebida__bottle" aria-hidden="true">
-              <div className="bebida__bottle-cap" />
-              <div className="bebida__bottle-body">
-                <div className="bebida__bottle-gradient" />
-              </div>
+            <div className="bebida__video-wrap">
+              <video
+                className="bebida__video"
+                src={VIDEO_BEBIDA}
+                controls
+                playsInline
+                poster={CAPA_VIDEO_BEBIDA}
+                aria-label="Vídeo sobre a bebida Litrão Reset Metabólico"
+              >
+                Seu navegador não suporta vídeos. Acesse <a href={VIDEO_BEBIDA}>o vídeo</a> diretamente.
+              </video>
             </div>
           </div>
         </div>

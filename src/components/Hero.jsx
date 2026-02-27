@@ -30,8 +30,8 @@ export default function Hero() {
         <SwooshBottom className="swoosh--large" />
         <p className="hero__tagline">Energia Natural em Movimento</p>
         <p className="hero__desc">
-          Conheça o projeto de bebidas funcionais para distribuidores Herbalife: 
-          a bebida que revitaliza e a oportunidade de negócio que transforma.
+          Conheça o projeto de bebidas funcionais: a bebida que revitaliza e a 
+          oportunidade de negócio que transforma.
         </p>
         <div className="hero__actions">
           <a href="#bebida" className="hero__btn hero__btn--primary">Conhecer a Bebida</a>

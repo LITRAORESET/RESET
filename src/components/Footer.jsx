@@ -23,7 +23,7 @@ export default function Footer() {
           <Link to="/login">Área de Membros</Link>
         </div>
         <p className="footer__copy">
-          Projeto para distribuidores Herbalife. &copy; {new Date().getFullYear()}
+          Litrão Reset Metabólico. &copy; {new Date().getFullYear()}
         </p>
       </div>
     </footer>
