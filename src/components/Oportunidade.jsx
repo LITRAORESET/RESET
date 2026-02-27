@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SwooshBottom } from './Swoosh'
-import { VIDEO_OPORTUNIDADE } from '../constants'
+import { VIDEO_OPORTUNIDADE, CAPA_VIDEO_OPORTUNIDADE } from '../constants'
 import './Oportunidade.css'
 
 export default function Oportunidade() {
@@ -18,7 +18,7 @@ export default function Oportunidade() {
             src={VIDEO_OPORTUNIDADE}
             controls
             playsInline
-            poster=""
+            poster={CAPA_VIDEO_OPORTUNIDADE}
             aria-label="Vídeo sobre a oportunidade de negócio Litrão"
           >
             Seu navegador não suporta vídeos. Acesse <a href={VIDEO_OPORTUNIDADE}>o vídeo</a> diretamente.

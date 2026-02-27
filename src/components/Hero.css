@@ -13,14 +13,8 @@
   position: absolute;
   inset: 0;
   background: var(--gradient-hero);
-  background-size: cover;
-  background-position: center;
   opacity: 0.04;
   z-index: 0;
-}
-
-.hero__bg--cover {
-  opacity: 0.35;
 }
 
 .hero__bg::after {

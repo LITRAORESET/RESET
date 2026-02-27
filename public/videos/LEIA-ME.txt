@@ -1,16 +1,23 @@
 VÍDEO DA SEÇÃO OPORTUNIDADE DE NEGÓCIO
 ======================================
 
-Nome do arquivo que o site usa:
-  oportunidade.mp4
+--- VÍDEO ---
 
-Onde colocar o arquivo:
-  Pasta: public/videos/
-  Caminho completo no seu computador:
-    LITRAO RESET/public/videos/oportunidade.mp4
+Nome do arquivo: oportunidade.mp4
 
-Ou seja: coloque o arquivo "oportunidade.mp4" dentro da pasta "videos"
-(que fica dentro de "public"). Se quiser usar outro nome ou formato,
-edite o arquivo src/constants.js e altere a linha VIDEO_OPORTUNIDADE.
+Onde colocar: nesta pasta (public/videos/)
+Caminho: LITRAO RESET/public/videos/oportunidade.mp4
 
+Se quiser outro nome ou formato, edite src/constants.js (VIDEO_OPORTUNIDADE).
 Formatos recomendados: MP4 (H.264) ou WebM.
+
+--- CAPA DO VÍDEO (imagem que aparece antes de dar play) ---
+
+Nome do arquivo: capa-video.jpg
+(ou .png / .webp — se usar outro nome, altere em src/constants.js em CAPA_VIDEO_OPORTUNIDADE)
+
+Onde colocar: nesta pasta (public/videos/)
+Caminho: LITRAO RESET/public/videos/capa-video.jpg
+
+É a imagem que o visitante vê no player antes de clicar em play.
+Sugestão: mesmo enquadramento do vídeo (ex.: 16:9), ex.: 1280x720px.

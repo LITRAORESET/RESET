@@ -1,17 +1,6 @@
 COLOQUE AQUI AS IMAGENS DO SITE
 ================================
 
---- IMAGEM DE CAPA (fundo do topo da página) ---
-
-Nome do arquivo: capa.jpg
-(ou .png / .webp — se usar outro nome, altere em src/constants.js em IMAGEM_CAPA)
-
-Onde colocar: nesta pasta (public/images/)
-Caminho completo: LITRAO RESET/public/images/capa.jpg
-
-A imagem aparece atrás do título e dos botões no topo da página (hero).
-Sugestão: largura 1200px ou mais, proporção 16:9 ou similar.
-
 --- LOGO RESET METABÓLICO ---
 
 Nome do arquivo: reset-metabolico.png
