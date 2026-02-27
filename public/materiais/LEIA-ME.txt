@@ -1,0 +1,26 @@
+MATERIAIS DA ÁREA DE MEMBROS (Sistema de Formação)
+==================================================
+
+Coloque aqui os PDFs e vídeos (treinamentos, scripts, artes, etc.).
+
+Onde colocar: nesta pasta (public/materiais/)
+
+Para cada arquivo, edite no projeto o arquivo:
+  src/data/areaMembrosEstrutura.js
+
+A área está organizada em 6 pilares + Agenda:
+
+  1) Comece Aqui      – Boas-vindas, meta 12 sacolas, mentalidade
+  2) Produto          – O que é o Litrão, como preparar, FAQ
+  3) Como Vender      – Lista, scripts, áudio, stories, acompanhamento
+  4) Plano 7 Dias     – Primeiras 12 sacolas (dia a dia)
+  5) Duplicação       – Reunião, equipe, liderança
+  6) Materiais        – Artes, planilhas, tabela de lucro, bio
+  7) Agenda           – Treinamentos ao vivo (terça, quinta, segunda)
+
+Em cada pilar há um array "itens". Exemplo:
+
+  { tipo: 'pdf', titulo: 'Tabela de lucro', arquivo: 'tabela-lucro.pdf', descricao: 'Opcional.' }
+  { tipo: 'video', titulo: 'Boas-vindas', arquivo: 'boas-vindas.mp4', descricao: 'Opcional.' }
+
+Os links aparecem na Área de Membros para quem estiver logado.

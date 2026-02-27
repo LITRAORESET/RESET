@@ -1,0 +1,71 @@
+.meu-link {
+  max-width: 560px;
+}
+
+.meu-link__loading,
+.meu-link__erro {
+  padding: 1rem;
+  color: var(--gray-text);
+}
+
+.meu-link__erro {
+  color: #8b0000;
+}
+
+.meu-link__intro {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--gray-text);
+  margin-bottom: 1.25rem;
+}
+
+.meu-link__campo {
+  margin-bottom: 1rem;
+}
+
+.meu-link__label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 0.5rem;
+}
+
+.meu-link__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meu-link__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--gray-text);
+}
+
+.meu-link__btn {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--green-dark);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.meu-link__btn:hover {
+  background: var(--green-leaf);
+}
+
+.meu-link__dica {
+  font-size: 0.9rem;
+  color: var(--gray-text);
+  margin: 0;
+}

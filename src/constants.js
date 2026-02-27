@@ -23,3 +23,6 @@ export const CAPA_VIDEO_BEBIDA = '/videos/capa-bebida.jpg'
 // Supabase (definido em .env.local)
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || ''
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+
+// E-mail do admin (pode cadastrar sem solicitação aprovada)
+export const ADMIN_EMAIL = (import.meta.env.VITE_ADMIN_EMAIL || 'faulaandre@gmail.com').toLowerCase()

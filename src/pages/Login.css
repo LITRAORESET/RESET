@@ -78,6 +78,15 @@
   margin-top: 0.75rem;
 }
 
+.login__indicado {
+  font-size: 0.95rem;
+  color: var(--green-dark);
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(90, 141, 42, 0.12);
+  border-radius: var(--radius);
+}
+
 .login__form {
   display: flex;
   flex-direction: column;
@@ -90,7 +99,23 @@
   color: #c92a2a;
   border-radius: var(--radius);
   font-size: 0.9rem;
+}
+
+.login__sucesso {
+  padding: 0.75rem;
+  background: rgba(40, 167, 69, 0.12);
+  color: var(--green-dark);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
   font-weight: 500;
+}
+
+.login__aviso {
+  padding: 0.75rem;
+  background: rgba(255, 193, 7, 0.15);
+  color: #856404;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
 }
 
 .login__label {
@@ -124,6 +149,17 @@
 
 .login__input::placeholder {
   color: #999;
+}
+
+.login__label-opt {
+  font-weight: 400;
+  color: var(--gray-text);
+  font-size: 0.85em;
+}
+
+.login__textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 .login__btn {
