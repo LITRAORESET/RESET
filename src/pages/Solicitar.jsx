@@ -14,6 +14,7 @@ export default function Solicitar() {
   const [email, setEmail] = useState('')
   const [idDistribuidor, setIdDistribuidor] = useState('')
   const [senha, setSenha] = useState('')
+  const [confirmarSenha, setConfirmarSenha] = useState('')
   const [erro, setErro] = useState('')
   const [sucesso, setSucesso] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -35,12 +36,16 @@ export default function Solicitar() {
   async function handleSubmit(e) {
     e.preventDefault()
     setErro('')
-    if (!nome.trim() || !email.trim() || !idDistribuidor.trim() || !senha.trim()) {
-      setErro('Preencha nome, e-mail, ID e senha.')
+    if (!nome.trim() || !email.trim() || !idDistribuidor.trim() || !senha.trim() || !confirmarSenha.trim()) {
+      setErro('Preencha nome, e-mail, ID, senha e confirmação de senha.')
       return
     }
     if (senha.length < 6) {
       setErro('A senha deve ter no mínimo 6 caracteres.')
+      return
+    }
+    if (senha !== confirmarSenha) {
+      setErro('As senhas não coincidem. Digite a mesma senha nos dois campos.')
       return
     }
     if (!supabase) {
@@ -156,6 +161,17 @@ export default function Solicitar() {
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Mínimo 6 caracteres"
+              autoComplete="new-password"
+            />
+          </label>
+          <label className="login__label">
+            Confirmar senha
+            <input
+              type="password"
+              className="login__input"
+              value={confirmarSenha}
+              onChange={(e) => setConfirmarSenha(e.target.value)}
+              placeholder="Repita a senha"
               autoComplete="new-password"
             />
           </label>

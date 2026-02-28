@@ -41,6 +41,7 @@ export default function Login() {
     })
     setLoading(false)
     if (error) {
+      console.error('[Login Supabase]', error)
       let msg = ''
       if (error.message === 'Invalid login credentials') {
         msg = 'E-mail ou senha incorretos.'

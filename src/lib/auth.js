@@ -19,6 +19,14 @@ export async function getPerfil() {
   return data ?? { role: 'membro', aprovado: false, rejeitado: false, leader_id: null }
 }
 
+/** Retorna { nome, email, id_distribuidor, telefone } do membro logado (tabela membros); null se não logado ou sem registro */
+export async function getMembro() {
+  const { data: { session }, error } = await getSession()
+  if (error || !session?.user?.id) return null
+  const { data } = await supabase.from('membros').select('nome, email, id_distribuidor, telefone').eq('user_id', session.user.id).single()
+  return data ?? null
+}
+
 /** Retorna o role do usuário logado: 'admin' | 'membro' | null */
 export async function getUserRole() {
   const p = await getPerfil()

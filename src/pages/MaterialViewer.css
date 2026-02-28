@@ -1,0 +1,138 @@
+/* Visualização de material dentro da plataforma */
+.material-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: calc(100vh - 2rem);
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.material-viewer--erro {
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.material-viewer--erro p {
+  margin: 0;
+  color: var(--gray-text);
+}
+
+/* Mobile first: toolbar em coluna, botões em bloco */
+.material-viewer__toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--white);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.material-viewer__btn-voltar {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  background: transparent;
+  border: 1px solid var(--green-dark);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.material-viewer__btn-voltar:hover {
+  background: rgba(90, 141, 42, 0.1);
+}
+
+.material-viewer__titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin: 0;
+  word-break: break-word;
+}
+
+.material-viewer__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.material-viewer__acoes .material-viewer__btn {
+  flex: 1;
+  min-width: 0;
+}
+
+.material-viewer__btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.material-viewer__btn--secundario {
+  color: var(--green-dark);
+  background: transparent;
+  border: 1px solid var(--green-dark);
+}
+
+.material-viewer__btn--secundario:hover {
+  background: rgba(90, 141, 42, 0.1);
+}
+
+.material-viewer__btn--pdf {
+  color: var(--white);
+  background: var(--green-dark);
+}
+
+.material-viewer__btn--pdf:hover {
+  background: var(--green-leaf);
+}
+
+.material-viewer__iframe {
+  flex: 1;
+  min-height: 320px;
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+/* Tablet/desktop: toolbar em linha, título em uma linha com ellipsis */
+@media (min-width: 641px) {
+  .material-viewer__toolbar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+
+  .material-viewer__titulo {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .material-viewer__acoes {
+    flex-wrap: nowrap;
+  }
+
+  .material-viewer__acoes .material-viewer__btn {
+    flex: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .material-viewer__iframe {
+    min-height: 400px;
+  }
+}

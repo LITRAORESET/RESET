@@ -61,14 +61,23 @@ export default function AreaMembros() {
                   {item.descricao && <span>{item.descricao}</span>}
                 </div>
                 {item.tipo === 'pdf' && (
-                  <a
-                    href={`${BASE_MATERIAIS}/${item.arquivo}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="area-membros__item-link"
-                  >
-                    Abrir PDF
-                  </a>
+                  <div className="area-membros__item-actions">
+                    <Link
+                      to={`/membros/material/${item.arquivo}`}
+                      state={{ titulo: item.titulo }}
+                      className="area-membros__item-link"
+                    >
+                      Ler aqui
+                    </Link>
+                    <a
+                      href={`${BASE_MATERIAIS}/${item.arquivo}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="area-membros__item-link area-membros__item-link--secundario"
+                    >
+                      Baixar PDF
+                    </a>
+                  </div>
                 )}
                 {item.tipo === 'video' && (
                   <a

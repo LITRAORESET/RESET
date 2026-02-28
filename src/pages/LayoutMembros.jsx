@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
-import { getSession, getPerfil, signOut } from '../lib/auth'
+import { getSession, getPerfil, getMembro, signOut } from '../lib/auth'
 import { PILARES, FRASE_OFICIAL_RECRUTAMENTO } from '../data/areaMembrosEstrutura'
 import './AreaMembros.css'
 
@@ -9,6 +9,7 @@ export default function LayoutMembros() {
   const location = useLocation()
   const [session, setSession] = useState(null)
   const [perfil, setPerfil] = useState(null)
+  const [membro, setMembro] = useState(null)
   const [loading, setLoading] = useState(true)
   const [menuAberto, setMenuAberto] = useState(false)
 
@@ -23,9 +24,10 @@ export default function LayoutMembros() {
       if (cancelled) return
       setSession(data?.session ?? null)
       if (data?.session) {
-        const p = await getPerfil()
+        const [p, m] = await Promise.all([getPerfil(), getMembro()])
         if (cancelled) return
         setPerfil(p)
+        setMembro(m)
       }
       setLoading(false)
     }
@@ -70,7 +72,13 @@ export default function LayoutMembros() {
             <span />
             <span />
           </button>
-          <h1 className="area-membros__logo">Litrão Reset · Área de Membros</h1>
+          <h1 className="area-membros__logo">
+            {membro?.nome?.trim() ? (
+              <span className="area-membros__logo-nome">{membro.nome.trim()}</span>
+            ) : (
+              'Litrão Reset · Área de Membros'
+            )}
+          </h1>
           <button type="button" className="area-membros__btn-sair" onClick={handleSair}>
             Sair
           </button>
@@ -98,6 +106,14 @@ export default function LayoutMembros() {
             >
               <span className="area-membros__nav-icon">🔥</span>
               <span className="area-membros__nav-label">Executar Meu Dia</span>
+            </Link>
+            <Link
+              to="/membros/configuracoes"
+              className={`area-membros__nav-item ${location.pathname === '/membros/configuracoes' ? 'area-membros__nav-item--ativo' : ''}`}
+              onClick={() => setMenuAberto(false)}
+            >
+              <span className="area-membros__nav-icon">⚙️</span>
+              <span className="area-membros__nav-label">Configurações</span>
             </Link>
             {(perfil?.role === 'admin' || perfil?.role === 'leader') && (
               <Link

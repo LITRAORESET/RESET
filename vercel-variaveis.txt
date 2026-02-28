@@ -1,0 +1,32 @@
+# Variáveis para colar na Vercel
+# Settings → Environment Variables → Add (Production, Preview, Development)
+# Cole o NOME na primeira caixa e o VALOR na segunda. Depois: Redeploy.
+
+# --- 1) URL do site ---
+VITE_SITE_URL
+https://www.litraoreset.com.br
+
+# --- 2) Nome do site (opcional) ---
+VITE_SITE_NAME
+Litrão | Reset Metabólico
+
+# --- 3) URL do projeto Supabase ---
+VITE_SUPABASE_URL
+https://lzgilxfivrgxisgeiavi.supabase.co
+
+# --- 4) Chave pública (anon) do Supabase ---
+VITE_SUPABASE_ANON_KEY
+sb_publishable_ITNhEolDfGtpIe9xjmHitQ_x2-bKpIj
+
+# --- 5) E-mail do admin (opcional; o app já usa faulaandre@gmail.com como padrão) ---
+VITE_ADMIN_EMAIL
+faulaandre@gmail.com
+
+
+# ========== COMO USAR ==========
+# Na Vercel, para cada linha acima que tem nome e valor:
+#   Key (nome):   ex.: VITE_SUPABASE_URL
+#   Value (valor): ex.: https://lzgilxfivrgxisgeiavi.supabase.co
+#
+# NÃO adicione SUPABASE_SERVICE_ROLE_KEY nem sb_secret_ na Vercel (é chave secreta).
+# Depois de salvar, faça Redeploy do último deployment.
