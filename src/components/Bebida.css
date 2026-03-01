@@ -10,69 +10,22 @@
   margin: 0 auto;
 }
 
-.bebida__header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-/* Mobile: esconder segunda introdução para o vídeo ter presença logo na entrada */
+/* Mobile: vídeo em destaque logo na entrada */
 @media (max-width: 640px) {
-  .bebida__header {
-    display: none;
-  }
-
   .bebida {
     padding-top: 0.5rem;
     padding-bottom: 2rem;
   }
 }
 
-/* Desktop: mesma lógica — sem repetir intro, vídeo em destaque logo */
 @media (min-width: 641px) {
-  .bebida__header {
-    display: none;
-  }
-
   .bebida {
-    padding-top: 0.75rem;
-    padding-bottom: 3rem;
+    padding: 1.5rem 1.5rem 3rem;
   }
-}
 
-.bebida__title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-  margin: 0.5rem 0 0;
-}
-
-.bebida__logo-img {
-  max-width: 100%;
-  width: min(280px, 80vw);
-  height: auto;
-  display: block;
-}
-
-.bebida__title-main {
-  font-size: clamp(1.75rem, 6vw, 2.75rem);
-  font-weight: 800;
-  color: var(--green-dark);
-  letter-spacing: -0.02em;
-}
-
-.bebida__title-sub {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--green-dark);
-  opacity: 0.9;
-}
-
-.bebida__tagline {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--orange);
-  margin-top: 0.75rem;
+  .bebida__video-wrap {
+    max-width: 320px;
+  }
 }
 
 .bebida__content {
@@ -109,14 +62,6 @@
 @media (min-width: 641px) {
   .bebida {
     padding: 1.5rem 1.5rem 3rem;
-  }
-
-  .bebida__title-sub {
-    font-size: 1.1rem;
-  }
-
-  .bebida__tagline {
-    font-size: 1.15rem;
   }
 
   .bebida__video-wrap {

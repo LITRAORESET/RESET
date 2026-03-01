@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SwooshTop, SwooshBottom } from '../components/Swoosh'
 import { LOGO_RESET_METABOLICO, ADMIN_EMAIL } from '../constants'
 import { supabase } from '../lib/supabase'
-import { getPerfil } from '../lib/auth'
+import { getSession, getPerfil } from '../lib/auth'
 import './Login.css'
 
 export default function Login() {
@@ -16,12 +16,38 @@ export default function Login() {
   const [statusMsg, setStatusMsg] = useState(null) // 'aguardando' | 'rejeitado'
   const [loading, setLoading] = useState(false)
   const [adminEscolha, setAdminEscolha] = useState(false) // true = logou como admin, mostrar opção de ir pra admin ou membros
+  const [checandoSessao, setChecandoSessao] = useState(true) // evita flash do formulário enquanto verifica se já está logado como admin
 
   const message = location.state?.message
 
   useEffect(() => {
     if (message) setErro('')
   }, [message])
+
+  // Se já estiver logado como admin, mostrar escolha (Admin ou Área de membros) sem pedir senha de novo
+  useEffect(() => {
+    let cancelled = false
+    async function checkSession() {
+      if (!supabase) {
+        setChecandoSessao(false)
+        return
+      }
+      const { data } = await getSession()
+      if (cancelled) return
+      if (!data?.session) {
+        setChecandoSessao(false)
+        return
+      }
+      const perfil = await getPerfil()
+      if (cancelled) return
+      const email = data.session.user?.email?.toLowerCase()
+      const ehAdmin = email === ADMIN_EMAIL || perfil?.role === 'admin'
+      if (ehAdmin) setAdminEscolha(true)
+      setChecandoSessao(false)
+    }
+    checkSession()
+    return () => { cancelled = true }
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -45,16 +71,13 @@ export default function Login() {
       console.error('[Login Supabase]', error)
       let msg = ''
       if (error.message === 'Invalid login credentials') {
-        msg = 'E-mail ou senha incorretos.'
-        if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
-          msg += ' Em produção: confira a senha e no Supabase (Authentication → URL Configuration) adicione esta URL em Site URL e em Redirect URLs.'
-        }
+        msg = 'E-mail ou senha incorretos. Confira os dados e tente novamente.'
       } else if (error.message === 'Email not confirmed' || error.message?.toLowerCase().includes('email not confirmed')) {
-        msg = 'E-mail ainda não confirmado. No Supabase: Authentication → Providers → Email, desative "Confirm email" e salve. Depois tente entrar de novo.'
+        msg = 'Seu e-mail ainda não foi autorizado. Entre em contato com seu patrocinador ou líder para liberar seu acesso.'
       } else if (error.message?.toLowerCase().includes('email logins are disabled')) {
-        msg = 'Login por e-mail está desativado. No Supabase: Authentication → Providers → Email, ative o provedor "Email" e salve.'
+        msg = 'O acesso está temporariamente indisponível. Entre em contato com seu patrocinador ou líder.'
       } else {
-        msg = error.message
+        msg = 'Não foi possível entrar. Seu acesso pode ainda não ter sido autorizado — entre em contato com seu patrocinador ou líder.'
       }
       setErro(msg)
       return
@@ -121,6 +144,16 @@ export default function Login() {
           <p className="login__footer">
             <Link to="/">← Voltar ao início</Link>
           </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (checandoSessao) {
+    return (
+      <div className="login-page">
+        <div className="login__card">
+          <p className="login__loading">Carregando…</p>
         </div>
       </div>
     )

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SwooshTop, SwooshBottom } from './Swoosh'
+import { SwooshBottom } from './Swoosh'
 import { LOGO_RESET_METABOLICO } from '../constants'
 import './Hero.css'
 
@@ -11,7 +11,6 @@ export default function Hero() {
     <section className="hero">
       <div className="hero__bg" aria-hidden="true" />
       <div className="hero__content">
-        <SwooshTop className="swoosh--large" />
         <h1 className="hero__title">
           {!logoError ? (
             <img

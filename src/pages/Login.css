@@ -78,6 +78,13 @@
   margin-top: 0.75rem;
 }
 
+.login__loading {
+  text-align: center;
+  color: var(--gray-text);
+  padding: 2rem 0;
+  margin: 0;
+}
+
 .login__indicado {
   font-size: 0.95rem;
   color: var(--green-dark);

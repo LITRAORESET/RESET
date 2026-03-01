@@ -8,6 +8,11 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'images/reset-metabolico.jpeg'],
+      workbox: {
+        // Não colocar index.html no precache: documento sempre vem da rede em produção
+        globIgnores: ['**/index.html'],
+        navigateFallback: '/index.html'
+      },
       manifest: {
         name: 'Litrão | Reset Metabólico',
         short_name: 'Litrão Reset',
