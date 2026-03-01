@@ -57,6 +57,38 @@ export default function Admin() {
     if (!error) carregarDados()
   }
 
+  const CONFIG_NAO_EXCLUIR_KEY = 'admin_nao_excluir_aprovados'
+
+  const [naoPermitirExcluirAprovados, setNaoPermitirExcluirAprovados] = useState(() => {
+    try {
+      return localStorage.getItem(CONFIG_NAO_EXCLUIR_KEY) !== 'false'
+    } catch {
+      return true
+    }
+  })
+  const [revogando, setRevogando] = useState(null)
+
+  function handleToggleNaoExcluir(e) {
+    const value = e.target.checked
+    setNaoPermitirExcluirAprovados(value)
+    try {
+      if (value) localStorage.setItem(CONFIG_NAO_EXCLUIR_KEY, 'true')
+      else localStorage.setItem(CONFIG_NAO_EXCLUIR_KEY, 'false')
+    } catch (_) {}
+  }
+
+  async function handleRevogarAcesso(userId) {
+    if (!window.confirm('Revogar o acesso deste membro? Ele não poderá mais entrar na área de membros.')) return
+    setRevogando(userId)
+    const { error } = await supabase
+      .from('perfil')
+      .update({ aprovado: false, rejeitado: true })
+      .eq('user_id', userId)
+    setRevogando(null)
+    if (!error) carregarDados()
+    else setErro(error.message)
+  }
+
   const perfilPorUser = Object.fromEntries((perfis || []).map((p) => [p.user_id, p]))
   const pendentes = (membros || []).filter((m) => {
     const p = perfilPorUser[m.user_id]
@@ -137,6 +169,20 @@ export default function Admin() {
         </section>
 
         <section className="admin__section">
+          <h2 className="admin__section-title">Configurações</h2>
+          <p className="admin__section-desc">Defina como deseja gerenciar membros aprovados.</p>
+          <label className="admin__config-label">
+            <input
+              type="checkbox"
+              checked={naoPermitirExcluirAprovados}
+              onChange={handleToggleNaoExcluir}
+              className="admin__config-checkbox"
+            />
+            <span>Não permitir excluir membros aprovados — use &quot;Revogar acesso&quot; para que o membro não possa mais acessar (sem remover o cadastro).</span>
+          </label>
+        </section>
+
+        <section className="admin__section">
           <h2 className="admin__section-title">Membros aprovados</h2>
           {membrosAprovados.length === 0 && (
             <p className="admin__vazio">Nenhum membro aprovado ainda.</p>
@@ -150,6 +196,7 @@ export default function Admin() {
                     <th>E-mail</th>
                     <th>ID</th>
                     <th>Cadastro</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -159,6 +206,17 @@ export default function Admin() {
                       <td>{m.email}</td>
                       <td>{m.id_distribuidor || '—'}</td>
                       <td>{new Date(m.created_at).toLocaleDateString('pt-BR')}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="admin__btn-revogar"
+                          onClick={() => handleRevogarAcesso(m.user_id)}
+                          disabled={revogando === m.user_id}
+                          title="Revogar acesso: o membro não poderá mais entrar na área de membros."
+                        >
+                          {revogando === m.user_id ? 'Revogando…' : 'Revogar acesso'}
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

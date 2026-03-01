@@ -239,6 +239,46 @@
   background: rgba(0, 0, 0, 0.02);
 }
 
+.admin__config-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--gray-text);
+}
+
+.admin__config-checkbox {
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.admin__config-label span {
+  line-height: 1.4;
+}
+
+.admin__btn-revogar {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #c92a2a;
+  background: transparent;
+  border: 1px solid rgba(201, 42, 42, 0.5);
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin__btn-revogar:hover:not(:disabled) {
+  background: rgba(201, 42, 42, 0.1);
+  border-color: #c92a2a;
+}
+
+.admin__btn-revogar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .admin__footer {
   text-align: center;
 }
