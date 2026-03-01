@@ -127,9 +127,10 @@ export default function Solicitar() {
               className="login__input"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
-              placeholder="Seu nome"
+              placeholder="Ex.: Maria Silva"
               autoComplete="name"
             />
+            <span className="login__hint">Recomendado: nome e sobrenome</span>
           </label>
           <label className="login__label">
             E-mail
