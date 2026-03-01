@@ -52,7 +52,7 @@ export default function ConfiguracoesMembro() {
       .eq('user_id', session.user.id)
     setSalvandoDados(false)
     if (error) {
-      setErroDados(error.message)
+      setErroDados('Não foi possível salvar. Tente novamente.')
       return
     }
     setMembro((prev) => ({ ...prev, nome: nome.trim() || null, telefone: telefone.trim() || null }))
@@ -79,7 +79,7 @@ export default function ConfiguracoesMembro() {
     const { error } = await supabase.auth.updateUser({ password: novaSenha })
     setSalvandoSenha(false)
     if (error) {
-      setErroSenha(error.message)
+      setErroSenha('Não foi possível alterar a senha. Tente novamente.')
       return
     }
     setMsgSenha('Senha alterada com sucesso.')

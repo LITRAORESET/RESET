@@ -181,12 +181,12 @@ export default function Login() {
           {erro && <p className="login__erro" role="alert">{erro}</p>}
           {statusMsg === 'rejeitado' && (
             <p className="login__erro" role="alert">
-              Sua solicitação de acesso foi rejeitada. Entre em contato com a equipe se achar que houve engano.
+              Seu acesso ainda não foi aprovado. Entre em contato com seu patrocinador ou líder se achar que houve engano.
             </p>
           )}
           {statusMsg === 'aguardando' && (
             <p className="login__aviso" role="status">
-              Seu cadastro está aguardando aprovação. Quando aprovado, você poderá acessar a área de membros.
+              Seu cadastro está aguardando aprovação. Assim que seu patrocinador ou líder liberar, você poderá acessar a área de membros.
             </p>
           )}
           <label className="login__label">

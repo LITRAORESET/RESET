@@ -66,7 +66,7 @@ export default function Solicitar() {
     })
     setLoading(false)
     if (error) {
-      setErro(error.message === 'User already registered' ? 'Este e-mail já está cadastrado. Faça login.' : error.message)
+      setErro(error.message === 'User already registered' ? 'Este e-mail já está cadastrado. Faça login na área de membros.' : 'Não foi possível concluir o cadastro. Tente novamente ou fale com seu patrocinador ou líder.')
       return
     }
     setSucesso(true)
