@@ -260,6 +260,44 @@
   color: var(--green-dark);
 }
 
+/* Bloco "Solicitar acesso" em destaque para quem não tem conta */
+.login__solicitar-box {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 2px dashed rgba(30, 70, 32, 0.2);
+  text-align: center;
+}
+
+.login__solicitar-texto {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin: 0 0 0.75rem;
+}
+
+.login__btn--solicitar {
+  display: block;
+  width: 100%;
+  margin-top: 0;
+  background: var(--green-dark);
+  color: var(--white);
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.2;
+  box-shadow: 0 4px 14px rgba(30, 70, 32, 0.3);
+}
+
+.login__btn--solicitar:hover {
+  background: #1a3d1c;
+  box-shadow: 0 6px 20px rgba(30, 70, 32, 0.4);
+}
+
+.login__solicitar-dica {
+  font-size: 0.85rem;
+  color: var(--gray-text);
+  margin: 0.5rem 0 0;
+}
+
 .login__footer {
   margin-top: 1.5rem;
   text-align: center;

@@ -235,11 +235,17 @@ export default function Login() {
           <button type="submit" className="login__btn" disabled={loading}>
             {loading ? 'Entrando…' : 'Entrar'}
           </button>
+
+          <div className="login__solicitar-box">
+            <p className="login__solicitar-texto">Ainda não tem conta?</p>
+            <Link to="/solicitar" className="login__btn login__btn--solicitar">
+              Solicitar acesso (cadastrar)
+            </Link>
+            <p className="login__solicitar-dica">Preencha seus dados e aguarde a aprovação.</p>
+          </div>
         </form>
 
         <p className="login__footer">
-          Não tem conta? <Link to="/solicitar">Solicitar acesso (cadastro)</Link>
-          <br />
           <Link to="/">← Voltar ao início</Link>
         </p>
       </div>
