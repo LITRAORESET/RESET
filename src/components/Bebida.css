@@ -15,14 +15,27 @@
   margin-bottom: 2rem;
 }
 
-/* Mobile: esconder a segunda introdução (logo + swoosh) para o vídeo aparecer logo */
+/* Mobile: esconder segunda introdução para o vídeo ter presença logo na entrada */
 @media (max-width: 640px) {
   .bebida__header {
     display: none;
   }
 
   .bebida {
-    padding-top: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Desktop: mesma lógica — sem repetir intro, vídeo em destaque logo */
+@media (min-width: 641px) {
+  .bebida__header {
+    display: none;
+  }
+
+  .bebida {
+    padding-top: 0.75rem;
+    padding-bottom: 3rem;
   }
 }
 
@@ -94,13 +107,8 @@
 }
 
 @media (min-width: 641px) {
-  .bebida__header {
-    display: block; /* mostrar introdução da seção no desktop */
-    margin-bottom: 3rem;
-  }
-
   .bebida {
-    padding: 4rem 1.5rem;
+    padding: 1.5rem 1.5rem 3rem;
   }
 
   .bebida__title-sub {
