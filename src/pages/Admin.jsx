@@ -57,25 +57,7 @@ export default function Admin() {
     if (!error) carregarDados()
   }
 
-  const CONFIG_NAO_EXCLUIR_KEY = 'admin_nao_excluir_aprovados'
-
-  const [naoPermitirExcluirAprovados, setNaoPermitirExcluirAprovados] = useState(() => {
-    try {
-      return localStorage.getItem(CONFIG_NAO_EXCLUIR_KEY) !== 'false'
-    } catch {
-      return true
-    }
-  })
   const [revogando, setRevogando] = useState(null)
-
-  function handleToggleNaoExcluir(e) {
-    const value = e.target.checked
-    setNaoPermitirExcluirAprovados(value)
-    try {
-      if (value) localStorage.setItem(CONFIG_NAO_EXCLUIR_KEY, 'true')
-      else localStorage.setItem(CONFIG_NAO_EXCLUIR_KEY, 'false')
-    } catch (_) {}
-  }
 
   async function handleRevogarAcesso(userId) {
     if (!window.confirm('Revogar o acesso deste membro? Ele não poderá mais entrar na área de membros.')) return
@@ -167,20 +149,6 @@ export default function Admin() {
               ))}
             </ul>
           )}
-        </section>
-
-        <section className="admin__section">
-          <h2 className="admin__section-title">Configurações</h2>
-          <p className="admin__section-desc">Defina como deseja gerenciar membros aprovados.</p>
-          <label className="admin__config-label">
-            <input
-              type="checkbox"
-              checked={naoPermitirExcluirAprovados}
-              onChange={handleToggleNaoExcluir}
-              className="admin__config-checkbox"
-            />
-            <span>Não permitir excluir membros aprovados — use &quot;Revogar acesso&quot; para que o membro não possa mais acessar (sem remover o cadastro).</span>
-          </label>
         </section>
 
         <section className="admin__section">
