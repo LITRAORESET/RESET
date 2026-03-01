@@ -9,7 +9,9 @@ import AreaMembros from './pages/AreaMembros'
 import MaterialViewer from './pages/MaterialViewer'
 import Execucao12X from './pages/Execucao12X'
 import ConfiguracoesMembro from './pages/ConfiguracoesMembro'
+import ClubeOuro from './pages/ClubeOuro'
 import Admin from './pages/Admin'
+import AdminClubeOuro from './pages/AdminClubeOuro'
 import PainelExecucao from './pages/PainelExecucao'
 
 export default function App() {
@@ -24,9 +26,11 @@ export default function App() {
           <Route index element={<AreaMembros />} />
           <Route path="material/:arquivo" element={<MaterialViewer />} />
           <Route path="execucao" element={<Execucao12X />} />
+          <Route path="clube-ouro" element={<ClubeOuro />} />
           <Route path="configuracoes" element={<ConfiguracoesMembro />} />
         </Route>
         <Route path="admin" element={<Admin />} />
+        <Route path="admin-clube-ouro" element={<AdminClubeOuro />} />
         <Route path="painel-execucao" element={<PainelExecucao />} />
       </Route>
     </Routes>

@@ -87,6 +87,18 @@ export default function LayoutMembros() {
 
       <div className="area-membros__body">
         <aside className={`area-membros__sidebar ${menuAberto ? 'area-membros__sidebar--open' : ''}`}>
+          <div className="area-membros__metas-sidebar" role="complementary" aria-label="Metas para qualificar">
+            <p className="area-membros__metas-sidebar-titulo">Bata a meta e qualifique</p>
+            <Link to="/membros/execucao" className="area-membros__metas-sidebar-item" onClick={() => setMenuAberto(false)}>
+              <span className="area-membros__metas-sidebar-icon">🔥</span>
+              <span><strong>Atividade diária</strong> — Marque hoje</span>
+            </Link>
+            <Link to="/membros/clube-ouro" className="area-membros__metas-sidebar-item" onClick={() => setMenuAberto(false)}>
+              <span className="area-membros__metas-sidebar-icon">🥇</span>
+              <span><strong>Meta da semana</strong> — 12 sacolas + 1 novo = Clube Ouro</span>
+            </Link>
+            <p className="area-membros__metas-sidebar-elite">4 semanas Ouro no mês = <strong>Elite</strong></p>
+          </div>
           <nav className="area-membros__nav">
             {PILARES.map((p) => (
               <Link
@@ -106,6 +118,14 @@ export default function LayoutMembros() {
             >
               <span className="area-membros__nav-icon">🔥</span>
               <span className="area-membros__nav-label">Executar Meu Dia</span>
+            </Link>
+            <Link
+              to="/membros/clube-ouro"
+              className={`area-membros__nav-item ${location.pathname === '/membros/clube-ouro' ? 'area-membros__nav-item--ativo' : ''}`}
+              onClick={() => setMenuAberto(false)}
+            >
+              <span className="area-membros__nav-icon">🥇</span>
+              <span className="area-membros__nav-label">Clube Ouro & Elite</span>
             </Link>
             <Link
               to="/membros/configuracoes"
@@ -132,6 +152,17 @@ export default function LayoutMembros() {
         </aside>
 
         <main className="area-membros__main">
+          <div className="area-membros__destaque-topo" role="banner">
+            <Link to="/membros/execucao" className="area-membros__destaque-topo-item" onClick={() => setMenuAberto(false)}>
+              <span className="area-membros__destaque-topo-icon">🔥</span>
+              <span>Atividade diária</span>
+            </Link>
+            <Link to="/membros/clube-ouro" className="area-membros__destaque-topo-item" onClick={() => setMenuAberto(false)}>
+              <span className="area-membros__destaque-topo-icon">🥇</span>
+              <span>Meta da semana → Clube Ouro</span>
+            </Link>
+            <Link to="/membros/clube-ouro" className="area-membros__destaque-topo-elite" onClick={() => setMenuAberto(false)}>4 semanas = Elite</Link>
+          </div>
           <Outlet />
         </main>
       </div>

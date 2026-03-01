@@ -128,6 +128,7 @@ export default function Admin() {
           <div className="admin__header-actions">
             <Link to="/membros" className="admin__link admin__link--btn">Área de membros</Link>
             <Link to="/painel-execucao" className="admin__link admin__link--btn">Painel de Execução</Link>
+            <Link to="/admin-clube-ouro" className="admin__link admin__link--btn">Clube Ouro & Elite</Link>
             <button type="button" className="admin__btn-sair" onClick={handleSair}>
               Sair
             </button>

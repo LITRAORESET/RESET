@@ -111,6 +111,63 @@
   display: none;
 }
 
+/* Destaque metas – topo do menu lateral */
+.area-membros__metas-sidebar {
+  padding: 0 1rem 1rem;
+  margin: 0 0.75rem 1rem;
+  background: linear-gradient(135deg, #f8f4e8 0%, #fff9e6 100%);
+  border: 1px solid rgba(184, 134, 11, 0.25);
+  border-radius: var(--radius-lg, 12px);
+}
+
+.area-membros__metas-sidebar-titulo {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin: 0 0 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.area-membros__metas-sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.88rem;
+  color: #333;
+  text-decoration: none;
+  border-radius: var(--radius, 8px);
+  transition: background 0.2s;
+}
+
+.area-membros__metas-sidebar-item:hover {
+  background: rgba(184, 134, 11, 0.12);
+  color: var(--green-dark);
+}
+
+.area-membros__metas-sidebar-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.area-membros__metas-sidebar-item strong {
+  display: block;
+  margin-bottom: 0.1rem;
+}
+
+.area-membros__metas-sidebar-elite {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0.5rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px dashed rgba(0, 0, 0, 0.12);
+}
+
+.area-membros__metas-sidebar-elite strong {
+  color: var(--green-dark);
+}
+
 .area-membros__nav {
   display: flex;
   flex-direction: column;
@@ -217,7 +274,61 @@
 .area-membros__main {
   flex: 1;
   min-width: 0;
-  padding: 1.5rem 1rem 3rem;
+  padding: 1rem 1rem 3rem;
+}
+
+/* Banner destaque no topo – atividade diária + meta da semana + Elite */
+.area-membros__destaque-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  margin: 0 -1rem 1rem;
+  background: linear-gradient(135deg, #1e4620 0%, #2d5a30 50%, #3d6b20 100%);
+  color: var(--white);
+  font-size: 0.95rem;
+}
+
+.area-membros__destaque-topo-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  text-decoration: none;
+  border-radius: var(--radius, 8px);
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.area-membros__destaque-topo-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.area-membros__destaque-topo-icon {
+  font-size: 1.1rem;
+}
+
+.area-membros__destaque-topo-elite {
+  margin-left: auto;
+  font-size: 0.9rem;
+  opacity: 0.95;
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.area-membros__destaque-topo-elite:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .area-membros__destaque-topo-elite {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 .area-membros__banner {

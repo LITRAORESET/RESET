@@ -1,0 +1,253 @@
+/* Clube Ouro & Elite do Mês */
+.clube-ouro {
+  max-width: 560px;
+}
+
+.clube-ouro__loading,
+.clube-ouro__erro {
+  padding: 2rem;
+  text-align: center;
+  color: var(--gray-text, #555);
+}
+
+.clube-ouro__banner {
+  background: linear-gradient(135deg, #b8860b 0%, #daa520 50%, #ffd700 100%);
+  color: #1a1a1a;
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius-lg, 12px);
+  margin-bottom: 1.25rem;
+}
+
+.clube-ouro__titulo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0 0 0.35rem;
+}
+
+.clube-ouro__subtitulo {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.4;
+}
+
+.clube-ouro__status {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius, 8px);
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.clube-ouro__status--nivel-1 {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.clube-ouro__status--nivel-2 {
+  background: linear-gradient(135deg, #f0e68c 0%, #ffd700 100%);
+  color: #1a1a1a;
+}
+
+.clube-ouro__status--nivel-3 {
+  background: linear-gradient(135deg, #ffd700 0%, #ffec8b 100%);
+  color: #1a1a1a;
+  border: 2px solid #b8860b;
+}
+
+.clube-ouro__badge {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.clube-ouro__status-label {
+  font-weight: 700;
+}
+
+.clube-ouro__semanas-mes {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.clube-ouro__treinamentos {
+  margin-bottom: 1.5rem;
+}
+
+.clube-ouro__treinamentos h3,
+.clube-ouro__declaracao h3,
+.clube-ouro__historico h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+  color: var(--green-dark, #1e4620);
+}
+
+.clube-ouro__treino {
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  background: var(--white, #fff);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.clube-ouro__treino--prata {
+  border-left: 4px solid #c0c0c0;
+}
+
+.clube-ouro__treino--ouro {
+  border-left: 4px solid #daa520;
+}
+
+.clube-ouro__treino--elite {
+  border-left: 4px solid #b8860b;
+}
+
+.clube-ouro__treino p {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.clube-ouro__acesso {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.clube-ouro__acesso--ok {
+  color: #155724;
+  font-weight: 600;
+}
+
+.clube-ouro__declaracao {
+  margin-bottom: 1.5rem;
+}
+
+.clube-ouro__semana-info,
+.clube-ouro__criteria {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0 0 0.5rem;
+}
+
+.clube-ouro__sucesso {
+  padding: 0.75rem 1rem;
+  background: #d4edda;
+  color: #155724;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.clube-ouro__form {
+  margin-top: 1rem;
+}
+
+.clube-ouro__label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.clube-ouro__label span {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.clube-ouro__input {
+  width: 100%;
+  max-width: 120px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+}
+
+.clube-ouro__btn {
+  margin-top: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-weight: 700;
+  background: var(--green-dark, #1e4620);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.clube-ouro__btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.clube-ouro__btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.clube-ouro__btn--link {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+.clube-ouro__btn--link:hover {
+  filter: brightness(1.1);
+}
+
+.clube-ouro__status-decl {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+}
+
+.clube-ouro__status-ok {
+  color: #155724;
+  background: #d4edda;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  margin: 0;
+}
+
+.clube-ouro__status-partial {
+  color: #856404;
+  background: #fff3cd;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  margin: 0;
+}
+
+.clube-ouro__status-pendente {
+  color: #0c5460;
+  background: #d1ecf1;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  margin: 0;
+}
+
+.clube-ouro__historico {
+  margin-bottom: 1.5rem;
+}
+
+.clube-ouro__historico-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.clube-ouro__historico-lista li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.clube-ouro__footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.clube-ouro__footer a {
+  color: var(--green-dark, #1e4620);
+  font-weight: 600;
+}
