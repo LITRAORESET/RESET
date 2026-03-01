@@ -15,6 +15,7 @@ export default function Login() {
   const [erro, setErro] = useState('')
   const [statusMsg, setStatusMsg] = useState(null) // 'aguardando' | 'rejeitado'
   const [loading, setLoading] = useState(false)
+  const [adminEscolha, setAdminEscolha] = useState(false) // true = logou como admin, mostrar opção de ir pra admin ou membros
 
   const message = location.state?.message
 
@@ -59,13 +60,11 @@ export default function Login() {
       return
     }
     const emailLogado = data?.user?.email?.toLowerCase()
-    if (emailLogado === ADMIN_EMAIL) {
-      navigate('/admin')
-      return
-    }
+    const ehAdminPorEmail = emailLogado === ADMIN_EMAIL
     const perfil = await getPerfil()
-    if (perfil?.role === 'admin') {
-      navigate('/admin')
+    const ehAdminPorPerfil = perfil?.role === 'admin'
+    if (ehAdminPorEmail || ehAdminPorPerfil) {
+      setAdminEscolha(true)
       return
     }
     if (perfil?.rejeitado) {
@@ -77,6 +76,54 @@ export default function Login() {
       return
     }
     navigate('/membros')
+  }
+
+  if (adminEscolha) {
+    return (
+      <div className="login-page">
+        <div className="login__card">
+          <div className="login__header">
+            <SwooshTop className="swoosh--large" />
+            <h1 className="login__title">
+              <img
+                src={LOGO_RESET_METABOLICO}
+                alt="Litrão - Reset Metabólico"
+                className="login__logo-img"
+              />
+              <span className="login__title-sub">Onde deseja entrar?</span>
+            </h1>
+            <SwooshBottom className="swoosh--large" />
+            <p className="login__desc">Você está logado como administrador. Escolha a área:</p>
+          </div>
+          <div className="login__admin-escolha">
+            <button
+              type="button"
+              className="login__btn login__btn--secondary"
+              onClick={() => navigate('/admin')}
+            >
+              Área administrativa
+            </button>
+            <button
+              type="button"
+              className="login__btn"
+              onClick={() => navigate('/membros')}
+            >
+              Área de membros
+            </button>
+            <button
+              type="button"
+              className="login__link-btn"
+              onClick={() => setAdminEscolha(false)}
+            >
+              Voltar e usar outro e-mail
+            </button>
+          </div>
+          <p className="login__footer">
+            <Link to="/">← Voltar ao início</Link>
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (

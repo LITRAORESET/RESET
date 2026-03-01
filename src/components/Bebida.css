@@ -15,6 +15,17 @@
   margin-bottom: 2rem;
 }
 
+/* Mobile: esconder a segunda introdução (logo + swoosh) para o vídeo aparecer logo */
+@media (max-width: 640px) {
+  .bebida__header {
+    display: none;
+  }
+
+  .bebida {
+    padding-top: 1rem;
+  }
+}
+
 .bebida__title {
   display: flex;
   flex-direction: column;
@@ -83,12 +94,13 @@
 }
 
 @media (min-width: 641px) {
-  .bebida {
-    padding: 4rem 1.5rem;
+  .bebida__header {
+    display: block; /* mostrar introdução da seção no desktop */
+    margin-bottom: 3rem;
   }
 
-  .bebida__header {
-    margin-bottom: 3rem;
+  .bebida {
+    padding: 4rem 1.5rem;
   }
 
   .bebida__title-sub {

@@ -12,6 +12,17 @@ export default function Header() {
   return (
     <header className={`header ${menuOpen ? 'header--open' : ''}`}>
       <div className="header__inner">
+        <button
+          type="button"
+          className="header__menu-btn"
+          aria-label="Abrir menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
         <Link to="/" className="header__logo">
           {!logoError ? (
             <img
@@ -27,17 +38,6 @@ export default function Header() {
             </>
           )}
         </Link>
-
-        <button
-          type="button"
-          className="header__menu-btn"
-          aria-label="Abrir menu"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
 
         <nav className="header__nav">
           {isHome && (
