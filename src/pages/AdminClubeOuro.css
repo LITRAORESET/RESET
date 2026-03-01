@@ -208,6 +208,27 @@
   margin-bottom: 0.35rem;
 }
 
+.admin-clube__lista--com-flyer .admin-clube__li-flyer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-clube__btn--flyer {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.65rem;
+  background: #b8860b;
+  color: white;
+}
+
+.admin-clube__btn--flyer:hover {
+  background: #daa520;
+}
+
 .admin-clube__footer {
   margin-top: 1.5rem;
   padding-top: 1rem;

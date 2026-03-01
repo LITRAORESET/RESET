@@ -331,6 +331,70 @@
   }
 }
 
+/* Prioridade: execução do dia (sempre no topo da página única de membros) */
+.area-membros__prioridade {
+  margin-bottom: 1.5rem;
+}
+
+.area-membros__prioridade-inner {
+  background: linear-gradient(135deg, #1e4620 0%, #2d5a30 40%, #3d6b20 100%);
+  color: var(--white);
+  padding: 1.5rem 1.25rem;
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 4px 12px rgba(30, 70, 32, 0.25);
+}
+
+.area-membros__prioridade-titulo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 0.4rem;
+}
+
+.area-membros__prioridade-texto {
+  font-size: 1rem;
+  opacity: 0.95;
+  margin: 0 0 1rem;
+  line-height: 1.4;
+}
+
+.area-membros__prioridade-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--white);
+  color: var(--green-dark);
+  font-weight: 800;
+  font-size: 1.05rem;
+  border-radius: var(--radius, 8px);
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.area-membros__prioridade-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.area-membros__prioridade-proximo {
+  font-size: 0.9rem;
+  margin: 1rem 0 0;
+  opacity: 0.9;
+}
+
+.area-membros__prioridade-proximo a {
+  color: var(--white);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.area-membros__prioridade-proximo a:hover {
+  text-decoration: none;
+}
+
+.area-membros__prioridade-proximo strong {
+  font-weight: 800;
+}
+
 .area-membros__banner {
   background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-leaf) 100%);
   color: var(--white);
@@ -511,6 +575,53 @@
 .config-membro__nome-valor {
   font-size: 1.25rem;
   color: var(--green-dark);
+}
+
+.config-membro__foto-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.config-membro__avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--green-leaf);
+}
+
+.config-membro__avatar--placeholder {
+  background: var(--gray-bg);
+  color: var(--gray-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.config-membro__foto-btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--green-dark);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.config-membro__foto-btn:hover {
+  filter: brightness(1.1);
+}
+
+.config-membro__foto-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
 
 .config-membro__bloco {

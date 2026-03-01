@@ -23,7 +23,7 @@ export async function getPerfil() {
 export async function getMembro() {
   const { data: { session }, error } = await getSession()
   if (error || !session?.user?.id) return null
-  const { data } = await supabase.from('membros').select('nome, email, id_distribuidor, telefone').eq('user_id', session.user.id).single()
+  const { data } = await supabase.from('membros').select('nome, email, id_distribuidor, telefone, avatar_url').eq('user_id', session.user.id).single()
   return data ?? null
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getSession } from '../lib/auth'
+import { getSession, getMembro } from '../lib/auth'
 import { supabase } from '../lib/supabase'
 import { CLUBE_PRATA_ZOOM_URL } from '../constants'
 import {
@@ -15,12 +15,14 @@ import './ClubeOuro.css'
 
 export default function ClubeOuro() {
   const [userId, setUserId] = useState(null)
+  const [avatarUrl, setAvatarUrl] = useState(null)
   const [loading, setLoading] = useState(true)
   const [declaracoes, setDeclaracoes] = useState([])
   const [eliteHistory, setEliteHistory] = useState([])
   const [form, setForm] = useState({ total_sacolas: 0, novos_distribuidores: 0 })
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [baixandoFlyer, setBaixandoFlyer] = useState(null)
 
   const now = new Date()
   const { year: isoYear, weekNumber: isoWeek } = getISOWeek(now)
@@ -51,6 +53,8 @@ export default function ClubeOuro() {
         return
       }
       const uid = data.session.user.id
+      const m = await getMembro()
+      if (!cancelled && m?.avatar_url) setAvatarUrl(m.avatar_url)
       const { data: decl } = await supabase
         .from('clube_ouro_declaracao')
         .select('id, year, week_number, total_sacolas, novos_distribuidores, validado_admin, created_at')
@@ -81,6 +85,55 @@ export default function ClubeOuro() {
       })
     }
   }, [declaracaoSemanaAtual?.id, declaracaoSemanaAtual?.total_sacolas, declaracaoSemanaAtual?.novos_distribuidores])
+
+  /** Gera e baixa o flyer com a foto do membro no círculo (centro). Apenas o próprio membro pode baixar aqui (sua sessão, sua foto). */
+  async function handleBaixarFlyer(tipo) {
+    const flyerSrc = tipo === 'ouro' ? '/images/reconhecimento/flyer-clube-ouro.png' : '/images/reconhecimento/flyer-elite.png'
+    const nomeArquivo = tipo === 'ouro' ? 'reconhecimento-clube-ouro.png' : 'reconhecimento-elite.png'
+    setBaixandoFlyer(tipo)
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const imgFlyer = new Image()
+    imgFlyer.crossOrigin = 'anonymous'
+    imgFlyer.src = flyerSrc
+    await new Promise((resolve, reject) => {
+      imgFlyer.onload = resolve
+      imgFlyer.onerror = reject
+    })
+    const w = imgFlyer.naturalWidth
+    const h = imgFlyer.naturalHeight
+    canvas.width = w
+    canvas.height = h
+    ctx.drawImage(imgFlyer, 0, 0)
+    if (avatarUrl) {
+      const imgAvatar = new Image()
+      imgAvatar.crossOrigin = 'anonymous'
+      imgAvatar.src = avatarUrl
+      try {
+        await new Promise((resolve, reject) => {
+          imgAvatar.onload = resolve
+          imgAvatar.onerror = reject
+        })
+        const cx = w / 2
+        const cy = h / 2
+        const raio = Math.min(w, h) * 0.22
+        ctx.save()
+        ctx.beginPath()
+        ctx.arc(cx, cy, raio, 0, Math.PI * 2)
+        ctx.closePath()
+        ctx.clip()
+        ctx.drawImage(imgAvatar, cx - raio, cy - raio, raio * 2, raio * 2)
+        ctx.restore()
+      } catch (_) {
+        /* foto não carregou (CORS etc.), baixa só o flyer */
+      }
+    }
+    const link = document.createElement('a')
+    link.download = nomeArquivo
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+    setBaixandoFlyer(null)
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -150,35 +203,85 @@ export default function ClubeOuro() {
         )}
       </div>
 
+      {/* Flyers de reconhecimento – exibidos quando qualificado */}
+      {(statusClubeOuroSemana || statusEliteMes) && (
+        <section className="clube-ouro__reconhecimento" aria-label="Reconhecimento da qualificação">
+          <h3>Seu reconhecimento</h3>
+          <p className="clube-ouro__reconhecimento-intro">Parabéns pela qualificação. Use o flyer para celebrar.</p>
+          {!avatarUrl && (
+            <p className="clube-ouro__reconhecimento-aviso">Adicione sua foto em <Link to="/membros/configuracoes">Configurações</Link> para aparecer no flyer e poder baixar com sua foto.</p>
+          )}
+          <div className="clube-ouro__reconhecimento-flyers">
+            {statusClubeOuroSemana && (
+              <div className="clube-ouro__flyer-wrap">
+                <p className="clube-ouro__flyer-label">Qualificação Clube Ouro – esta semana</p>
+                <div className="clube-ouro__flyer-composite">
+                  <img src="/images/reconhecimento/flyer-clube-ouro.png" alt="" className="clube-ouro__flyer-img" />
+                  {avatarUrl && <div className="clube-ouro__flyer-foto" style={{ backgroundImage: `url(${avatarUrl})` }} aria-hidden />}
+                </div>
+                <p className="clube-ouro__flyer-desc">Seu foco e dedicação desta semana garantiram sua qualificação no Clube Ouro!</p>
+                <button type="button" className="clube-ouro__btn clube-ouro__btn--flyer" onClick={() => handleBaixarFlyer('ouro')} disabled={baixandoFlyer !== null}>
+                  {baixandoFlyer === 'ouro' ? 'Gerando…' : 'Baixar flyer com minha foto'}
+                </button>
+              </div>
+            )}
+            {statusEliteMes && (
+              <div className="clube-ouro__flyer-wrap">
+                <p className="clube-ouro__flyer-label">Qualificação Elite – este mês</p>
+                <div className="clube-ouro__flyer-composite">
+                  <img src="/images/reconhecimento/flyer-elite.png" alt="" className="clube-ouro__flyer-img" />
+                  {avatarUrl && <div className="clube-ouro__flyer-foto" style={{ backgroundImage: `url(${avatarUrl})` }} aria-hidden />}
+                </div>
+                <p className="clube-ouro__flyer-desc">Você demonstrou foco e disciplina ao longo deste mês, conquistando sua qualificação no Clube Elite!</p>
+                <button type="button" className="clube-ouro__btn clube-ouro__btn--flyer" onClick={() => handleBaixarFlyer('elite')} disabled={baixandoFlyer !== null}>
+                  {baixandoFlyer === 'elite' ? 'Gerando…' : 'Baixar flyer com minha foto'}
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Treinamentos */}
       <section className="clube-ouro__treinamentos">
         <h3>Treinamentos</h3>
         <div className="clube-ouro__treino clube-ouro__treino--prata">
-          <strong>Treinamento Clube Prata</strong>
-          <p>Toda segunda-feira, 8h. Aberto a todos os cadastrados no sistema (mesma sala Zoom do Afiando Machado — só mudou o nome).</p>
-          {CLUBE_PRATA_ZOOM_URL ? (
-            <p className="clube-ouro__acesso">
-              <a href={CLUBE_PRATA_ZOOM_URL} target="_blank" rel="noopener noreferrer" className="clube-ouro__btn clube-ouro__btn--link">Entrar na sala</a>
-            </p>
-          ) : null}
+          <img src="/images/treinamentos/clube-prata.png" alt="Reset Metabólico – Clube Prata – Treinamento Base" className="clube-ouro__treino-img" />
+          <div className="clube-ouro__treino-texto">
+            <strong>Treinamento Clube Prata</strong>
+            <p className="clube-ouro__treino-horario">Segunda-feira, 8h — todas as semanas.</p>
+            <p>Aberto a todos os cadastrados no sistema.</p>
+            {CLUBE_PRATA_ZOOM_URL ? (
+              <p className="clube-ouro__acesso">
+                <a href={CLUBE_PRATA_ZOOM_URL} target="_blank" rel="noopener noreferrer" className="clube-ouro__btn clube-ouro__btn--link">Entrar na sala</a>
+              </p>
+            ) : null}
+          </div>
         </div>
         <div className="clube-ouro__treino clube-ouro__treino--ouro">
-          <strong>Treinamento Clube Ouro</strong>
-          <p>Toda quarta-feira, 8h. Acesso liberado para quem atingiu 12 sacolas e 1 novo distribuidor na semana (após validação do admin).</p>
-          {statusClubeOuroSemana ? (
-            <p className="clube-ouro__acesso clube-ouro__acesso--ok">Você está qualificado esta semana.</p>
-          ) : (
-            <p className="clube-ouro__acesso">Esta semana: {declaracaoSemanaAtual ? (declaracaoSemanaAtual.validado_admin ? 'não atingiu os critérios' : 'aguardando validação do admin') : 'declare abaixo.'}</p>
-          )}
+          <img src="/images/treinamentos/clube-ouro.png" alt="Reset Metabólico – Clube Ouro – Treinamento Exclusivo" className="clube-ouro__treino-img" />
+          <div className="clube-ouro__treino-texto">
+            <strong>Treinamento Clube Ouro</strong>
+            <p className="clube-ouro__treino-horario">Quarta-feira, 8h — todas as semanas.</p>
+            <p>Acesso para quem atingiu 12 sacolas e 1 novo distribuidor na semana (após validação do admin).</p>
+            {statusClubeOuroSemana ? (
+              <p className="clube-ouro__acesso clube-ouro__acesso--ok">Você está qualificado esta semana.</p>
+            ) : (
+              <p className="clube-ouro__acesso">Esta semana: {declaracaoSemanaAtual ? (declaracaoSemanaAtual.validado_admin ? 'não atingiu os critérios' : 'aguardando validação do admin') : 'declare abaixo.'}</p>
+            )}
+          </div>
         </div>
         <div className="clube-ouro__treino clube-ouro__treino--elite">
-          <strong>Treinamento Elite do Mês</strong>
-          <p>Primeira semana do mês seguinte. Quem fez 4 semanas Clube Ouro no mês ganha acesso.</p>
-          {statusEliteMes ? (
-            <p className="clube-ouro__acesso clube-ouro__acesso--ok">Você é Elite {nomeMes(month)}. Acesso liberado ao treinamento do mês que vem.</p>
-          ) : (
-            <p className="clube-ouro__acesso">Este mês: {semanasOuroMes}/4 semanas Clube Ouro.</p>
-          )}
+          <img src="/images/treinamentos/elite.png" alt="Reset Metabólico – Elite – Treinamento Avançado" className="clube-ouro__treino-img" />
+          <div className="clube-ouro__treino-texto">
+            <strong>Treinamento Elite do Mês</strong>
+            <p>Primeira semana do mês seguinte. Quem fez 4 semanas Clube Ouro no mês ganha acesso.</p>
+            {statusEliteMes ? (
+              <p className="clube-ouro__acesso clube-ouro__acesso--ok">Você é Elite {nomeMes(month)}. Acesso liberado ao treinamento do mês que vem.</p>
+            ) : (
+              <p className="clube-ouro__acesso">Este mês: {semanasOuroMes}/4 semanas Clube Ouro.</p>
+            )}
+          </div>
         </div>
       </section>
 

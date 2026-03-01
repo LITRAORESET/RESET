@@ -12,18 +12,20 @@ export default function AreaMembros() {
 
   return (
     <>
+      {/* Prioridade: execução do dia, com direcionamento acordado */}
+      <div className="area-membros__prioridade" role="region" aria-label="Prioridade do dia">
+        <div className="area-membros__prioridade-inner">
+          <h2 className="area-membros__prioridade-titulo">Execução do dia</h2>
+          <p className="area-membros__prioridade-texto">Bata sua meta hoje: marque o que fez e mantenha sua sequência.</p>
+          <Link to="/membros/execucao" className="area-membros__prioridade-btn">Executar Meu Dia</Link>
+          <p className="area-membros__prioridade-proximo">Depois: declare a meta da semana no <Link to="/membros/clube-ouro">Clube Ouro</Link>. Quatro semanas = <strong>Elite</strong>.</p>
+        </div>
+      </div>
+
       <div className="area-membros__banner" role="banner">
         <p className="area-membros__banner-frase">{FRASE_OFICIAL_RECRUTAMENTO}</p>
         <p className="area-membros__banner-sub">Pergunta oficial do projeto. Use todos os dias.</p>
       </div>
-
-      {secaoAtiva === 'comece-aqui' && (
-        <div className="area-membros__destaque-execucao">
-          <p className="area-membros__destaque-execucao-titulo">Como executar todos os dias</p>
-          <p className="area-membros__destaque-execucao-texto">Use o método oficial: marque o que fez e mantenha sua sequência.</p>
-          <Link to="/membros/execucao" className="area-membros__destaque-execucao-btn">Ver Sistema 12X</Link>
-        </div>
-      )}
 
       <section className="area-membros__conteudo">
         <h2 className="area-membros__conteudo-titulo">

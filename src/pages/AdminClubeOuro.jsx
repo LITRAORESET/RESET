@@ -31,6 +31,10 @@ export default function AdminClubeOuro() {
     acc[m.user_id] = m.nome || m.email || m.user_id?.slice(0, 8) || '—'
     return acc
   }, {})
+  const avatarPorUserId = (membros || []).reduce((acc, m) => {
+    if (m.avatar_url) acc[m.user_id] = m.avatar_url
+    return acc
+  }, {})
 
   const declaracoesDaSemana = (declaracoes || []).filter(
     (d) => d.year === filtroYear && d.week_number === filtroWeek
@@ -75,7 +79,7 @@ export default function AdminClubeOuro() {
       }
       const [declRes, membrosRes, eliteRes] = await Promise.all([
         supabase.from('clube_ouro_declaracao').select('id, user_id, year, week_number, total_sacolas, novos_distribuidores, validado_admin, created_at').order('year', { ascending: false }).order('week_number', { ascending: false }).limit(200),
-        supabase.from('membros').select('user_id, nome, email'),
+        supabase.from('membros').select('user_id, nome, email, avatar_url'),
         supabase.from('elite_history').select('user_id, mes, ano, total_sacolas_mes, total_recrutamentos_mes, semanas_qualificadas, data_conquista').order('ano', { ascending: false }).order('mes', { ascending: false }).limit(100)
       ])
       if (!cancelled) {
@@ -93,6 +97,47 @@ export default function AdminClubeOuro() {
     if (loading) return
     if (role !== 'admin') navigate('/login', { replace: true })
   }, [loading, role, navigate])
+
+  /** Gera e baixa o flyer de um membro (admin). Só o admin usa; cada membro baixa o próprio na página Clube Ouro. */
+  async function baixarFlyerMembro(tipo, userId) {
+    const flyerSrc = tipo === 'ouro' ? '/images/reconhecimento/flyer-clube-ouro.png' : '/images/reconhecimento/flyer-elite.png'
+    const nome = (nomesPorUserId[userId] || 'membro').replace(/[^a-zA-Z0-9\u00C0-\u024F\s]/g, '').trim().slice(0, 30) || 'membro'
+    const nomeArquivo = tipo === 'ouro' ? `reconhecimento-clube-ouro-${nome}.png` : `reconhecimento-elite-${nome}.png`
+    const avatarUrl = avatarPorUserId[userId] || null
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const imgFlyer = new Image()
+    imgFlyer.crossOrigin = 'anonymous'
+    imgFlyer.src = flyerSrc
+    await new Promise((resolve, reject) => { imgFlyer.onload = resolve; imgFlyer.onerror = reject })
+    const w = imgFlyer.naturalWidth
+    const h = imgFlyer.naturalHeight
+    canvas.width = w
+    canvas.height = h
+    ctx.drawImage(imgFlyer, 0, 0)
+    if (avatarUrl) {
+      const imgAvatar = new Image()
+      imgAvatar.crossOrigin = 'anonymous'
+      imgAvatar.src = avatarUrl
+      try {
+        await new Promise((resolve, reject) => { imgAvatar.onload = resolve; imgAvatar.onerror = reject })
+        const cx = w / 2
+        const cy = h / 2
+        const raio = Math.min(w, h) * 0.22
+        ctx.save()
+        ctx.beginPath()
+        ctx.arc(cx, cy, raio, 0, Math.PI * 2)
+        ctx.closePath()
+        ctx.clip()
+        ctx.drawImage(imgAvatar, cx - raio, cy - raio, raio * 2, raio * 2)
+        ctx.restore()
+      } catch (_) { /* foto não carregou */ }
+    }
+    const link = document.createElement('a')
+    link.download = nomeArquivo
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+  }
 
   async function handleValidar(declaracaoId, validar) {
     setValidando(declaracaoId)
@@ -275,10 +320,15 @@ export default function AdminClubeOuro() {
         {qualificadosClubeOuroSemana.length === 0 ? (
           <p className="admin-clube__vazio">Ninguém qualificado nesta semana ainda.</p>
         ) : (
-          <ul className="admin-clube__lista">
+          <ul className="admin-clube__lista admin-clube__lista--com-flyer">
             {qualificadosClubeOuroSemana.map((d) => (
-              <li key={d.id}>
-                <strong>{nomesPorUserId[d.user_id] || d.user_id?.slice(0, 8)}</strong> – {d.total_sacolas} sacolas, {d.novos_distribuidores} novo(s) distribuidor(es)
+              <li key={d.id} className="admin-clube__li-flyer">
+                <span>
+                  <strong>{nomesPorUserId[d.user_id] || d.user_id?.slice(0, 8)}</strong> – {d.total_sacolas} sacolas, {d.novos_distribuidores} novo(s) distribuidor(es)
+                </span>
+                <button type="button" className="admin-clube__btn admin-clube__btn--flyer" onClick={() => baixarFlyerMembro('ouro', d.user_id)}>
+                  Baixar flyer
+                </button>
               </li>
             ))}
           </ul>
@@ -293,10 +343,15 @@ export default function AdminClubeOuro() {
           <p className="admin-clube__vazio">Ninguém atingiu 4 semanas Clube Ouro este mês ainda.</p>
         ) : (
           <>
-            <ul className="admin-clube__lista">
+            <ul className="admin-clube__lista admin-clube__lista--com-flyer">
               {eliteDoMesUserIds.map((uid) => (
-                <li key={uid}>
-                  <strong>{nomesPorUserId[uid] || uid?.slice(0, 8)}</strong> – {semanasPorUserNoMes[uid]} semanas qualificadas
+                <li key={uid} className="admin-clube__li-flyer">
+                  <span>
+                    <strong>{nomesPorUserId[uid] || uid?.slice(0, 8)}</strong> – {semanasPorUserNoMes[uid]} semanas qualificadas
+                  </span>
+                  <button type="button" className="admin-clube__btn admin-clube__btn--flyer" onClick={() => baixarFlyerMembro('elite', uid)}>
+                    Baixar flyer
+                  </button>
                 </li>
               ))}
             </ul>

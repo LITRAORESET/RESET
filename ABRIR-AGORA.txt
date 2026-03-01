@@ -1,0 +1,19 @@
+========================================
+  COMO ABRIR O SITE NO NAVEGADOR
+========================================
+
+O servidor JÁ ESTÁ RODANDO.
+
+1. Abra o Chrome (ou Safari / Firefox).
+
+2. Clique na barra de endereço (onde fica o URL).
+
+3. Cole o endereço com Cmd+V (Mac) ou Ctrl+V (Windows):
+   
+   http://localhost:5173
+
+4. Aperte ENTER.
+
+========================================
+Se não funcionar, tente: http://localhost:5174
+========================================

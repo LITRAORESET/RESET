@@ -8,9 +8,12 @@ export default function ConfiguracoesMembro() {
   const [loading, setLoading] = useState(true)
   const [nome, setNome] = useState('')
   const [telefone, setTelefone] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState(null)
   const [msgDados, setMsgDados] = useState(null)
   const [erroDados, setErroDados] = useState('')
   const [salvandoDados, setSalvandoDados] = useState(false)
+  const [salvandoFoto, setSalvandoFoto] = useState(false)
+  const [erroFoto, setErroFoto] = useState('')
 
   const [senhaAtual, setSenhaAtual] = useState('')
   const [novaSenha, setNovaSenha] = useState('')
@@ -29,6 +32,7 @@ export default function ConfiguracoesMembro() {
       if (m) {
         setNome(m.nome ?? '')
         setTelefone(m.telefone ?? '')
+        setAvatarUrl(m.avatar_url ?? null)
       }
       setLoading(false)
     }
@@ -57,6 +61,36 @@ export default function ConfiguracoesMembro() {
     }
     setMembro((prev) => ({ ...prev, nome: nome.trim() || null, telefone: telefone.trim() || null }))
     setMsgDados('Dados salvos.')
+  }
+
+  async function handleFotoChange(e) {
+    const file = e.target?.files?.[0]
+    if (!file || !supabase) return
+    const { data: { session } } = await getSession()
+    if (!session?.user?.id) return
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    if (!['jpeg', 'jpg', 'png', 'webp', 'gif'].includes(ext)) {
+      setErroFoto('Use uma imagem (JPG, PNG, WebP ou GIF).')
+      return
+    }
+    setErroFoto('')
+    setSalvandoFoto(true)
+    const path = `${session.user.id}/avatar.${ext}`
+    const { error: uploadError } = await supabase.storage.from('avatars').upload(path, file, { upsert: true })
+    if (uploadError) {
+      setErroFoto('Não foi possível enviar a foto. Verifique se o bucket "avatars" existe no Supabase.')
+      setSalvandoFoto(false)
+      return
+    }
+    const { data: { publicUrl } } = supabase.storage.from('avatars').getPublicUrl(path)
+    const { error: updateError } = await supabase.from('membros').update({ avatar_url: publicUrl }).eq('user_id', session.user.id)
+    setSalvandoFoto(false)
+    if (updateError) {
+      setErroFoto('Foto enviada, mas não foi possível atualizar. Tente de novo.')
+      return
+    }
+    setAvatarUrl(publicUrl)
+    setMembro((prev) => ({ ...prev, avatar_url: publicUrl }))
   }
 
   async function handleTrocarSenha(e) {
@@ -110,6 +144,23 @@ export default function ConfiguracoesMembro() {
         <span className="config-membro__nome-label">Olá,</span>
         <strong className="config-membro__nome-valor">{nomeExibicao}</strong>
       </div>
+
+      <section className="config-membro__bloco">
+        <h3 className="config-membro__bloco-titulo">Minha foto</h3>
+        <p className="config-membro__hint">Sua foto aparece nos flyers de reconhecimento (Clube Ouro e Elite) quando você se qualificar.</p>
+        <div className="config-membro__foto-wrap">
+          {avatarUrl ? (
+            <img src={avatarUrl} alt="Sua foto" className="config-membro__avatar" />
+          ) : (
+            <div className="config-membro__avatar config-membro__avatar--placeholder">Sem foto</div>
+          )}
+          <label className="config-membro__foto-btn">
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleFotoChange} disabled={salvandoFoto} className="config-membro__foto-input" />
+            {salvandoFoto ? 'Enviando…' : (avatarUrl ? 'Trocar foto' : 'Enviar foto')}
+          </label>
+        </div>
+        {erroFoto && <p className="config-membro__erro" role="alert">{erroFoto}</p>}
+      </section>
 
       <section className="config-membro__bloco">
         <h3 className="config-membro__bloco-titulo">Meus dados</h3>

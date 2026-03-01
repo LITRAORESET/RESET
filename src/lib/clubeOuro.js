@@ -33,13 +33,15 @@ const MIN_NOVOS_DISTRIBUIDORES = 1
 const SEMANAS_PARA_ELITE = 4
 
 /** Uma declaração validada qualifica para Clube Ouro se sacolas >= 12 e novos >= 1. */
-export function declaracaoQualificaClubeOuro(declaracao) {
+function qualificaClubeOuro(declaracao) {
   if (!declaracao?.validado_admin) return false
   return (
     (declaracao.total_sacolas ?? 0) >= MIN_SACOLAS_CLUBE_OURO &&
     (declaracao.novos_distribuidores ?? 0) >= MIN_NOVOS_DISTRIBUIDORES
   )
 }
+
+export const declaracaoQualificaClubeOro = qualificaClubeOuro
 
 /**
  * Dado um array de declarações (do usuário ou de todos), retorna:
@@ -49,7 +51,7 @@ export function declaracaoQualificaClubeOuro(declaracao) {
  */
 export function calcularStatus(declaracoes, year, weekNumber, month) {
   const somenteValidados = (declaracoes || []).filter((d) => d.validado_admin === true)
-  const qualificadas = somenteValidados.filter(declaracaoQualificaClubeOuro)
+  const qualificadas = somenteValidados.filter(qualificaClubeOuro)
 
   const statusClubeOuroSemana = qualificadas.some(
     (d) => d.year === year && d.week_number === weekNumber
