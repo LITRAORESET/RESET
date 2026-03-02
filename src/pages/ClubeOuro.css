@@ -217,6 +217,10 @@
   border-left: 4px solid #c0c0c0;
 }
 
+.clube-ouro__treino--bem-estar {
+  border-left: 4px solid #5a8d2a;
+}
+
 .clube-ouro__treino--ouro {
   border-left: 4px solid #daa520;
 }

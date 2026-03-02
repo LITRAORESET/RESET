@@ -258,6 +258,14 @@ export default function ClubeOuro() {
             ) : null}
           </div>
         </div>
+        <div className="clube-ouro__treino clube-ouro__treino--bem-estar">
+          <img src="/images/treinamentos/clube-bem-estar.png" alt="Clube do Bem-estar – De segunda a sexta, 9h às 9h30" className="clube-ouro__treino-img" />
+          <div className="clube-ouro__treino-texto">
+            <strong>Clube do Bem-estar</strong>
+            <p className="clube-ouro__treino-horario">De segunda a sexta, 9h às 9h30.</p>
+            <p>Aberto a todos os cadastrados no sistema.</p>
+          </div>
+        </div>
         <div className="clube-ouro__treino clube-ouro__treino--ouro">
           <img src="/images/treinamentos/clube-ouro.png" alt="Reset Metabólico – Clube Ouro – Treinamento Exclusivo" className="clube-ouro__treino-img" />
           <div className="clube-ouro__treino-texto">
