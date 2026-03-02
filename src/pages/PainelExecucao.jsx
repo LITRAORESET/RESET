@@ -92,6 +92,19 @@ export default function PainelExecucao() {
       const { data: membros } = await supabase.from('membros').select('user_id, nome').in('user_id', teamUserIds)
       const nomes = (membros || []).reduce((acc, m) => ({ ...acc, [m.user_id]: m.nome || m.user_id?.slice(0, 8) || '—' }), {})
 
+      let indicadosPorUser = {}
+      if (r === 'admin') {
+        const { data: todosPerfis } = await supabase.from('perfil').select('user_id, leader_id')
+        ;(todosPerfis || []).forEach((p) => {
+          const lid = p.leader_id
+          if (!lid) return
+          indicadosPorUser[lid] = (indicadosPorUser[lid] || 0) + 1
+        })
+      } else {
+        const { data: rows } = await supabase.rpc('get_indicados_por_equipe', { p_leader_uid: uid })
+        indicadosPorUser = (rows || []).reduce((acc, row) => ({ ...acc, [row.user_id]: Number(row.indicados || 0) }), {})
+      }
+
       const { data: logsHoje } = await supabase
         .from('execution_logs')
         .select('user_id, status, points_earned')
@@ -126,7 +139,8 @@ export default function PainelExecucao() {
             user_id: id,
             nome: nomes[id] || '—',
             pontos: pontosPorUser[id] || 0,
-            nivel: nivelFromPoints(pontosPorUser[id] || 0)
+            nivel: nivelFromPoints(pontosPorUser[id] || 0),
+            indicados: indicadosPorUser[id] ?? 0
           }))
           .sort((a, b) => b.pontos - a.pontos)
       )
@@ -170,7 +184,8 @@ export default function PainelExecucao() {
           status: hojeMap[id]?.status || 'none',
           points: hojeMap[id]?.points_earned ?? 0,
           novoNaSemana: !!novoNaSemana[id],
-          novoNoMes: novoNoMesPorUser[id] ?? 0
+          novoNoMes: novoNoMesPorUser[id] ?? 0,
+          indicados: indicadosPorUser[id] ?? 0
         }))
       )
 
@@ -215,6 +230,7 @@ export default function PainelExecucao() {
                 <th>Nome</th>
                 <th>Status</th>
                 <th>Pontos hoje</th>
+                <th>Indicados</th>
                 <th>Novo na Semana</th>
                 <th>Novo no Mês</th>
               </tr>
@@ -234,6 +250,7 @@ export default function PainelExecucao() {
                       {row.status === 'none' && '❌ Não executou'}
                     </td>
                     <td>{row.points}</td>
+                    <td><strong>{row.indicados ?? 0}</strong></td>
                     <td>{row.novoNaSemana ? '✔ Sim' : '❌ Não'}</td>
                     <td>{row.novoNoMes ?? 0}</td>
                   </tr>
@@ -254,6 +271,7 @@ export default function PainelExecucao() {
               <tr>
                 <th>Nome</th>
                 <th>Pontos</th>
+                <th>Indicados</th>
                 <th>Nível</th>
               </tr>
             </thead>
@@ -262,6 +280,7 @@ export default function PainelExecucao() {
                 <tr key={row.user_id}>
                   <td>{row.nome}</td>
                   <td>{row.pontos}</td>
+                  <td><strong>{row.indicados ?? 0}</strong></td>
                   <td>{row.nivel}</td>
                 </tr>
               ))}

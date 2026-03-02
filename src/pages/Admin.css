@@ -156,6 +156,13 @@
   font-style: italic;
 }
 
+.admin__solic-indicador {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--green-dark);
+  margin-top: 0.35rem;
+}
+
 .admin__solic-data {
   font-size: 0.8rem;
   color: var(--gray-text);

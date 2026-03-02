@@ -6,9 +6,9 @@ import './Execucao12X.css'
 
 const PONTOS = {
   contacts_done: 10,
+  contacts_negocio_done: 10,
   followups_done: 10,
   stories_done: 5,
-  official_question_done: 10,
   presentation_invite_done: 15,
   health_training_invite_done: 5,
   bonus_complete: 10
@@ -66,9 +66,9 @@ export default function Execucao12X() {
 
   const [form, setForm] = useState({
     contacts_done: false,
+    contacts_negocio_done: false,
     followups_done: false,
     stories_done: false,
-    official_question_done: false,
     presentation_invite_done: false,
     health_training_invite_done: false
   })
@@ -97,9 +97,9 @@ export default function Execucao12X() {
         setTodayLog(log)
         setForm({
           contacts_done: !!log.contacts_done,
+          contacts_negocio_done: !!log.contacts_negocio_done,
           followups_done: !!log.followups_done,
           stories_done: !!log.stories_done,
-          official_question_done: !!log.official_question_done,
           presentation_invite_done: !!log.presentation_invite_done,
           health_training_invite_done: !!log.health_training_invite_done
         })
@@ -175,7 +175,8 @@ export default function Execucao12X() {
     return () => { cancelled = true }
   }, [today])
 
-  const allChecked = Object.values(form).every(Boolean)
+  const checklistKeys = ['contacts_done', 'contacts_negocio_done', 'followups_done', 'stories_done', 'presentation_invite_done', 'health_training_invite_done']
+  const allChecked = checklistKeys.every((k) => form[k])
   const pointsToday = (todayLog && todayLog.points_earned) || 0
 
   async function handleSubmit(e) {
@@ -185,9 +186,9 @@ export default function Execucao12X() {
     const status = allChecked ? 'complete' : 'partial'
     let pts = 0
     if (form.contacts_done) pts += PONTOS.contacts_done
+    if (form.contacts_negocio_done) pts += PONTOS.contacts_negocio_done
     if (form.followups_done) pts += PONTOS.followups_done
     if (form.stories_done) pts += PONTOS.stories_done
-    if (form.official_question_done) pts += PONTOS.official_question_done
     if (form.presentation_invite_done) pts += PONTOS.presentation_invite_done
     if (form.health_training_invite_done) pts += PONTOS.health_training_invite_done
     if (status === 'complete') pts += PONTOS.bonus_complete
@@ -196,9 +197,10 @@ export default function Execucao12X() {
       user_id: userId,
       date: today,
       contacts_done: form.contacts_done,
+      contacts_negocio_done: form.contacts_negocio_done,
       followups_done: form.followups_done,
       stories_done: form.stories_done,
-      official_question_done: form.official_question_done,
+      official_question_done: false,
       presentation_invite_done: form.presentation_invite_done,
       health_training_invite_done: form.health_training_invite_done,
       status,
@@ -304,14 +306,14 @@ export default function Execucao12X() {
         </div>
       ) : (
         <form className="execucao12x__form" onSubmit={handleSubmit}>
-          <p className="execucao12x__form-intro">Marque o que você fez:</p>
+          <p className="execucao12x__form-intro">Marque o que você fez (cada item vale os pontos ao lado). Marcando tudo: +{PONTOS.bonus_complete} pts bônus de dia completo.</p>
           {[
-            { key: 'contacts_done', label: 'Falei com 10 pessoas' },
+            { key: 'contacts_done', label: 'Falei com 10 pessoas da sacola (oferta produto)' },
+            { key: 'contacts_negocio_done', label: 'Falei com 10 pessoas do negócio (oferta renda)' },
             { key: 'followups_done', label: 'Fiz 10 acompanhamentos' },
-            { key: 'stories_done', label: 'Postei 2 stories' },
-            { key: 'official_question_done', label: 'Fiz a pergunta oficial' },
+            { key: 'stories_done', label: 'Postei 2 no store' },
             { key: 'presentation_invite_done', label: 'Coloquei 1 pessoa na apresentação' },
-            { key: 'health_training_invite_done', label: 'Incentivei treino de saúde' }
+            { key: 'health_training_invite_done', label: 'Incentivei e chamei pessoas para o Clube do Bem-estar' }
           ].map(({ key, label }) => (
             <label key={key} className="execucao12x__check">
               <input
@@ -319,6 +321,7 @@ export default function Execucao12X() {
                 checked={form[key]}
                 onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.checked }))}
               />
+              <span className="execucao12x__check-pontos">{PONTOS[key]} pts</span>
               <span>{label}</span>
             </label>
           ))}

@@ -16,7 +16,7 @@ export default function Admin() {
   async function carregarDados() {
     const [membrosRes, perfilRes] = await Promise.all([
       supabase.from('membros').select('id, user_id, nome, email, id_distribuidor, mensagem, created_at').order('created_at', { ascending: false }),
-      supabase.from('perfil').select('user_id, role, aprovado, rejeitado'),
+      supabase.from('perfil').select('user_id, role, aprovado, rejeitado, leader_id'),
     ])
     if (membrosRes.error) setErro(membrosRes.error.message)
     else setMembros(membrosRes.data ?? [])
@@ -72,12 +72,37 @@ export default function Admin() {
   }
 
   const perfilPorUser = Object.fromEntries((perfis || []).map((p) => [p.user_id, p]))
+  const membroPorUser = Object.fromEntries((membros || []).map((m) => [m.user_id, m]))
   const pendentes = (membros || []).filter((m) => {
     const p = perfilPorUser[m.user_id]
     return p && p.role !== 'admin' && !p.aprovado && !p.rejeitado
   })
   const membrosAprovados = (membros || []).filter((m) => perfilPorUser[m.user_id]?.aprovado)
   const membrosRejeitados = (membros || []).filter((m) => perfilPorUser[m.user_id]?.rejeitado)
+
+  // Analíticas: quantas pessoas cada um indicou (leader_id = esse user)
+  const indicadosPorLider = {}
+  ;(perfis || []).forEach((p) => {
+    const lid = p.leader_id
+    if (!lid) return
+    if (!indicadosPorLider[lid]) indicadosPorLider[lid] = { total: 0, aprovados: 0, pendentes: 0, rejeitados: 0 }
+    indicadosPorLider[lid].total++
+    if (p.aprovado) indicadosPorLider[lid].aprovados++
+    else if (p.rejeitado) indicadosPorLider[lid].rejeitados++
+    else indicadosPorLider[lid].pendentes++
+  })
+  const rankingIndicacoes = (membros || [])
+    .filter((m) => (indicadosPorLider[m.user_id]?.total || 0) > 0)
+    .map((m) => ({
+      ...m,
+      indicados: indicadosPorLider[m.user_id] || { total: 0, aprovados: 0, pendentes: 0, rejeitados: 0 }
+    }))
+    .sort((a, b) => (b.indicados.total - a.indicados.total))
+
+  function nomeIndicador(userId) {
+    if (!userId) return null
+    return membroPorUser[userId]?.nome || null
+  }
 
   if (loading) {
     return (
@@ -135,6 +160,9 @@ export default function Admin() {
                       <span className="admin__solic-id">ID: {m.id_distribuidor}</span>
                     )}
                     {m.mensagem && <p className="admin__solic-msg">{m.mensagem}</p>}
+                    {perfilPorUser[m.user_id]?.leader_id && (
+                      <span className="admin__solic-indicador">Indicado por: {nomeIndicador(perfilPorUser[m.user_id].leader_id) || '—'}</span>
+                    )}
                     <span className="admin__solic-data">{new Date(m.created_at).toLocaleString('pt-BR')}</span>
                   </div>
                   <div className="admin__solic-acoes">
@@ -152,6 +180,78 @@ export default function Admin() {
         </section>
 
         <section className="admin__section">
+          <h2 className="admin__section-title">Indicações e crescimento</h2>
+          <p className="admin__section-desc">Quem convidou quem: controle e analíticas por indicador.</p>
+          {rankingIndicacoes.length === 0 && (
+            <p className="admin__vazio">Ninguém indicou ainda (cadastros precisam vir pelo link com ?ref=).</p>
+          )}
+          {rankingIndicacoes.length > 0 && (
+            <div className="admin__table-wrap">
+              <table className="admin__table">
+                <thead>
+                  <tr>
+                    <th>Indicador</th>
+                    <th>E-mail</th>
+                    <th>Total indicados</th>
+                    <th>Aprovados</th>
+                    <th>Pendentes</th>
+                    <th>Rejeitados</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rankingIndicacoes.map((m) => (
+                    <tr key={m.id}>
+                      <td>{m.nome || '—'}</td>
+                      <td>{m.email}</td>
+                      <td><strong>{m.indicados.total}</strong></td>
+                      <td>{m.indicados.aprovados}</td>
+                      <td>{m.indicados.pendentes}</td>
+                      <td>{m.indicados.rejeitados}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section className="admin__section">
+          <h2 className="admin__section-title">Movimento recente</h2>
+          <p className="admin__section-desc">Últimos cadastros e quem indicou.</p>
+          {membros.length === 0 && <p className="admin__vazio">Nenhum cadastro.</p>}
+          {membros.length > 0 && (
+            <div className="admin__table-wrap">
+              <table className="admin__table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Indicado por</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {membros.slice(0, 20).map((m) => {
+                    const p = perfilPorUser[m.user_id]
+                    const status = p?.aprovado ? 'Aprovado' : p?.rejeitado ? 'Rejeitado' : 'Pendente'
+                    return (
+                      <tr key={m.id}>
+                        <td>{m.nome || '—'}</td>
+                        <td>{m.email}</td>
+                        <td>{p?.leader_id ? (nomeIndicador(p.leader_id) || '—') : '—'}</td>
+                        <td>{status}</td>
+                        <td>{new Date(m.created_at).toLocaleDateString('pt-BR')}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section className="admin__section">
           <h2 className="admin__section-title">Membros aprovados</h2>
           {membrosAprovados.length === 0 && (
             <p className="admin__vazio">Nenhum membro aprovado ainda.</p>
@@ -164,6 +264,7 @@ export default function Admin() {
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>ID</th>
+                    <th>Indicado por</th>
                     <th>Cadastro</th>
                     <th>Ações</th>
                   </tr>
@@ -174,6 +275,7 @@ export default function Admin() {
                       <td>{m.nome || '—'}</td>
                       <td>{m.email}</td>
                       <td>{m.id_distribuidor || '—'}</td>
+                      <td>{perfilPorUser[m.user_id]?.leader_id ? (nomeIndicador(perfilPorUser[m.user_id].leader_id) || '—') : '—'}</td>
                       <td>{new Date(m.created_at).toLocaleDateString('pt-BR')}</td>
                       <td>
                         <button

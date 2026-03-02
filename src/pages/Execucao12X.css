@@ -121,6 +121,13 @@
   accent-color: var(--green-dark);
 }
 
+.execucao12x__check-pontos {
+  font-weight: 700;
+  color: var(--green-dark);
+  min-width: 3.5rem;
+  font-size: 0.9rem;
+}
+
 .execucao12x__btn {
   margin-top: 1.25rem;
   width: 100%;
