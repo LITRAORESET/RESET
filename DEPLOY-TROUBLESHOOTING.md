@@ -27,13 +27,13 @@ Se o build falhar por variável não definida:
 - Confirme que o repositório conectado é **LITRAORESET/RESET** e a branch **main**.
 - Se não estiver conectado, clique em **Connect Git Repository** e escolha o repo.
 
-### 4. Deploy manual pela CLI (enquanto isso)
+### 4. Deploy manual (forçar atualização em produção)
 No seu computador, na pasta do projeto:
 ```bash
-npx vercel login
-npx vercel --prod
+npx vercel login    # só na primeira vez
+./deploy.sh         # ou: npx vercel --prod
 ```
-Isso sobe a versão atual mesmo que o GitHub ainda mostre X 0/1.
+Ou use o script: `chmod +x deploy.sh` e depois `./deploy.sh`. Isso sobe a versão atual (todos os commits já no GitHub) para produção.
 
 ### 5. Verificação obrigatória no GitHub
 Se no repositório tiver **Branch protection** em `main` exigindo “1 check”:
@@ -42,7 +42,8 @@ Se no repositório tiver **Branch protection** em `main` exigindo “1 check”:
 - Corrigir o deploy na Vercel (passos 1 e 2) costuma fazer esse check voltar a passar.
 
 ### 6. Usar o check "Build" do GitHub (alternativa)
-O projeto tem um workflow em `.github/workflows/build.yml` que roda o build a cada push.
-- Depois do próximo push, em **Actions** você verá o job "Build".
-- No repositório: **Settings** → **Branches** → editar a rule da `main` → em **Required status checks** adicione **Build** (e pode remover "Vercel" se quiser).
-- Assim o ✓ passa quando o build do GitHub Actions funcionar; o deploy em produção você pode fazer pela Vercel (Redeploy no painel ou `npx vercel --prod`).
+Para o ✓ passar no GitHub sem depender da Vercel: crie o workflow manualmente.
+1. No GitHub: repositório **LITRAORESET/RESET** → Add file → **Create new file**.
+2. Nome do arquivo: `.github/workflows/build.yml`
+3. Cole o conteúdo do arquivo `build.yml` que está na pasta `.github/workflows/` do projeto (ou veja no repo em "Creating workflow").
+4. Commit. Depois em **Settings** → **Branches** → rule da `main` → **Required status checks** → adicione **Build**.
