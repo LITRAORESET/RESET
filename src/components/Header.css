@@ -35,6 +35,10 @@
   gap: 1rem;
 }
 
+.header--quiz .header__inner {
+  justify-content: center;
+}
+
 .header__logo {
   display: flex;
   flex-direction: column;

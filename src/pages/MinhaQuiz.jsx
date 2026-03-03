@@ -94,8 +94,8 @@ export default function MinhaQuiz() {
 
       {codigo && (
         <div className="oportunidade-page__share-box config-membro__bloco">
-          <h3 className="config-membro__bloco-titulo">📄 Material para Estabelecimentos</h3>
-          <p className="oportunidade-page__quiz-desc">Para quem não te conhece. Deixe em cafeterias, academias, salões. A pessoa escaneia, faz o diagnóstico e pode pedir a sacola.</p>
+          <h3 className="config-membro__bloco-titulo">📄 Material para Parcerias</h3>
+          <p className="oportunidade-page__quiz-desc">Flyer com QR Code do Quiz RST para deixar em cafeterias, academias, salões, consultórios. A pessoa escaneia, faz o diagnóstico e pode pedir a sacola no seu WhatsApp.</p>
           <Link to="/membros/quiz-materiais" className="config-membro__btn config-membro__btn--link">
             Baixar PDF com QR Code
           </Link>

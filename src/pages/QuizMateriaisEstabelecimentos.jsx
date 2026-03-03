@@ -84,7 +84,7 @@ export default function QuizMateriaisEstabelecimentos() {
       }
       const x = (pdfWidth - imgWidth) / 2
       pdf.addImage(imgData, 'PNG', x, 0, imgWidth, imgHeight)
-      pdf.save('material-quiz-estabelecimentos.pdf')
+      pdf.save('material-quiz-parcerias.pdf')
     } catch (err) {
       console.error(err)
     } finally {
@@ -109,9 +109,9 @@ export default function QuizMateriaisEstabelecimentos() {
           <Link to="/membros/quiz" className="quiz-materiais__voltar">
             ← Voltar ao Quiz RST
           </Link>
-          <h1 className="quiz-materiais__titulo">Material para Estabelecimentos</h1>
+          <h1 className="quiz-materiais__titulo">Material para Parcerias</h1>
           <p className="quiz-materiais__intro">
-            Para quem não te conhece. Deixe em cafeterias, academias, salões, consultórios. A pessoa escaneia o QR Code, faz o diagnóstico e pode pedir a sacola direto no seu WhatsApp.
+            Flyer com QR Code do Quiz RST Reset Metabólico. Deixe em cafeterias, academias, salões, consultórios. A pessoa escaneia, faz o diagnóstico e pode pedir a sacola direto no seu WhatsApp.
           </p>
         </div>
       </header>
@@ -124,7 +124,7 @@ export default function QuizMateriaisEstabelecimentos() {
         {codigo && (
           <div className="quiz-materiais__layout">
             <aside className="quiz-materiais__preview">
-              <p className="quiz-materiais__preview-label">Preview do PDF</p>
+              <p className="quiz-materiais__preview-label">Preview do PDF para parcerias</p>
               <div ref={flyerRef} className="quiz-materiais__flyer">
                 <div className="quiz-materiais__flyer-top">
                   <img src={LOGO_RESET_METABOLICO} alt="Reset Metabólico" className="quiz-materiais__flyer-logo" crossOrigin="anonymous" />

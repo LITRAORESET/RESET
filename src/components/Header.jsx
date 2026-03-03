@@ -8,20 +8,23 @@ export default function Header() {
   const [logoError, setLogoError] = useState(false)
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const isQuiz = location.pathname.startsWith('/quiz/')
 
   return (
-    <header className={`header ${menuOpen ? 'header--open' : ''}`}>
+    <header className={`header ${menuOpen ? 'header--open' : ''} ${isQuiz ? 'header--quiz' : ''}`}>
       <div className="header__inner">
-        <button
-          type="button"
-          className="header__menu-btn"
-          aria-label="Abrir menu"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        {!isQuiz && (
+          <button
+            type="button"
+            className="header__menu-btn"
+            aria-label="Abrir menu"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        )}
 
         <Link to="/" className="header__logo">
           {!logoError ? (
@@ -39,20 +42,22 @@ export default function Header() {
           )}
         </Link>
 
-        <nav className="header__nav">
-          {isHome && (
-            <>
-              <a href="#bebida" className="header__link">A Bebida</a>
-              <a href="#beneficios" className="header__link">Benefícios</a>
-              <a href="#oportunidade" className="header__link">Oportunidade</a>
-            </>
-          )}
-          <Link to="/login" className="header__link">Área de Membros</Link>
-          <Link to="/login" className="header__cta">Entrar</Link>
-        </nav>
+        {!isQuiz && (
+          <nav className="header__nav">
+            {isHome && (
+              <>
+                <a href="#bebida" className="header__link">A Bebida</a>
+                <a href="#beneficios" className="header__link">Benefícios</a>
+                <a href="#oportunidade" className="header__link">Oportunidade</a>
+              </>
+            )}
+            <Link to="/login" className="header__link">Área de Membros</Link>
+            <Link to="/login" className="header__cta">Entrar</Link>
+          </nav>
+        )}
       </div>
 
-      {menuOpen && (
+      {menuOpen && !isQuiz && (
         <div className="header__mobile-nav">
           {isHome && (
             <>
