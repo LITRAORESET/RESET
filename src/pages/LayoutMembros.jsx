@@ -133,7 +133,23 @@ export default function LayoutMembros() {
               onClick={() => setMenuAberto(false)}
             >
               <span className="area-membros__nav-icon">💼</span>
-              <span className="area-membros__nav-label">Minha Oportunidade</span>
+              <span className="area-membros__nav-label">Oportunidade de Negócio</span>
+            </Link>
+            <Link
+              to="/membros/quiz"
+              className={`area-membros__nav-item ${location.pathname === '/membros/quiz' ? 'area-membros__nav-item--ativo' : ''}`}
+              onClick={() => setMenuAberto(false)}
+            >
+              <span className="area-membros__nav-icon">🔬</span>
+              <span className="area-membros__nav-label">Quiz RST</span>
+            </Link>
+            <Link
+              to="/membros/quiz-materiais"
+              className={`area-membros__nav-item ${location.pathname === '/membros/quiz-materiais' ? 'area-membros__nav-item--ativo' : ''}`}
+              onClick={() => setMenuAberto(false)}
+            >
+              <span className="area-membros__nav-icon">📄</span>
+              <span className="area-membros__nav-label">Material Estabelecimentos</span>
             </Link>
             <Link
               to="/membros/configuracoes"

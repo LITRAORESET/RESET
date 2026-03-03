@@ -1,0 +1,250 @@
+.quiz-materiais {
+  min-height: 100vh;
+  background: var(--gray-bg, #f5f5f5);
+}
+
+/* Cabeçalho com cores da marca */
+.quiz-materiais__header {
+  background: var(--gradient-hero, linear-gradient(135deg, #1E4620 0%, #2d5a2f 50%, #1E4620 100%));
+  color: var(--white);
+  padding: 1.5rem 1rem 2rem;
+}
+
+.quiz-materiais__header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quiz-materiais__voltar {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.quiz-materiais__voltar:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+.quiz-materiais__titulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem;
+}
+
+.quiz-materiais__intro {
+  font-size: 0.95rem;
+  opacity: 0.95;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.quiz-materiais__container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+.quiz-materiais__loading {
+  text-align: center;
+  color: var(--gray-text, #555);
+  padding: 2rem;
+}
+
+.quiz-materiais__erro {
+  color: var(--gray-text, #555);
+  padding: 1rem;
+}
+
+/* Layout: preview ao lado + botão */
+.quiz-materiais__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .quiz-materiais__layout {
+    grid-template-columns: 1fr 280px;
+    align-items: start;
+  }
+}
+
+/* Preview do PDF */
+.quiz-materiais__preview {
+  order: 1;
+}
+
+.quiz-materiais__preview-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green-dark, #1E4620);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.quiz-materiais__flyer {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: var(--shadow-card, 0 8px 32px rgba(30, 70, 32, 0.12));
+  border: 1px solid rgba(90, 141, 42, 0.2);
+  padding: 0 0 1.5rem;
+  max-width: 400px;
+}
+
+.quiz-materiais__flyer-top {
+  padding: 1rem 1.25rem;
+  background: var(--white);
+}
+
+.quiz-materiais__flyer-logo {
+  max-width: 140px;
+  height: auto;
+}
+
+.quiz-materiais__flyer-imagens {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.quiz-materiais__flyer-sacola {
+  max-width: 90px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.quiz-materiais__flyer .quiz-materiais__flyer-titulo,
+.quiz-materiais__flyer .quiz-materiais__flyer-chamada,
+.quiz-materiais__flyer .quiz-materiais__beneficios {
+  padding: 0 1rem;
+}
+
+.quiz-materiais__flyer-titulo {
+  font-size: 1.25rem;
+  color: var(--green-dark, #1E4620);
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .quiz-materiais__flyer-titulo {
+    font-size: 1.05rem;
+    white-space: normal;
+  }
+}
+
+.quiz-materiais__flyer-chamada {
+  font-size: 0.95rem;
+  color: var(--gray-text, #555);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.quiz-materiais__flyer-qr {
+  background: var(--gray-bg, #f5f5f5);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.quiz-materiais__flyer-qr img {
+  display: block;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+}
+
+.quiz-materiais__flyer-instrucao {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--green-dark, #1E4620);
+}
+
+.quiz-materiais__beneficios {
+  text-align: left;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(90, 141, 42, 0.2);
+}
+
+.quiz-materiais__beneficios-titulo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--green-dark, #1E4620);
+  margin-bottom: 0.5rem;
+}
+
+.quiz-materiais__beneficios-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--gray-text, #444);
+  line-height: 1.5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem 1.25rem;
+}
+
+.quiz-materiais__beneficios-list li {
+  padding: 0.2rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.quiz-materiais__beneficio-emoji {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Ações */
+.quiz-materiais__acoes {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .quiz-materiais__acoes {
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+.quiz-materiais__btn {
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: var(--gradient-swoosh-top, linear-gradient(90deg, #A0D150 0%, #FCDA00 50%, #F88D00 100%));
+  color: var(--green-dark, #1E4620);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.quiz-materiais__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(248, 141, 0, 0.35);
+}
+
+.quiz-materiais__dica {
+  font-size: 0.85rem;
+  color: var(--gray-text, #555);
+  margin: 0;
+  line-height: 1.4;
+}

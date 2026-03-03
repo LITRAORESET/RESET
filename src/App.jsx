@@ -15,6 +15,10 @@ import AdminClubeOuro from './pages/AdminClubeOuro'
 import PainelExecucao from './pages/PainelExecucao'
 import OportunidadePage from './pages/OportunidadePage'
 import MinhaOportunidade from './pages/MinhaOportunidade'
+import MinhaQuiz from './pages/MinhaQuiz'
+import QuizExemplos from './pages/QuizExemplos'
+import QuizMateriaisEstabelecimentos from './pages/QuizMateriaisEstabelecimentos'
+import QuizRst from './pages/QuizRst'
 
 export default function App() {
   return (
@@ -25,12 +29,16 @@ export default function App() {
         <Route path="cadastro" element={<Cadastro />} />
         <Route path="solicitar" element={<Solicitar />} />
         <Route path="oportunidade/:codigo" element={<OportunidadePage />} />
+        <Route path="quiz/:codigo" element={<QuizRst />} />
         <Route path="membros" element={<LayoutMembros />}>
           <Route index element={<AreaMembros />} />
           <Route path="material/:arquivo" element={<MaterialViewer />} />
           <Route path="execucao" element={<Execucao12X />} />
           <Route path="clube-ouro" element={<ClubeOuro />} />
           <Route path="oportunidade" element={<MinhaOportunidade />} />
+          <Route path="quiz" element={<MinhaQuiz />} />
+          <Route path="quiz-exemplos" element={<QuizExemplos />} />
+          <Route path="quiz-materiais" element={<QuizMateriaisEstabelecimentos />} />
           <Route path="configuracoes" element={<ConfiguracoesMembro />} />
         </Route>
         <Route path="admin" element={<Admin />} />

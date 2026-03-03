@@ -1,0 +1,133 @@
+.quiz-exemplos {
+  padding: 1rem;
+  background: var(--gray-bg, #f5f5f5);
+  min-height: 60vh;
+}
+
+.quiz-exemplos__container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quiz-exemplos__voltar {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--green-dark, #1E4620);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.quiz-exemplos__voltar:hover {
+  text-decoration: underline;
+}
+
+.quiz-exemplos__titulo {
+  font-size: 1.4rem;
+  color: var(--green-dark, #1E4620);
+  margin: 0 0 0.5rem;
+}
+
+.quiz-exemplos__intro {
+  font-size: 0.95rem;
+  color: var(--gray-text, #555);
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
+}
+
+.quiz-exemplos__bloco {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.quiz-exemplos__bloco-titulo {
+  font-size: 1.1rem;
+  color: var(--green-dark, #1E4620);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(90, 141, 42, 0.3);
+}
+
+.quiz-exemplos__versoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .quiz-exemplos__versoes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.quiz-exemplos__versao {
+  padding: 1rem;
+  background: var(--gray-bg, #f5f5f5);
+  border-radius: 8px;
+}
+
+.quiz-exemplos__versao-titulo {
+  font-size: 0.9rem;
+  color: var(--green-dark, #1E4620);
+  margin: 0 0 0.75rem;
+}
+
+.quiz-exemplos__diagnostico {
+  font-size: 0.85rem;
+  color: var(--gray-text, #2d2d2d);
+  line-height: 1.5;
+}
+
+.quiz-exemplos__diagnostico p,
+.quiz-exemplos__diagnostico ul {
+  margin: 0 0 0.5rem;
+}
+
+.quiz-exemplos__principal {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: rgba(90, 141, 42, 0.12);
+  border-left: 3px solid var(--green-leaf, #5A8D2A);
+  border-radius: 4px;
+}
+
+.quiz-exemplos__principal-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--green-dark, #1E4620);
+  margin-bottom: 0.25rem;
+}
+
+.quiz-exemplos__principal p {
+  margin: 0;
+}
+
+.quiz-exemplos__check {
+  list-style: none;
+  padding-left: 0;
+}
+
+.quiz-exemplos__cta {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: rgba(37, 211, 102, 0.15);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.quiz-exemplos__whatsapp {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(37, 211, 102, 0.08);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.quiz-exemplos__whatsapp p {
+  margin: 0.25rem 0 0;
+  font-style: italic;
+}

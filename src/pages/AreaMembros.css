@@ -736,3 +736,9 @@
   cursor: not-allowed;
   transform: none;
 }
+
+.config-membro__btn--link {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}

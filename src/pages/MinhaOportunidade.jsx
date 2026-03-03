@@ -43,13 +43,14 @@ export default function MinhaOportunidade() {
     return () => { cancelled = true }
   }, [])
 
-  const linkCompartilhar = codigo ? `${SITE_URL.replace(/\/$/, '')}/oportunidade/${codigo}` : ''
+  const baseUrl = SITE_URL.replace(/\/$/, '')
+  const linkCompartilhar = codigo ? `${baseUrl}/oportunidade/${codigo}` : ''
   const urlComecar = membro?.telefone ? buildWhatsAppUrl(membro.telefone, 'Quero começar! Me explica como.') : null
   const urlDuvidas = membro?.telefone ? buildWhatsAppUrl(membro.telefone, 'Tenho dúvidas sobre a oportunidade.') : null
 
-  function handleCopiar() {
-    if (!linkCompartilhar) return
-    navigator.clipboard.writeText(linkCompartilhar).then(() => {
+  function handleCopiar(texto) {
+    if (!texto) return
+    navigator.clipboard.writeText(texto).then(() => {
       setCopiado(true)
       setTimeout(() => setCopiado(false), 2500)
     })
@@ -65,17 +66,14 @@ export default function MinhaOportunidade() {
 
   return (
     <div className="area-membros__conteudo">
-      <h2 className="area-membros__conteudo-titulo">
-        <span className="area-membros__conteudo-icon">💼</span>
-        Minha Oportunidade
-      </h2>
+      <h2 className="area-membros__conteudo-titulo">Oportunidade de Negócio</h2>
       <p className="area-membros__conteudo-subtitulo">Sua página com o vídeo da apresentação. Compartilhe o link e os contatos vão direto pro seu WhatsApp.</p>
 
       {linkCompartilhar && (
         <div className="oportunidade-page__share-box config-membro__bloco">
           <h3 className="config-membro__bloco-titulo">Seu link para compartilhar</h3>
           <p className="oportunidade-page__share-url">{linkCompartilhar}</p>
-          <button type="button" className="config-membro__btn" onClick={handleCopiar}>
+          <button type="button" className="config-membro__btn" onClick={() => handleCopiar(linkCompartilhar)}>
             {copiado ? 'Copiado!' : 'Copiar link'}
           </button>
         </div>
