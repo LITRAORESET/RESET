@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { getSession, getMembro } from '../lib/auth'
 import { supabase } from '../lib/supabase'
 import { SITE_URL, VIDEO_APRESENTACAO_NEGOCIO } from '../constants'
@@ -111,7 +112,7 @@ export default function MinhaOportunidade() {
               </a>
             )}
             {(!membro?.telefone || !membro.telefone.trim()) && (
-              <p className="oportunidade-page__aviso">Cadastre seu telefone em <strong>Configurações</strong> para os botões levarem ao seu WhatsApp.</p>
+              <p className="oportunidade-page__aviso">Cadastre seu telefone em <Link to="/membros/configuracoes" className="oportunidade-page__aviso-link">Configurações</Link> para os botões levarem ao seu WhatsApp.</p>
             )}
           </div>
         </div>

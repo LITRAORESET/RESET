@@ -94,6 +94,16 @@
   margin: 0.5rem 0 0;
 }
 
+.oportunidade-page__aviso-link {
+  font-weight: 600;
+  color: var(--green-dark, #2d5a27);
+  text-decoration: underline;
+}
+
+.oportunidade-page__aviso-link:hover {
+  text-decoration: none;
+}
+
 .oportunidade-page--inside {
   min-height: 0;
   padding: 1rem 0;
