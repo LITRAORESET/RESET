@@ -16,9 +16,9 @@ export const IMAGEM_SACOLA = '/images/sacola.png'
 export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://www.litraoreset.com.br'
 export const SITE_NAME = import.meta.env.VITE_SITE_NAME || 'Litrão | Reset Metabólico'
 
-// Vídeo da seção Projeto (Conheça o projeto Reset metabólico) — coloque em public/videos/
-// Nome padrão: projeto.mp4 (ou altere aqui para .webm, ou use URL do YouTube/Vimeo)
-export const VIDEO_PROJETO = '/videos/projeto.mp4'
+// Vídeo da seção Projeto (Conheça o projeto Reset metabólico)
+// YouTube: https://youtu.be/DUF7M-KK5vY — defina VITE_VIDEO_PROJETO para trocar
+export const VIDEO_PROJETO = import.meta.env.VITE_VIDEO_PROJETO || 'https://www.youtube.com/embed/DUF7M-KK5vY'
 
 // Capa do vídeo do projeto (imagem antes de dar play) — coloque em public/videos/
 export const CAPA_VIDEO_PROJETO = '/videos/capa-projeto.jpg'

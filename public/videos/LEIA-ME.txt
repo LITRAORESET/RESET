@@ -8,7 +8,7 @@ Nome do arquivo: projeto.mp4
 Onde colocar: nesta pasta (public/videos/)
 Caminho: LITRAO RESET/public/videos/projeto.mp4
 
-Se o vídeo for maior que 50MB, use Git LFS (git lfs track "public/videos/projeto.mp4") ou hospede em CDN e altere VIDEO_PROJETO em src/constants.js.
+Se o vídeo for maior que 50MB: (1) Suba no YouTube e defina VITE_VIDEO_PROJETO na Vercel, ou (2) use Git LFS.
 Se quiser outro nome ou formato, edite src/constants.js (VIDEO_PROJETO).
 Formatos recomendados: MP4 (H.264) ou WebM.
 

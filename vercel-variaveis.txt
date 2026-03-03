@@ -22,6 +22,11 @@ sb_publishable_ITNhEolDfGtpIe9xjmHitQ_x2-bKpIj
 VITE_ADMIN_EMAIL
 faulaandre@gmail.com
 
+# --- 6) Vídeo da seção Projeto (YouTube) — use se projeto.mp4 não estiver no deploy ---
+# Cole a URL de incorporação do YouTube (ex.: https://www.youtube.com/embed/VIDEO_ID)
+VITE_VIDEO_PROJETO
+https://www.youtube.com/embed/XXXXXXXXX
+
 
 # ========== COMO USAR ==========
 # Na Vercel, para cada linha acima que tem nome e valor:
