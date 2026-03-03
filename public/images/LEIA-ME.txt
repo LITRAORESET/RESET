@@ -14,3 +14,30 @@ Esta imagem aparecerá:
 Tamanhos sugeridos: 
 - Para o header: altura ~80px, largura proporcional
 - Para hero/bebida: largura até ~320px
+
+--- CAPA EXPLICAÇÃO DE NEGÓCIO (compartilhamento WhatsApp) ---
+
+Nome do arquivo: capa-explicacao-negocio.jpg
+
+Onde colocar: nesta pasta (public/images/)
+Caminho: LITRAO RESET/public/images/capa-explicacao-negocio.jpg
+
+Esta imagem aparece quando o link de OPORTUNIDADE DE NEGÓCIO (/oportunidade/:codigo)
+é compartilhado no WhatsApp, Telegram, etc. É a "capa" da explicação do negócio.
+
+Tamanho sugerido: 1200x630px (proporção 1.91:1 para Open Graph).
+Se usar outro nome, altere em src/constants.js (CAPA_EXPLICACAO_NEGOCIO) e em scripts/gen-html-variants.js.
+
+--- IMAGEM INCENTIVO QUIZ DE SAÚDE (compartilhamento WhatsApp) ---
+
+Nome do arquivo: quiz-incentivo.jpg
+
+Onde colocar: nesta pasta (public/images/)
+Caminho: LITRAO RESET/public/images/quiz-incentivo.jpg
+
+Esta imagem aparece quando o link do QUIZ (/quiz/:codigo) é compartilhado no WhatsApp.
+Use uma imagem com mensagem incentivando a pessoa a preencher o quiz de saúde
+(ex.: "Descubra seu resultado em 1 minuto", "Responda e descubra como está sua energia").
+
+Tamanho sugerido: 1200x630px (proporção 1.91:1 para Open Graph).
+Se usar outro nome, altere em src/constants.js (IMAGEM_QUIZ_INCENTIVO) e em scripts/gen-html-variants.js.

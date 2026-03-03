@@ -21,3 +21,7 @@ npm-debug.log*
 *.swp
 *.swo
 .vercel
+
+# Vídeos grandes (GitHub limite 100MB, recomendado 50MB)
+# Use Git LFS ou hospede em CDN se precisar versionar
+public/videos/projeto.mp4

@@ -1,12 +1,27 @@
 // Imagem do logo Reset Metabólico — coloque o arquivo em public/images/
 export const LOGO_RESET_METABOLICO = '/images/reset-metabolico.jpeg'
 
+// Imagem de capa da explicação de negócio (compartilhamento WhatsApp em /oportunidade)
+// Coloque em public/images/ — usada como og:image quando o link de oportunidade é compartilhado
+export const CAPA_EXPLICACAO_NEGOCIO = '/images/capa-explicacao-negocio.jpg'
+
+// Imagem de incentivo ao quiz (compartilhamento WhatsApp em /quiz)
+// Coloque em public/images/ — imagem com mensagem incentivando a preencher o quiz de saúde
+export const IMAGEM_QUIZ_INCENTIVO = '/images/quiz-incentivo.jpg'
+
 // Imagem da sacola para material de estabelecimentos — coloque em public/images/
 export const IMAGEM_SACOLA = '/images/sacola.png'
 
 // URL do site (definida em .env.local como VITE_SITE_URL)
 export const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://www.litraoreset.com.br'
 export const SITE_NAME = import.meta.env.VITE_SITE_NAME || 'Litrão | Reset Metabólico'
+
+// Vídeo da seção Projeto (Conheça o projeto Reset metabólico) — coloque em public/videos/
+// Nome padrão: projeto.mp4 (ou altere aqui para .webm, ou use URL do YouTube/Vimeo)
+export const VIDEO_PROJETO = '/videos/projeto.mp4'
+
+// Capa do vídeo do projeto (imagem antes de dar play) — coloque em public/videos/
+export const CAPA_VIDEO_PROJETO = '/videos/capa-projeto.jpg'
 
 // Vídeo da seção Oportunidade — coloque o arquivo em public/videos/
 // Nome padrão: oportunidade.mp4 (ou altere aqui para .webm, ou use URL do YouTube/Vimeo)

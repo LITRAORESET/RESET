@@ -33,8 +33,9 @@ export default function Hero() {
           oportunidade de negócio que transforma.
         </p>
         <div className="hero__actions">
-          <a href="#bebida" className="hero__btn hero__btn--primary">Conhecer a Bebida</a>
-          <a href="#oportunidade" className="hero__btn hero__btn--secondary">Ver Oportunidade</a>
+          <a href="#projeto" className="hero__btn hero__btn--primary">Conhecer o Projeto</a>
+          <a href="#bebida" className="hero__btn hero__btn--secondary">Conhecer a Bebida</a>
+          <a href="#oportunidade" className="hero__btn hero__btn--outline">Ver Oportunidade</a>
           <Link to="/login" className="hero__btn hero__btn--outline">Área de Membros</Link>
         </div>
       </div>

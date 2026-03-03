@@ -1,3 +1,29 @@
+VÍDEO DA SEÇÃO PROJETO (Conheça o projeto Reset metabólico)
+============================================================
+
+--- VÍDEO ---
+
+Nome do arquivo: projeto.mp4
+
+Onde colocar: nesta pasta (public/videos/)
+Caminho: LITRAO RESET/public/videos/projeto.mp4
+
+Se o vídeo for maior que 50MB, use Git LFS (git lfs track "public/videos/projeto.mp4") ou hospede em CDN e altere VIDEO_PROJETO em src/constants.js.
+Se quiser outro nome ou formato, edite src/constants.js (VIDEO_PROJETO).
+Formatos recomendados: MP4 (H.264) ou WebM.
+
+--- CAPA DO VÍDEO (imagem que aparece antes de dar play) ---
+
+Nome do arquivo: capa-projeto.jpg
+(ou .png / .webp — se usar outro nome, altere em src/constants.js em CAPA_VIDEO_PROJETO)
+
+Onde colocar: nesta pasta (public/videos/)
+Caminho: LITRAO RESET/public/videos/capa-projeto.jpg
+
+É a imagem que o visitante vê no player antes de clicar em play.
+Sugestão: mesmo enquadramento do vídeo (ex.: 16:9), ex.: 1280x720px.
+
+======================================
 VÍDEO DA SEÇÃO OPORTUNIDADE DE NEGÓCIO
 ======================================
 
