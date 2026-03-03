@@ -8,12 +8,12 @@ export default function Header() {
   const [logoError, setLogoError] = useState(false)
   const location = useLocation()
   const isHome = location.pathname === '/'
-  const isQuiz = location.pathname.startsWith('/quiz/')
+  const isPaginaPropagacao = location.pathname.startsWith('/quiz/') || location.pathname.startsWith('/oportunidade/')
 
   return (
-    <header className={`header ${menuOpen ? 'header--open' : ''} ${isQuiz ? 'header--quiz' : ''}`}>
+    <header className={`header ${menuOpen ? 'header--open' : ''} ${isPaginaPropagacao ? 'header--quiz' : ''}`}>
       <div className="header__inner">
-        {!isQuiz && (
+        {!isPaginaPropagacao && (
           <button
             type="button"
             className="header__menu-btn"
@@ -42,7 +42,7 @@ export default function Header() {
           )}
         </Link>
 
-        {!isQuiz && (
+        {!isPaginaPropagacao && (
           <nav className="header__nav">
             {isHome && (
               <>
@@ -57,7 +57,7 @@ export default function Header() {
         )}
       </div>
 
-      {menuOpen && !isQuiz && (
+      {menuOpen && !isPaginaPropagacao && (
         <div className="header__mobile-nav">
           {isHome && (
             <>

@@ -6,7 +6,7 @@ import { buildWhatsAppUrl } from '../lib/whatsapp'
 import './AreaMembros.css'
 import './OportunidadePage.css'
 
-const TITULO = 'Ganhe R$500 por semana com bebidas funcionais — Entenda como'
+const TITULO = 'Ganhe R$500 por semana com bebidas funcionais'
 
 export default function MinhaOportunidade() {
   const [membro, setMembro] = useState(null)

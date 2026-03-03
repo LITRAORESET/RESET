@@ -12,6 +12,12 @@ export default function MinhaQuiz() {
   const [copiadoQuiz, setCopiadoQuiz] = useState(null) // 'direto' | 'indireto'
 
   useEffect(() => {
+    const main = document.querySelector('.area-membros__main')
+    if (main) main.scrollTo(0, 0)
+    else window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     let cancelled = false
     async function load() {
       const { data } = await getSession()

@@ -5,7 +5,7 @@ import { SITE_URL, VIDEO_APRESENTACAO_NEGOCIO } from '../constants'
 import { buildWhatsAppUrl } from '../lib/whatsapp'
 import './OportunidadePage.css'
 
-const TITULO = 'Ganhe R$500 por semana com bebidas funcionais — Entenda como'
+const TITULO = 'Ganhe R$500 por semana com bebidas funcionais'
 
 export default function OportunidadePage() {
   const { codigo } = useParams()

@@ -6,6 +6,7 @@ import './Layout.css'
 export default function Layout() {
   const location = useLocation()
   const isAreaMembros = location.pathname.startsWith('/membros') || location.pathname.startsWith('/admin') || location.pathname === '/painel-execucao'
+  const isPaginaPropagacao = location.pathname.startsWith('/quiz/') || location.pathname.startsWith('/oportunidade/')
 
   return (
     <div className="layout">
@@ -13,7 +14,7 @@ export default function Layout() {
       <main className="layout-main">
         <Outlet />
       </main>
-      {!isAreaMembros && <Footer />}
+      {!isAreaMembros && !isPaginaPropagacao && <Footer />}
     </div>
   )
 }
