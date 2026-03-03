@@ -9,6 +9,9 @@ export const SITE_NAME = import.meta.env.VITE_SITE_NAME || 'Litrão | Reset Meta
 // Nome padrão: oportunidade.mp4 (ou altere aqui para .webm, ou use URL do YouTube/Vimeo)
 export const VIDEO_OPORTUNIDADE = '/videos/oportunidade.mp4'
 
+// Vídeo da apresentação de negócio (página /oportunidade/:codigo e Minha Oportunidade)
+export const VIDEO_APRESENTACAO_NEGOCIO = import.meta.env.VITE_VIDEO_APRESENTACAO_NEGOCIO || '/videos/oportunidade.mp4'
+
 // Capa do vídeo (imagem que aparece antes de dar play) — coloque em public/videos/
 // Nome padrão: capa-video.jpg (ou .png, .webp)
 export const CAPA_VIDEO_OPORTUNIDADE = '/videos/capa-video.jpg'

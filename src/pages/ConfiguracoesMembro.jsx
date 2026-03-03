@@ -187,6 +187,7 @@ export default function ConfiguracoesMembro() {
               autoComplete="tel"
             />
           </label>
+          <p className="config-membro__hint">Usado nos botões de WhatsApp da sua página de oportunidade (Minha Oportunidade).</p>
           <p className="config-membro__hint">E-mail de login não pode ser alterado aqui.</p>
           {erroDados && <p className="config-membro__erro" role="alert">{erroDados}</p>}
           {msgDados && <p className="config-membro__sucesso" role="status">{msgDados}</p>}

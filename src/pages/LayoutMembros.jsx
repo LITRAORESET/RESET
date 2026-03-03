@@ -128,6 +128,14 @@ export default function LayoutMembros() {
               <span className="area-membros__nav-label">Clube Ouro & Elite</span>
             </Link>
             <Link
+              to="/membros/oportunidade"
+              className={`area-membros__nav-item ${location.pathname === '/membros/oportunidade' ? 'area-membros__nav-item--ativo' : ''}`}
+              onClick={() => setMenuAberto(false)}
+            >
+              <span className="area-membros__nav-icon">💼</span>
+              <span className="area-membros__nav-label">Minha Oportunidade</span>
+            </Link>
+            <Link
               to="/membros/configuracoes"
               className={`area-membros__nav-item ${location.pathname === '/membros/configuracoes' ? 'area-membros__nav-item--ativo' : ''}`}
               onClick={() => setMenuAberto(false)}

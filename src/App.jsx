@@ -13,6 +13,8 @@ import ClubeOuro from './pages/ClubeOuro'
 import Admin from './pages/Admin'
 import AdminClubeOuro from './pages/AdminClubeOuro'
 import PainelExecucao from './pages/PainelExecucao'
+import OportunidadePage from './pages/OportunidadePage'
+import MinhaOportunidade from './pages/MinhaOportunidade'
 
 export default function App() {
   return (
@@ -22,11 +24,13 @@ export default function App() {
         <Route path="login" element={<Login />} />
         <Route path="cadastro" element={<Cadastro />} />
         <Route path="solicitar" element={<Solicitar />} />
+        <Route path="oportunidade/:codigo" element={<OportunidadePage />} />
         <Route path="membros" element={<LayoutMembros />}>
           <Route index element={<AreaMembros />} />
           <Route path="material/:arquivo" element={<MaterialViewer />} />
           <Route path="execucao" element={<Execucao12X />} />
           <Route path="clube-ouro" element={<ClubeOuro />} />
+          <Route path="oportunidade" element={<MinhaOportunidade />} />
           <Route path="configuracoes" element={<ConfiguracoesMembro />} />
         </Route>
         <Route path="admin" element={<Admin />} />
