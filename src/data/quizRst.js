@@ -1,5 +1,5 @@
 /**
- * Quiz RST — Sacola Reset Metabólico (NRG + Herbal Concentrate)
+ * Quiz RST — Sacola de Reset Metabólico
  * Dois fluxos: direto (público quente) e indireto (público frio)
  * Mesmas perguntas, diagnóstico e CTA diferentes
  */
@@ -153,7 +153,7 @@ export function obterPontosAtencao(respostas) {
 const CONTEUDO_DIRETO = {
   energia: {
     explicacao: 'Seu corpo está precisando de mais estímulo de energia ao longo do dia.',
-    sacola: 'A Sacola RST (NRG + Herbal Concentrate) pode ajudar você a sentir:',
+    sacola: 'A Sacola de Reset Metabólico pode ajudar você a sentir:',
     beneficios: [
       'Mais disposição já pela manhã',
       'Energia mais estável ao longo do dia',
@@ -162,11 +162,11 @@ const CONTEUDO_DIRETO = {
     ],
     conclusao: 'Se usada corretamente, você pode sentir mais energia já nos primeiros dias.',
     ctaTexto: 'Quero ativar minha energia agora',
-    msgWhatsApp: 'Oi, fiz o diagnóstico e deu que preciso de mais energia. Quero encomendar minha sacola RST dessa semana.',
+    msgWhatsApp: 'Oi, fiz o diagnóstico e deu que preciso de mais energia. Quero encomendar minha Sacola de Reset Metabólico dessa semana.',
   },
   foco: {
     explicacao: 'Seu corpo está precisando de estímulo para foco e concentração.',
-    sacola: 'A Sacola RST (NRG + Herbal Concentrate) pode ajudar você a sentir:',
+    sacola: 'A Sacola de Reset Metabólico pode ajudar você a sentir:',
     beneficios: [
       'Mais foco mental durante o dia',
       'Melhor concentração nas tarefas',
@@ -175,11 +175,11 @@ const CONTEUDO_DIRETO = {
     ],
     conclusao: 'Se usada corretamente, você pode sentir melhora na concentração já nos primeiros dias.',
     ctaTexto: 'Quero melhorar minha concentração',
-    msgWhatsApp: 'Oi, fiz o diagnóstico e deu que preciso de mais concentração. Quero encomendar minha sacola RST dessa semana.',
+    msgWhatsApp: 'Oi, fiz o diagnóstico e deu que preciso de mais concentração. Quero encomendar minha Sacola de Reset Metabólico dessa semana.',
   },
   metabolismo: {
     explicacao: 'Seu corpo está precisando de ativação metabólica e hidratação estratégica.',
-    sacola: 'A Sacola RST (NRG + Herbal Concentrate) pode ajudar você a sentir:',
+    sacola: 'A Sacola de Reset Metabólico pode ajudar você a sentir:',
     beneficios: [
       'Ativação do metabolismo',
       'Redução da sensação de inchaço',
@@ -188,11 +188,11 @@ const CONTEUDO_DIRETO = {
     ],
     conclusao: 'Se usada corretamente, você pode sentir melhora na sensação de inchaço já nos primeiros dias.',
     ctaTexto: 'Quero ativar meu metabolismo agora',
-    msgWhatsApp: 'Oi, fiz o diagnóstico e deu que preciso ativar meu metabolismo. Quero encomendar minha sacola RST dessa semana.',
+    msgWhatsApp: 'Oi, fiz o diagnóstico e deu que preciso ativar meu metabolismo. Quero encomendar minha Sacola de Reset Metabólico dessa semana.',
   },
   default: {
     explicacao: 'Seu corpo está precisando de estímulo diário de ativação e hidratação estratégica.',
-    sacola: 'A Sacola RST (NRG + Herbal Concentrate) foi pensada exatamente para:',
+    sacola: 'A Sacola de Reset Metabólico foi pensada exatamente para:',
     beneficios: [
       'Estimular o metabolismo',
       'Melhorar disposição',
@@ -201,8 +201,8 @@ const CONTEUDO_DIRETO = {
       'Melhorar rendimento físico',
     ],
     conclusao: 'Se usada corretamente, você pode sentir melhora já nos primeiros dias.',
-    ctaTexto: 'Encomendar minha Sacola RST dessa semana',
-    msgWhatsApp: 'Oi, fiz o diagnóstico e quero encomendar minha sacola RST dessa semana.',
+    ctaTexto: 'Encomendar minha Sacola de Reset Metabólico dessa semana',
+    msgWhatsApp: 'Oi, fiz o diagnóstico e quero encomendar minha Sacola de Reset Metabólico dessa semana.',
   },
 }
 

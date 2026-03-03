@@ -135,7 +135,7 @@ export default function QuizMateriaisEstabelecimentos() {
                   Descubra o que seu corpo está pedindo.
                 </p>
                 <div className="quiz-materiais__flyer-imagens">
-                  <img src={IMAGEM_SACOLA} alt="Sacola RST" className="quiz-materiais__flyer-sacola" onError={(e) => { e.target.style.display = 'none' }} crossOrigin="anonymous" />
+                  <img src={IMAGEM_SACOLA} alt="Sacola de Reset Metabólico" className="quiz-materiais__flyer-sacola" onError={(e) => { e.target.style.display = 'none' }} crossOrigin="anonymous" />
                   <div className="quiz-materiais__flyer-qr">
                     <img src={qrUrl} alt="QR Code Quiz" crossOrigin="anonymous" />
                   </div>
