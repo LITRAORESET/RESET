@@ -52,8 +52,8 @@ export default function QuizMateriaisEstabelecimentos() {
     { emoji: '🌊', texto: 'Reduz cansaço constante' },
     { emoji: '🔥', texto: 'Metabolismo mais ativo' },
     { emoji: '🍃', texto: 'Controle da vontade por doces' },
-    { emoji: '🌿', texto: 'Sensação de limpeza interna' },
     { emoji: '🌱', texto: 'Equilíbrio do organismo' },
+    { emoji: '🌿', texto: 'Sensação de limpeza interna' },
     { emoji: '🌊', texto: 'Ajuda a desinchar' },
     { emoji: '🌿', texto: 'Ajuda a desintoxicar' },
   ]

@@ -234,7 +234,7 @@
   display: block;
 }
 
-/* Sidebar mobile */
+/* Sidebar mobile – scrollável para mostrar todos os itens */
 @media (max-width: 879px) {
   .area-membros__sidebar {
     position: fixed;
@@ -247,6 +247,11 @@
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    width: min(320px, 85vw);
+    max-width: 320px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 
   .area-membros__sidebar--open {
