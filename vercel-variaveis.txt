@@ -40,10 +40,11 @@ https://www.youtube.com/embed/SEU_VIDEO_ID
 #   Value (valor): ex.: https://lzgilxfivrgxisgeiavi.supabase.co
 #
 # --- 8) Chave service_role do Supabase (OBRIGATÓRIA para admin gerar senha provisória) ---
-# Encontre em: Supabase Dashboard → Settings → API → Secret keys
+# Supabase Dashboard → Settings → API (ou API Keys) → aba "Legacy API Keys"
+# Copie a chave "service_role" (JWT longo, começa com eyJ...) — NÃO use a chave sb_secret_
+# A chave sb_secret_ dá "Invalid API key" no Auth Admin. Use a service_role JWT.
 # IMPORTANTE: NÃO use prefixo VITE_ — assim a chave fica só no servidor (API) e não no cliente.
 SUPABASE_SERVICE_ROLE_KEY
-sb_secret_xxxxxxxxxxxxxxxxxxxxxxxx
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.xxxxxxxxxxxxxxxxxxxxxxxx
 
-# NÃO adicione SUPABASE_SERVICE_ROLE_KEY com prefixo VITE_ (exporia no cliente).
 # Depois de salvar, faça Redeploy do último deployment.

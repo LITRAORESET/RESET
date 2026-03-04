@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
   if (!supabaseUrl || !anonKey || !serviceRoleKey) {
-    console.error('Variáveis Supabase não configuradas')
+    console.error('[admin-reset-password] Falta variável:', !supabaseUrl ? 'URL' : !anonKey ? 'ANON' : 'SERVICE_ROLE')
     return res.status(500).json({ error: 'Configuração do servidor incompleta' })
   }
 
