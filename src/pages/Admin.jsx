@@ -104,9 +104,34 @@ export default function Admin() {
     }
   }
 
+  function mensagemWhatsApp(s) {
+    const nome = s.nome?.trim() || s.email
+    return `Olá, ${nome}! 👋
+
+Sua senha provisória foi gerada com sucesso.
+
+📧 *E-mail:* ${s.email}
+🔑 *Senha provisória:* ${s.senha}
+
+⚠️ Esta é uma senha temporária. Por segurança, troque-a assim que entrar:
+   • Faça login no site com o e-mail e a senha acima
+   • Vá em Configurações
+   • Clique em "Trocar senha"
+
+Qualquer dúvida, é só falar!`
+  }
+
   function copiarSenha(senha) {
     navigator.clipboard?.writeText(senha).then(() => {
-      setCopiado(true)
+      setCopiado('senha')
+      setTimeout(() => setCopiado(false), 2000)
+    })
+  }
+
+  function copiarMensagem() {
+    if (!senhaGerada) return
+    navigator.clipboard?.writeText(mensagemWhatsApp(senhaGerada)).then(() => {
+      setCopiado('mensagem')
       setTimeout(() => setCopiado(false), 2000)
     })
   }
@@ -313,14 +338,20 @@ export default function Admin() {
           </label>
           {senhaGerada && (
             <div className="admin__senha-gerada">
-              <p><strong>Senha provisória gerada para {senhaGerada.nome || senhaGerada.email}:</strong></p>
+              <p><strong>Senha provisória gerada para {senhaGerada.nome || senhaGerada.email}</strong></p>
               <div className="admin__senha-copy">
                 <code>{senhaGerada.senha}</code>
                 <button type="button" className="admin__btn-copiar" onClick={() => copiarSenha(senhaGerada.senha)}>
-                  {copiado ? 'Copiado!' : 'Copiar'}
+                  {copiado === 'senha' ? 'Copiado!' : 'Copiar senha'}
                 </button>
               </div>
-              <p className="admin__senha-hint">Envie ao membro por WhatsApp. Ele fará login com o e-mail e esta senha, depois pode trocar em Configurações.</p>
+              <div className="admin__senha-msg-wrap">
+                <p className="admin__senha-msg-label">Mensagem pronta para WhatsApp:</p>
+                <pre className="admin__senha-msg">{mensagemWhatsApp(senhaGerada)}</pre>
+                <button type="button" className="admin__btn-copiar admin__btn-copiar--msg" onClick={copiarMensagem}>
+                  {copiado === 'mensagem' ? 'Copiado!' : 'Copiar mensagem'}
+                </button>
+              </div>
             </div>
           )}
           {membrosFiltrados.length === 0 && (

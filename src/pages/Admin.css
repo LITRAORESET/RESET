@@ -349,6 +349,37 @@
   margin: 0.5rem 0 0;
 }
 
+.admin__senha-msg-wrap {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(90, 141, 42, 0.25);
+}
+
+.admin__senha-msg-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 0.5rem;
+}
+
+.admin__senha-msg {
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin: 0 0 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.admin__btn-copiar--msg {
+  width: 100%;
+}
+
 .admin__btn-senha {
   padding: 0.4rem 0.75rem;
   font-size: 0.85rem;
