@@ -69,7 +69,8 @@ export default async function handler(req, res) {
 
   if (updateError) {
     console.error('[admin-reset-password]', updateError)
-    return res.status(500).json({ error: 'Não foi possível atualizar a senha. Tente novamente.' })
+    const msg = updateError.message || 'Não foi possível atualizar a senha. Tente novamente.'
+    return res.status(500).json({ error: msg })
   }
 
   return res.status(200).json({ success: true, senha: novaSenha })
