@@ -7,14 +7,14 @@ import './Execucao12X.css'
 const PONTOS = {
   contacts_done: 10,
   contacts_negocio_done: 10,
-  followups_done: 10,
+  followups_done: 5,
   stories_done: 5,
   presentation_invite_done: 15,
   health_training_invite_done: 5,
   bonus_complete: 10
 }
 
-const MAX_PONTOS_DIA = 55 + PONTOS.bonus_complete
+const MAX_PONTOS_DIA = 50 + PONTOS.bonus_complete
 
 function nivelFromPoints(points) {
   if (points <= 200) return { label: 'Iniciante', emoji: '🌱' }
@@ -150,15 +150,26 @@ export default function Execucao12X() {
       setBestStreak(best)
 
       const { year, weekNumber } = getISOWeek(new Date())
-      const { data: wg } = await supabase
+      const { data: wg, error: wgErr } = await supabase
         .from('weekly_goals')
-        .select('brought_new_member')
+        .select('brought_new_member, new_members_count')
         .eq('user_id', uid)
         .eq('year', year)
         .eq('week_number', weekNumber)
         .maybeSingle()
       if (cancelled) return
-      setWeeklyGoal(wg || null)
+      if (wgErr && wgErr.message?.includes('new_members_count')) {
+        const { data: wgFallback } = await supabase
+          .from('weekly_goals')
+          .select('brought_new_member')
+          .eq('user_id', uid)
+          .eq('year', year)
+          .eq('week_number', weekNumber)
+          .maybeSingle()
+        setWeeklyGoal(wgFallback ? { ...wgFallback, new_members_count: 0 } : null)
+      } else {
+        setWeeklyGoal(wg || null)
+      }
 
       const { start: weekStart, end: weekEnd } = getISOWeekRange(year, weekNumber)
       const { count } = await supabase
@@ -225,26 +236,32 @@ export default function Execucao12X() {
   }
 
   const { year: isoYear, weekNumber: isoWeek } = getISOWeek(new Date())
-  const weeklyAlreadyMarked = weeklyGoal?.brought_new_member === true
-  const canMarkWeekly = newMembersThisWeek >= 1
+  const countMarcado = weeklyGoal?.new_members_count ?? 0
 
-  async function handleSaveWeekly() {
-    if (!userId || !supabase || weeklyAlreadyMarked) return
-    if (!canMarkWeekly) {
-      alert('Só é possível marcar quando houver pelo menos 1 novo membro vinculado a você nesta semana. Peça ao seu líder para vincular o novo cadastro a você.')
-      return
-    }
+  async function handleAddNovoMembro() {
+    if (!userId || !supabase) return
     setSavingWeekly(true)
+    const nextCount = countMarcado + 1
     const { error } = await supabase.from('weekly_goals').upsert(
-      { user_id: userId, year: isoYear, week_number: isoWeek, brought_new_member: true },
+      {
+        user_id: userId,
+        year: isoYear,
+        week_number: isoWeek,
+        brought_new_member: nextCount >= 1,
+        new_members_count: nextCount
+      },
       { onConflict: 'user_id,year,week_number' }
     )
     setSavingWeekly(false)
     if (error) {
-      alert('Erro ao salvar: ' + error.message)
+      if (error.message?.includes('new_members_count')) {
+        alert('Execute a migration no Supabase (SQL Editor):\n\nALTER TABLE public.weekly_goals ADD COLUMN IF NOT EXISTS new_members_count integer NOT NULL DEFAULT 0;')
+      } else {
+        alert('Erro ao salvar: ' + error.message)
+      }
       return
     }
-    setWeeklyGoal({ brought_new_member: true })
+    setWeeklyGoal((g) => ({ ...g, brought_new_member: true, new_members_count: nextCount }))
     setSavedWeekly(true)
   }
 
@@ -310,8 +327,8 @@ export default function Execucao12X() {
           {[
             { key: 'contacts_done', label: 'Falei com 10 pessoas da sacola (oferta produto)' },
             { key: 'contacts_negocio_done', label: 'Falei com 10 pessoas do negócio (oferta renda)' },
-            { key: 'followups_done', label: 'Fiz 10 acompanhamentos' },
-            { key: 'stories_done', label: 'Postei 2 no store' },
+            { key: 'followups_done', label: 'Fiz 5 acompanhamentos' },
+            { key: 'stories_done', label: 'Coloquei 2 posts nos stories' },
             { key: 'presentation_invite_done', label: 'Coloquei 1 pessoa na apresentação' },
             { key: 'health_training_invite_done', label: 'Incentivei e chamei pessoas para o Clube do Bem-estar' }
           ].map(({ key, label }) => (
@@ -334,34 +351,20 @@ export default function Execucao12X() {
       <section className="execucao12x__meta-semanal">
         <h3>Meta da Semana – Duplicação</h3>
         <p className="execucao12x__meta-semanal-info">Semana atual: {isoWeek} / {isoYear}</p>
-        {weeklyAlreadyMarked ? (
-          <div className="execucao12x__bloqueado execucao12x__bloqueado--small">
-            <p>Meta semanal já registrada.</p>
-          </div>
-        ) : (
-          <>
-            <label className="execucao12x__check">
-              <input
-                type="checkbox"
-                checked={false}
-                readOnly
-              />
-              <span>Trouxe 1 novo membro essa semana</span>
-            </label>
-            {!canMarkWeekly && (
-              <p className="execucao12x__meta-semanal-aviso">Marque apenas quando houver 1 novo membro vinculado a você (leader_id). Esta semana: {newMembersThisWeek}.</p>
-            )}
-            <button
-              type="button"
-              className="execucao12x__btn execucao12x__btn--secondary"
-              onClick={handleSaveWeekly}
-              disabled={savingWeekly || !canMarkWeekly}
-            >
-              {savingWeekly ? 'Salvando…' : 'Salvar meta semanal'}
-            </button>
-            {savedWeekly && <p className="execucao12x__sucesso">Meta semanal registrada.</p>}
-          </>
-        )}
+        <div className="execucao12x__meta-semanal-contador">
+          <p className="execucao12x__meta-semanal-count">
+            Trouxe <strong>{countMarcado}</strong> novo{countMarcado !== 1 ? 's' : ''} membro{countMarcado !== 1 ? 's' : ''} essa semana
+          </p>
+          <button
+            type="button"
+            className="execucao12x__btn execucao12x__btn--secondary"
+            onClick={handleAddNovoMembro}
+            disabled={savingWeekly}
+          >
+            {savingWeekly ? 'Salvando…' : '+ Trouxe 1'}
+          </button>
+        </div>
+        <p className="execucao12x__meta-semanal-aviso">Clique quando trouxer um novo membro. Vinculados a você (leader_id) esta semana: {newMembersThisWeek}.</p>
       </section>
 
       <section className="execucao12x__historico">
