@@ -176,17 +176,62 @@
   margin: 0 0 1rem;
 }
 
+.execucao12x__meta-semanal-informativo {
+  font-size: 0.95rem;
+  color: var(--gray-text);
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(160, 209, 80, 0.12);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--green-leaf);
+}
+
 .execucao12x__meta-semanal-contador {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   margin-bottom: 0.5rem;
 }
 
 .execucao12x__meta-semanal-count {
   font-size: 1rem;
   margin: 0;
+}
+
+.execucao12x__meta-semanal-parabens {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8f4e8 0%, #fff9e6 100%);
+  border-radius: var(--radius);
+  border: 1px solid rgba(184, 134, 11, 0.25);
+}
+
+.execucao12x__meta-semanal-parabens-titulo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  margin: 0 0 0.5rem;
+}
+
+.execucao12x__meta-semanal-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.execucao12x__meta-semanal-lista li {
+  padding: 0.35rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.execucao12x__meta-semanal-lista li::before {
+  content: '🎉';
+  position: absolute;
+  left: 0;
 }
 
 .execucao12x__meta-semanal-count strong {

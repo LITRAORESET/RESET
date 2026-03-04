@@ -59,10 +59,7 @@ export default function Execucao12X() {
   const [monthPoints, setMonthPoints] = useState(0)
   const [streak, setStreak] = useState(0)
   const [bestStreak, setBestStreak] = useState(0)
-  const [weeklyGoal, setWeeklyGoal] = useState(null)
-  const [newMembersThisWeek, setNewMembersThisWeek] = useState(0)
-  const [savingWeekly, setSavingWeekly] = useState(false)
-  const [savedWeekly, setSavedWeekly] = useState(false)
+  const [indicadosEstaSemana, setIndicadosEstaSemana] = useState([])
 
   const [form, setForm] = useState({
     contacts_done: false,
@@ -150,35 +147,26 @@ export default function Execucao12X() {
       setBestStreak(best)
 
       const { year, weekNumber } = getISOWeek(new Date())
-      const { data: wg, error: wgErr } = await supabase
-        .from('weekly_goals')
-        .select('brought_new_member, new_members_count')
-        .eq('user_id', uid)
-        .eq('year', year)
-        .eq('week_number', weekNumber)
-        .maybeSingle()
-      if (cancelled) return
-      if (wgErr && wgErr.message?.includes('new_members_count')) {
-        const { data: wgFallback } = await supabase
-          .from('weekly_goals')
-          .select('brought_new_member')
-          .eq('user_id', uid)
-          .eq('year', year)
-          .eq('week_number', weekNumber)
-          .maybeSingle()
-        setWeeklyGoal(wgFallback ? { ...wgFallback, new_members_count: 0 } : null)
-      } else {
-        setWeeklyGoal(wg || null)
-      }
-
       const { start: weekStart, end: weekEnd } = getISOWeekRange(year, weekNumber)
-      const { count } = await supabase
+      const { data: perfisIndicados } = await supabase
         .from('perfil')
-        .select('*', { count: 'exact', head: true })
+        .select('user_id')
         .eq('leader_id', uid)
         .gte('created_at', weekStart)
         .lt('created_at', weekEnd)
-      setNewMembersThisWeek(count ?? 0)
+      if (cancelled) return
+      const userIds = (perfisIndicados || []).map((p) => p.user_id)
+      let nomes = []
+      if (userIds.length > 0) {
+        const { data: membros } = await supabase
+          .from('membros')
+          .select('user_id, nome')
+          .in('user_id', userIds)
+        if (cancelled) return
+        const mapa = (membros || []).reduce((acc, m) => ({ ...acc, [m.user_id]: m.nome?.trim() || 'Novo distribuidor' }), {})
+        nomes = userIds.map((id) => mapa[id] || 'Novo distribuidor')
+      }
+      setIndicadosEstaSemana(nomes)
 
       setLoading(false)
     }
@@ -236,34 +224,7 @@ export default function Execucao12X() {
   }
 
   const { year: isoYear, weekNumber: isoWeek } = getISOWeek(new Date())
-  const countMarcado = weeklyGoal?.new_members_count ?? 0
-
-  async function handleAddNovoMembro() {
-    if (!userId || !supabase) return
-    setSavingWeekly(true)
-    const nextCount = countMarcado + 1
-    const { error } = await supabase.from('weekly_goals').upsert(
-      {
-        user_id: userId,
-        year: isoYear,
-        week_number: isoWeek,
-        brought_new_member: nextCount >= 1,
-        new_members_count: nextCount
-      },
-      { onConflict: 'user_id,year,week_number' }
-    )
-    setSavingWeekly(false)
-    if (error) {
-      if (error.message?.includes('new_members_count')) {
-        alert('Execute a migration no Supabase (SQL Editor):\n\nALTER TABLE public.weekly_goals ADD COLUMN IF NOT EXISTS new_members_count integer NOT NULL DEFAULT 0;')
-      } else {
-        alert('Erro ao salvar: ' + error.message)
-      }
-      return
-    }
-    setWeeklyGoal((g) => ({ ...g, brought_new_member: true, new_members_count: nextCount }))
-    setSavedWeekly(true)
-  }
+  const countIndicados = indicadosEstaSemana.length
 
   const nivel = nivelFromPoints(monthPoints)
 
@@ -351,20 +312,30 @@ export default function Execucao12X() {
       <section className="execucao12x__meta-semanal">
         <h3>Meta da Semana – Duplicação</h3>
         <p className="execucao12x__meta-semanal-info">Semana atual: {isoWeek} / {isoYear}</p>
+        <p className="execucao12x__meta-semanal-informativo">
+          Conforme seu novo distribuidor entrar pelo seu link de indicação, ele aparecerá automaticamente aqui.
+        </p>
         <div className="execucao12x__meta-semanal-contador">
           <p className="execucao12x__meta-semanal-count">
-            Trouxe <strong>{countMarcado}</strong> novo{countMarcado !== 1 ? 's' : ''} membro{countMarcado !== 1 ? 's' : ''} essa semana
+            {countIndicados === 0 ? (
+              'Ainda não trouxe distribuidores essa semana'
+            ) : countIndicados === 1 ? (
+              <>Trouxe <strong>1</strong> distribuidor essa semana</>
+            ) : (
+              <>Trouxe <strong>{countIndicados}</strong> distribuidores essa semana</>
+            )}
           </p>
-          <button
-            type="button"
-            className="execucao12x__btn execucao12x__btn--secondary"
-            onClick={handleAddNovoMembro}
-            disabled={savingWeekly}
-          >
-            {savingWeekly ? 'Salvando…' : '+ Trouxe 1'}
-          </button>
+          {countIndicados > 0 && (
+            <div className="execucao12x__meta-semanal-parabens">
+              <p className="execucao12x__meta-semanal-parabens-titulo">Parabéns!</p>
+              <ul className="execucao12x__meta-semanal-lista">
+                {indicadosEstaSemana.map((nome, i) => (
+                  <li key={i}>{nome}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-        <p className="execucao12x__meta-semanal-aviso">Clique quando trouxer um novo membro. Vinculados a você (leader_id) esta semana: {newMembersThisWeek}.</p>
       </section>
 
       <section className="execucao12x__historico">

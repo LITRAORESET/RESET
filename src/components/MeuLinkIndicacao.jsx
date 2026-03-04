@@ -92,7 +92,7 @@ export default function MeuLinkIndicacao() {
   return (
     <div className="meu-link">
       <p className="meu-link__intro">
-        Use este link único para indicar pessoas. Quem se cadastrar por ele já fica vinculado a você e você pode marcar a meta semanal de duplicação.
+        Use este link único para indicar pessoas. Quem se cadastrar por ele já fica vinculado a você e aparece automaticamente na sua Meta da Semana – Duplicação.
       </p>
       <div className="meu-link__campo">
         <label className="meu-link__label">Seu link de indicação</label>

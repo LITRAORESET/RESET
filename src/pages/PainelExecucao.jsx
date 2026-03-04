@@ -155,25 +155,33 @@ export default function PainelExecucao() {
         .filter((id) => !hojeMap[id] && !fezOntem.has(id))
         .map((id) => ({ user_id: id, nome: nomes[id] || '—', tipo: '2 dias sem executar' }))
 
-      const { data: weeklyGoals } = await supabase
-        .from('weekly_goals')
-        .select('user_id, year, week_number, brought_new_member')
-        .in('user_id', teamUserIds)
-        .eq('year', currentYear)
-
-      const novoNaSemana = (weeklyGoals || [])
-        .filter((w) => w.year === isoYear && w.week_number === isoWeek && w.brought_new_member)
-        .reduce((acc, w) => ({ ...acc, [w.user_id]: true }), {})
-
+      const jan4 = new Date(isoYear, 0, 4)
+      const dayJan4 = jan4.getDay() || 7
+      const mondayWeek1 = new Date(isoYear, 0, 4 - (dayJan4 - 1))
+      const monday = new Date(mondayWeek1)
+      monday.setDate(mondayWeek1.getDate() + (isoWeek - 1) * 7)
+      const nextMonday = new Date(monday)
+      nextMonday.setDate(monday.getDate() + 7)
+      const weekStart = monday.toISOString().slice(0, 10) + 'T00:00:00.000Z'
+      const weekEnd = nextMonday.toISOString().slice(0, 10) + 'T00:00:00.000Z'
       const firstDayNextMonth = new Date(currentYear, currentMonth + 1, 1).toISOString().slice(0, 10)
-      const novoNoMesPorUser = (weeklyGoals || [])
-        .filter((w) => {
-          if (!w.brought_new_member) return false
-          const monday = getMondayOfWeek(w.year, w.week_number)
-          return monday >= firstDayMonth && monday < firstDayNextMonth
-        })
-        .reduce((acc, w) => {
-          acc[w.user_id] = (acc[w.user_id] || 0) + 1
+      const monthStart = firstDayMonth + 'T00:00:00.000Z'
+      const monthEnd = firstDayNextMonth + 'T00:00:00.000Z'
+
+      const [{ data: perfisIndicadosSemana }, { data: perfisIndicadosMes }] = await Promise.all([
+        supabase.from('perfil').select('leader_id').in('leader_id', teamUserIds).gte('created_at', weekStart).lt('created_at', weekEnd),
+        supabase.from('perfil').select('leader_id').in('leader_id', teamUserIds).gte('created_at', monthStart).lt('created_at', monthEnd)
+      ])
+
+      const novoNaSemana = (perfisIndicadosSemana || [])
+        .reduce((acc, p) => {
+          if (p.leader_id) acc[p.leader_id] = true
+          return acc
+        }, {})
+
+      const novoNoMesPorUser = (perfisIndicadosMes || [])
+        .reduce((acc, p) => {
+          if (p.leader_id) acc[p.leader_id] = (acc[p.leader_id] || 0) + 1
           return acc
         }, {})
 
@@ -192,7 +200,7 @@ export default function PainelExecucao() {
       const semMetaSemanal = teamUserIds.filter((id) => !novoNaSemana[id])
       setAlertas([
         ...alertasExec,
-        ...semMetaSemanal.map((id) => ({ user_id: id, nome: nomes[id] || '—', tipo: 'Não trouxe 1 novo membro essa semana' }))
+        ...semMetaSemanal.map((id) => ({ user_id: id, nome: nomes[id] || '—', tipo: 'Não trouxe 1 novo distribuidor essa semana' }))
       ])
 
       setLoading(false)
