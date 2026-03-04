@@ -17,13 +17,14 @@
   color: var(--gray-text);
 }
 
-/* Header fixo */
+/* Header fixo – sem hamburger no mobile (menu fica na barra inferior) */
 .area-membros__header {
   background: var(--white);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 10;
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .area-membros__header-inner {
@@ -36,6 +37,11 @@
   padding-right: max(1rem, env(safe-area-inset-right));
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.area-membros__header-spacer {
+  min-width: 80px;
+  flex-shrink: 0;
 }
 
 .area-membros__menu-btn {
@@ -260,6 +266,61 @@
   }
 }
 
+/* Barra inferior fixa – botão Menu (mobile) */
+.area-membros__bottom-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  padding: 0.75rem 1rem;
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+  background: var(--white);
+  box-shadow: 0 -2px 12px rgba(30, 70, 32, 0.1);
+  border-top: 1px solid rgba(30, 70, 32, 0.08);
+}
+
+.area-membros__bottom-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 120px;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  background: var(--green-dark);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.area-membros__bottom-nav-btn:hover {
+  background: var(--green-leaf);
+}
+
+.area-membros__bottom-nav-btn:active {
+  transform: scale(0.98);
+}
+
+.area-membros__bottom-nav-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.area-membros__bottom-nav-label {
+  font-size: 1rem;
+}
+
 @media (min-width: 880px) {
   .area-membros__sidebar {
     display: flex;
@@ -267,6 +328,14 @@
   }
 
   .area-membros__menu-btn {
+    display: none;
+  }
+
+  .area-membros__bottom-nav {
+    display: none;
+  }
+
+  .area-membros__header-spacer {
     display: none;
   }
 
@@ -281,6 +350,7 @@
   min-width: 0;
   padding: 1rem 1rem 3rem;
 }
+
 
 /* Banner destaque no topo – atividade diária + meta da semana + Elite */
 .area-membros__destaque-topo {
@@ -431,6 +501,12 @@
 @media (min-width: 640px) {
   .area-membros__main {
     padding: 2rem 2rem 3rem;
+  }
+}
+
+@media (max-width: 879px) {
+  .area-membros__main {
+    padding-bottom: 5rem; /* espaço para a barra inferior fixa */
   }
 }
 

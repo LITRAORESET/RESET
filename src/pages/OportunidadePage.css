@@ -52,6 +52,11 @@
   vertical-align: middle;
 }
 
+.oportunidade-page__video--iframe {
+  aspect-ratio: 16 / 9;
+  min-height: 200px;
+}
+
 .oportunidade-page__botoes {
   display: flex;
   flex-direction: row;

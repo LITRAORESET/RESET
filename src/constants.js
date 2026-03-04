@@ -28,8 +28,7 @@ export const CAPA_VIDEO_PROJETO = '/videos/capa-projeto.jpg'
 export const VIDEO_OPORTUNIDADE = '/videos/oportunidade.mp4'
 
 // Vídeo da apresentação de negócio (página /oportunidade/:codigo e Minha Oportunidade)
-// MP4 local (80MB) falha na Vercel — usamos YouTube como padrão. Sobrescreva com VITE_VIDEO_APRESENTACAO_NEGOCIO se quiser outro.
-export const VIDEO_APRESENTACAO_NEGOCIO = import.meta.env.VITE_VIDEO_APRESENTACAO_NEGOCIO || 'https://www.youtube.com/embed/DUF7M-KK5vY'
+export const VIDEO_APRESENTACAO_NEGOCIO = import.meta.env.VITE_VIDEO_APRESENTACAO_NEGOCIO || '/videos/oportunidade.mp4'
 
 // Capa do vídeo (imagem que aparece antes de dar play) — coloque em public/videos/
 // Nome padrão: capa-video.jpg (ou .png, .webp)

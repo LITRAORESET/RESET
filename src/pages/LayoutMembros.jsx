@@ -62,16 +62,7 @@ export default function LayoutMembros() {
     <div className="area-membros">
       <header className="area-membros__header">
         <div className="area-membros__header-inner">
-          <button
-            type="button"
-            className="area-membros__menu-btn"
-            aria-label="Abrir menu"
-            onClick={() => setMenuAberto(!menuAberto)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
+          <div className="area-membros__header-spacer" aria-hidden="true" />
           <h1 className="area-membros__logo">
             {membro?.nome?.trim() ? (
               <span className="area-membros__logo-nome">{membro.nome.trim()}</span>
@@ -182,6 +173,18 @@ export default function LayoutMembros() {
           <Outlet />
         </main>
       </div>
+
+      <nav className="area-membros__bottom-nav" aria-label="Menu principal">
+        <button
+          type="button"
+          className="area-membros__bottom-nav-btn"
+          aria-label="Abrir menu"
+          onClick={() => setMenuAberto(!menuAberto)}
+        >
+          <span className="area-membros__bottom-nav-icon">☰</span>
+          <span className="area-membros__bottom-nav-label">Menu</span>
+        </button>
+      </nav>
 
       {menuAberto && (
         <div

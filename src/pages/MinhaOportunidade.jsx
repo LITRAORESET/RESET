@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getSession, getMembro } from '../lib/auth'
 import { supabase } from '../lib/supabase'
-import { SITE_URL, VIDEO_APRESENTACAO_NEGOCIO } from '../constants'
+import { SITE_URL } from '../constants'
+import VideoOportunidadeNegocio from '../components/VideoOportunidadeNegocio'
 import { buildWhatsAppUrl } from '../lib/whatsapp'
 import './AreaMembros.css'
 import './OportunidadePage.css'
@@ -88,17 +89,7 @@ export default function MinhaOportunidade() {
         <div className="oportunidade-page__container">
           <h1 className="oportunidade-page__titulo">{TITULO}</h1>
 
-          <div className="oportunidade-page__video-wrap">
-            <video
-              className="oportunidade-page__video"
-              src={VIDEO_APRESENTACAO_NEGOCIO}
-              controls
-              playsInline
-              aria-label="Apresentação da oportunidade de negócio"
-            >
-              Seu navegador não suporta vídeos.
-            </video>
-          </div>
+          <VideoOportunidadeNegocio />
 
           <div className="oportunidade-page__botoes">
             {urlComecar && (

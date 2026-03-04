@@ -27,6 +27,12 @@ faulaandre@gmail.com
 VITE_VIDEO_PROJETO
 https://www.youtube.com/embed/XXXXXXXXX
 
+# --- 7) Vídeo da apresentação de negócio (Oportunidade de Negócio) — RECOMENDADO ---
+# O arquivo oportunidade.mp4 tem ~80MB e pode falhar na Vercel. Suba no YouTube e cole a URL de incorporação:
+# Ex.: https://www.youtube.com/embed/SEU_VIDEO_ID
+VITE_VIDEO_APRESENTACAO_NEGOCIO
+https://www.youtube.com/embed/SEU_VIDEO_ID
+
 
 # ========== COMO USAR ==========
 # Na Vercel, para cada linha acima que tem nome e valor:
