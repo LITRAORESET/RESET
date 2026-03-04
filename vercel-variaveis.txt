@@ -39,5 +39,11 @@ https://www.youtube.com/embed/SEU_VIDEO_ID
 #   Key (nome):   ex.: VITE_SUPABASE_URL
 #   Value (valor): ex.: https://lzgilxfivrgxisgeiavi.supabase.co
 #
-# NÃO adicione SUPABASE_SERVICE_ROLE_KEY nem sb_secret_ na Vercel (é chave secreta).
+# --- 8) Chave service_role do Supabase (OBRIGATÓRIA para admin gerar senha provisória) ---
+# Encontre em: Supabase Dashboard → Settings → API → Secret keys
+# IMPORTANTE: NÃO use prefixo VITE_ — assim a chave fica só no servidor (API) e não no cliente.
+SUPABASE_SERVICE_ROLE_KEY
+sb_secret_xxxxxxxxxxxxxxxxxxxxxxxx
+
+# NÃO adicione SUPABASE_SERVICE_ROLE_KEY com prefixo VITE_ (exporia no cliente).
 # Depois de salvar, faça Redeploy do último deployment.

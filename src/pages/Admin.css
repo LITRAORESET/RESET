@@ -286,6 +286,96 @@
   cursor: not-allowed;
 }
 
+.admin__search-wrap {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.admin__search-input {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+}
+
+.admin__search-input:focus {
+  outline: none;
+  border-color: var(--green-dark);
+  box-shadow: 0 0 0 2px rgba(90, 141, 42, 0.2);
+}
+
+.admin__senha-gerada {
+  padding: 1rem;
+  background: rgba(90, 141, 42, 0.1);
+  border: 1px solid rgba(90, 141, 42, 0.3);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.admin__senha-copy {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.5rem 0;
+}
+
+.admin__senha-copy code {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--green-dark);
+}
+
+.admin__btn-copiar {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--green-dark);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.admin__btn-copiar:hover {
+  background: var(--green-leaf);
+}
+
+.admin__senha-hint {
+  font-size: 0.85rem;
+  color: var(--gray-text);
+  margin: 0.5rem 0 0;
+}
+
+.admin__btn-senha {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  background: rgba(160, 209, 80, 0.2);
+  border: 1px solid rgba(90, 141, 42, 0.4);
+  border-radius: var(--radius);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin__btn-senha:hover:not(:disabled) {
+  background: rgba(160, 209, 80, 0.35);
+  border-color: var(--green-dark);
+}
+
+.admin__btn-senha:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.admin__nao-aplica {
+  color: var(--gray-text);
+  font-size: 0.9rem;
+}
+
 .admin__footer {
   text-align: center;
 }

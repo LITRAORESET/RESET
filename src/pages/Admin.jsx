@@ -58,6 +58,10 @@ export default function Admin() {
   }
 
   const [revogando, setRevogando] = useState(null)
+  const [buscaMembros, setBuscaMembros] = useState('')
+  const [gerandoSenha, setGerandoSenha] = useState(null)
+  const [senhaGerada, setSenhaGerada] = useState(null) // { user_id, senha, email }
+  const [copiado, setCopiado] = useState(false)
 
   async function handleRevogarAcesso(userId) {
     if (!window.confirm('Revogar o acesso deste membro? Ele não poderá mais entrar na área de membros.')) return
@@ -71,8 +75,52 @@ export default function Admin() {
     else setErro(error.message)
   }
 
+  async function handleGerarSenhaProvisoria(membro) {
+    setGerandoSenha(membro.user_id)
+    setSenhaGerada(null)
+    setErro('')
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      const token = session?.access_token
+      if (!token) {
+        setErro('Sessão expirada. Faça login novamente.')
+        return
+      }
+      const res = await fetch('/api/admin-reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ user_id: membro.user_id })
+      })
+      const json = await res.json()
+      if (!res.ok) {
+        setErro(json.error || 'Não foi possível gerar a senha.')
+        return
+      }
+      setSenhaGerada({ user_id: membro.user_id, senha: json.senha, email: membro.email, nome: membro.nome })
+    } catch (err) {
+      setErro('Erro ao conectar. Verifique se a variável SUPABASE_SERVICE_ROLE_KEY está na Vercel.')
+    } finally {
+      setGerandoSenha(null)
+    }
+  }
+
+  function copiarSenha(senha) {
+    navigator.clipboard?.writeText(senha).then(() => {
+      setCopiado(true)
+      setTimeout(() => setCopiado(false), 2000)
+    })
+  }
+
   const perfilPorUser = Object.fromEntries((perfis || []).map((p) => [p.user_id, p]))
   const membroPorUser = Object.fromEntries((membros || []).map((m) => [m.user_id, m]))
+  const buscaLower = buscaMembros.trim().toLowerCase()
+  const membrosFiltrados = buscaLower
+    ? membros.filter((m) => {
+        const nome = (m.nome || '').toLowerCase()
+        const email = (m.email || '').toLowerCase()
+        return nome.includes(buscaLower) || email.includes(buscaLower)
+      })
+    : membros
   const pendentes = (membros || []).filter((m) => {
     const p = perfilPorUser[m.user_id]
     return p && p.role !== 'admin' && !p.aprovado && !p.rejeitado
@@ -242,6 +290,79 @@ export default function Admin() {
                         <td>{p?.leader_id ? (nomeIndicador(p.leader_id) || '—') : '—'}</td>
                         <td>{status}</td>
                         <td>{new Date(m.created_at).toLocaleDateString('pt-BR')}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+
+        <section className="admin__section">
+          <h2 className="admin__section-title">Buscar usuário e gerar senha</h2>
+          <p className="admin__section-desc">Busque por nome ou e-mail e gere uma senha provisória para o membro. Envie a senha por WhatsApp; ele poderá trocar em Configurações após o login.</p>
+          <label className="admin__search-wrap">
+            <input
+              type="search"
+              className="admin__search-input"
+              placeholder="Buscar por nome ou e-mail…"
+              value={buscaMembros}
+              onChange={(e) => setBuscaMembros(e.target.value)}
+            />
+          </label>
+          {senhaGerada && (
+            <div className="admin__senha-gerada">
+              <p><strong>Senha provisória gerada para {senhaGerada.nome || senhaGerada.email}:</strong></p>
+              <div className="admin__senha-copy">
+                <code>{senhaGerada.senha}</code>
+                <button type="button" className="admin__btn-copiar" onClick={() => copiarSenha(senhaGerada.senha)}>
+                  {copiado ? 'Copiado!' : 'Copiar'}
+                </button>
+              </div>
+              <p className="admin__senha-hint">Envie ao membro por WhatsApp. Ele fará login com o e-mail e esta senha, depois pode trocar em Configurações.</p>
+            </div>
+          )}
+          {membrosFiltrados.length === 0 && (
+            <p className="admin__vazio">
+              {membros.length === 0 ? 'Nenhum membro cadastrado.' : 'Nenhum usuário encontrado.'}
+            </p>
+          )}
+          {membrosFiltrados.length > 0 && (
+            <div className="admin__table-wrap">
+              <table className="admin__table">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Status</th>
+                    <th>Gerar senha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {membrosFiltrados.map((m) => {
+                    const p = perfilPorUser[m.user_id]
+                    const status = p?.role === 'admin' ? 'Admin' : p?.aprovado ? 'Aprovado' : p?.rejeitado ? 'Rejeitado' : 'Pendente'
+                    return (
+                      <tr key={m.id}>
+                        <td>{m.nome || '—'}</td>
+                        <td>{m.email}</td>
+                        <td>{status}</td>
+                        <td>
+                          {p?.role === 'admin' ? (
+                            <span className="admin__nao-aplica">—</span>
+                          ) : (
+                            <button
+                              type="button"
+                              className="admin__btn-senha"
+                              onClick={() => handleGerarSenhaProvisoria(m)}
+                              disabled={gerandoSenha === m.user_id}
+                              title="Gerar senha provisória e exibir para enviar ao membro"
+                            >
+                              {gerandoSenha === m.user_id ? 'Gerando…' : 'Gerar senha provisória'}
+                            </button>
+                          )}
+                        </td>
                       </tr>
                     )
                   })}
