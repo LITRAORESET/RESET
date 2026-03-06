@@ -1,43 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { getSession } from '../lib/auth'
-import { supabase } from '../lib/supabase'
 import { SITE_URL, LOGO_RESET_METABOLICO, IMAGEM_SACOLA } from '../constants'
+import { useReferralCode } from '../hooks/useReferralCode'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import './QuizMateriaisEstabelecimentos.css'
 
 export default function QuizMateriaisEstabelecimentos() {
-  const [codigo, setCodigo] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { codigo, loading } = useReferralCode()
   const [baixando, setBaixando] = useState(false)
   const flyerRef = useRef(null)
-
-  useEffect(() => {
-    let cancelled = false
-    async function load() {
-      const { data } = await getSession()
-      if (cancelled || !data?.session?.user?.id) {
-        setLoading(false)
-        return
-      }
-      const uid = data.session.user.id
-      if (!supabase) {
-        setLoading(false)
-        return
-      }
-      const { data: perfil } = await supabase
-        .from('perfil')
-        .select('referral_code')
-        .eq('user_id', uid)
-        .single()
-      if (cancelled) return
-      setCodigo(perfil?.referral_code || null)
-      setLoading(false)
-    }
-    load()
-    return () => { cancelled = true }
-  }, [])
 
   const baseUrl = SITE_URL.replace(/\/$/, '')
   const linkQuizIndireto = codigo ? `${baseUrl}/quiz/${codigo}?versao=indireto` : ''
@@ -118,7 +90,7 @@ export default function QuizMateriaisEstabelecimentos() {
 
       <div className="quiz-materiais__container">
         {!codigo && (
-          <p className="quiz-materiais__erro">Seu link ainda está sendo gerado. Atualize a página em instantes.</p>
+          <p className="quiz-materiais__erro">Não foi possível gerar o link. Tente recarregar a página ou acesse a seção &quot;Meu link&quot; na área de membros.</p>
         )}
 
         {codigo && (

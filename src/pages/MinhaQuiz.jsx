@@ -1,46 +1,18 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getSession } from '../lib/auth'
-import { supabase } from '../lib/supabase'
 import { SITE_URL } from '../constants'
+import { useReferralCode } from '../hooks/useReferralCode'
 import './AreaMembros.css'
 import './OportunidadePage.css'
 
 export default function MinhaQuiz() {
-  const [codigo, setCodigo] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { codigo, loading } = useReferralCode()
   const [copiadoQuiz, setCopiadoQuiz] = useState(null) // 'direto' | 'indireto'
 
   useEffect(() => {
     const main = document.querySelector('.area-membros__main')
     if (main) main.scrollTo(0, 0)
     else window.scrollTo(0, 0)
-  }, [])
-
-  useEffect(() => {
-    let cancelled = false
-    async function load() {
-      const { data } = await getSession()
-      if (cancelled || !data?.session?.user?.id) {
-        setLoading(false)
-        return
-      }
-      const uid = data.session.user.id
-      if (!supabase) {
-        setLoading(false)
-        return
-      }
-      const { data: perfil } = await supabase
-        .from('perfil')
-        .select('referral_code')
-        .eq('user_id', uid)
-        .single()
-      if (cancelled) return
-      setCodigo(perfil?.referral_code || null)
-      setLoading(false)
-    }
-    load()
-    return () => { cancelled = true }
   }, [])
 
   const baseUrl = SITE_URL.replace(/\/$/, '')
@@ -73,8 +45,8 @@ export default function MinhaQuiz() {
         Ver exemplos de diagnóstico e CTA
       </Link>
 
-      {!codigo && (
-        <p className="config-membro__erro">Seu link ainda está sendo gerado. Atualize a página em instantes.</p>
+      {!codigo && !loading && (
+        <p className="config-membro__erro">Não foi possível gerar o link. Tente recarregar a página ou acesse a seção &quot;Meu link&quot; na área de membros.</p>
       )}
 
       {codigo && (

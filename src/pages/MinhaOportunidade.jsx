@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getSession, getMembro } from '../lib/auth'
-import { supabase } from '../lib/supabase'
+import { getMembro } from '../lib/auth'
 import { SITE_URL } from '../constants'
+import { useReferralCode } from '../hooks/useReferralCode'
 import VideoOportunidadeNegocio from '../components/VideoOportunidadeNegocio'
 import { buildWhatsAppUrl } from '../lib/whatsapp'
 import './AreaMembros.css'
@@ -12,34 +12,17 @@ const TITULO = 'Ganhe R$500 por semana com bebidas funcionais'
 
 export default function MinhaOportunidade() {
   const [membro, setMembro] = useState(null)
-  const [codigo, setCodigo] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { codigo, loading: loadingCodigo } = useReferralCode()
+  const [loadingMembro, setLoadingMembro] = useState(true)
   const [copiado, setCopiado] = useState(false)
 
   useEffect(() => {
     let cancelled = false
     async function load() {
-      const { data } = await getSession()
-      if (cancelled || !data?.session?.user?.id) {
-        setLoading(false)
-        return
-      }
-      const uid = data.session.user.id
       const m = await getMembro()
       if (cancelled) return
       setMembro(m)
-      if (!supabase) {
-        setLoading(false)
-        return
-      }
-      const { data: perfil } = await supabase
-        .from('perfil')
-        .select('referral_code')
-        .eq('user_id', uid)
-        .single()
-      if (cancelled) return
-      setCodigo(perfil?.referral_code || null)
-      setLoading(false)
+      setLoadingMembro(false)
     }
     load()
     return () => { cancelled = true }
@@ -58,6 +41,7 @@ export default function MinhaOportunidade() {
     })
   }
 
+  const loading = loadingCodigo || loadingMembro
   if (loading) {
     return (
       <div className="area-membros__conteudo">
@@ -82,7 +66,7 @@ export default function MinhaOportunidade() {
       )}
 
       {!codigo && (
-        <p className="config-membro__erro">Seu link ainda está sendo gerado. Atualize a página em instantes.</p>
+        <p className="config-membro__erro">Não foi possível gerar o link. Tente recarregar a página ou acesse a seção &quot;Meu link&quot; na área de membros.</p>
       )}
 
       <div className="oportunidade-page oportunidade-page--inside">
