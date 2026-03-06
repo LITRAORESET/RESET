@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { getSession, getPerfil, getMembro, signOut } from '../lib/auth'
-import { PILARES, FRASE_OFICIAL_RECRUTAMENTO } from '../data/areaMembrosEstrutura'
+import { PILARES } from '../data/areaMembrosEstrutura'
 import './AreaMembros.css'
 
 export default function LayoutMembros() {

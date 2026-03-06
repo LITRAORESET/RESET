@@ -86,6 +86,24 @@
   font-weight: 700;
 }
 
+.oportunidade__frase-recrutamento {
+  margin: 0 auto 2rem;
+  padding: 1.25rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .oportunidade__frase-recrutamento {
+    font-size: 1.2rem;
+  }
+}
+
 .oportunidade__btn {
   display: inline-flex;
   align-items: center;

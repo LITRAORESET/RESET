@@ -4,8 +4,13 @@
  * Arquivos em public/materiais/ (PDF ou HTML para imprimir como PDF)
  */
 
+/** Pergunta oficial de vendas da sacola (oferta produto) */
+export const FRASE_OFICIAL_SACOLA =
+  'Quem você conhece que gostaria de mais energia, concentração e desintoxicar ESSA SEMANA?'
+
+/** Pergunta oficial de recrutamento (oferta renda/negócio) */
 export const FRASE_OFICIAL_RECRUTAMENTO =
-  'Quem você conhece que quer ganhar R$500 por semana trabalhando com bebidas funcionais?'
+  'Quem você conhece que gostaria de ganhar R$500 por semana com bebidas funcionais?'
 
 export const PILARES = [
   {

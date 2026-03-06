@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom'
-import { PILARES, FRASE_OFICIAL_RECRUTAMENTO } from '../data/areaMembrosEstrutura'
+import { PILARES, FRASE_OFICIAL_SACOLA, FRASE_OFICIAL_RECRUTAMENTO } from '../data/areaMembrosEstrutura'
 import MeuLinkIndicacao from '../components/MeuLinkIndicacao'
 import './AreaMembros.css'
 
@@ -23,8 +23,10 @@ export default function AreaMembros() {
       </div>
 
       <div className="area-membros__banner" role="banner">
-        <p className="area-membros__banner-frase">{FRASE_OFICIAL_RECRUTAMENTO}</p>
-        <p className="area-membros__banner-sub">Pergunta oficial do projeto. Use todos os dias.</p>
+        <p className="area-membros__banner-frase">{FRASE_OFICIAL_SACOLA}</p>
+        <p className="area-membros__banner-sub">Pergunta oficial da sacola – Use ao falar com 10 pessoas sobre o produto.</p>
+        <p className="area-membros__banner-frase area-membros__banner-frase--mt">{FRASE_OFICIAL_RECRUTAMENTO}</p>
+        <p className="area-membros__banner-sub">Pergunta oficial do recrutamento – Use ao falar com 10 pessoas sobre o negócio.</p>
       </div>
 
       <section className="area-membros__conteudo">

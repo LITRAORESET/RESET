@@ -492,6 +492,10 @@
   margin: 0;
 }
 
+.area-membros__banner-frase--mt {
+  margin-top: 1rem;
+}
+
 @media (min-width: 640px) {
   .area-membros__banner-frase {
     font-size: 1.25rem;

@@ -1,4 +1,5 @@
 import { SwooshTop } from './Swoosh'
+import { FRASE_OFICIAL_SACOLA } from '../data/areaMembrosEstrutura'
 import './Beneficios.css'
 
 const LISTA = [
@@ -24,6 +25,7 @@ export default function Beneficios() {
             </li>
           ))}
         </ul>
+        <p className="beneficios__frase-sacola">{FRASE_OFICIAL_SACOLA}</p>
       </div>
     </section>
   )

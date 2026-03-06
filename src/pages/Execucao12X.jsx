@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getSession } from '../lib/auth'
+import { FRASE_OFICIAL_SACOLA, FRASE_OFICIAL_RECRUTAMENTO } from '../data/areaMembrosEstrutura'
 import { supabase } from '../lib/supabase'
 import './Execucao12X.css'
 
@@ -54,6 +55,7 @@ export default function Execucao12X() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [editing, setEditing] = useState(false)
   const [todayLog, setTodayLog] = useState(null)
   const [history, setHistory] = useState([])
   const [monthPoints, setMonthPoints] = useState(0)
@@ -215,6 +217,7 @@ export default function Execucao12X() {
       return
     }
     setSaved(true)
+    setEditing(false)
     setTodayLog({ ...payload })
     setMonthPoints((p) => p - pointsToday + pts)
     if (status === 'complete') {
@@ -286,22 +289,25 @@ export default function Execucao12X() {
         <form className="execucao12x__form" onSubmit={handleSubmit}>
           <p className="execucao12x__form-intro">Marque o que você fez (cada item vale os pontos ao lado). Marcando tudo: +{PONTOS.bonus_complete} pts bônus de dia completo.</p>
           {[
-            { key: 'contacts_done', label: 'Falei com 10 pessoas da sacola (oferta produto)' },
-            { key: 'contacts_negocio_done', label: 'Falei com 10 pessoas do negócio (oferta renda)' },
-            { key: 'followups_done', label: 'Fiz 5 acompanhamentos' },
-            { key: 'stories_done', label: 'Coloquei 2 posts nos stories' },
-            { key: 'presentation_invite_done', label: 'Coloquei 1 pessoa na apresentação' },
-            { key: 'health_training_invite_done', label: 'Incentivei e chamei pessoas para o Clube do Bem-estar' }
-          ].map(({ key, label }) => (
-            <label key={key} className="execucao12x__check">
-              <input
-                type="checkbox"
-                checked={form[key]}
-                onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.checked }))}
-              />
-              <span className="execucao12x__check-pontos">{PONTOS[key]} pts</span>
-              <span>{label}</span>
-            </label>
+            { key: 'contacts_done', label: 'Falei com 10 pessoas da sacola (oferta produto)', pergunta: FRASE_OFICIAL_SACOLA },
+            { key: 'contacts_negocio_done', label: 'Falei com 10 pessoas do negócio (oferta renda)', pergunta: FRASE_OFICIAL_RECRUTAMENTO },
+            { key: 'followups_done', label: 'Fiz 5 acompanhamentos', pergunta: null },
+            { key: 'stories_done', label: 'Coloquei 2 posts nos stories', pergunta: null },
+            { key: 'presentation_invite_done', label: 'Coloquei 1 pessoa na apresentação', pergunta: null },
+            { key: 'health_training_invite_done', label: 'Incentivei e chamei pessoas para o Clube do Bem-estar', pergunta: null }
+          ].map(({ key, label, pergunta }) => (
+            <div key={key} className="execucao12x__check-wrap">
+              <label className="execucao12x__check">
+                <input
+                  type="checkbox"
+                  checked={form[key]}
+                  onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.checked }))}
+                />
+                <span className="execucao12x__check-pontos">{PONTOS[key]} pts</span>
+                <span>{label}</span>
+              </label>
+              {pergunta && <p className="execucao12x__check-pergunta">{pergunta}</p>}
+            </div>
           ))}
           <button type="submit" className="execucao12x__btn" disabled={saving}>
             {saving ? 'Salvando…' : 'Salvar execução de hoje'}

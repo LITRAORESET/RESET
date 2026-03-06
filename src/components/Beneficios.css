@@ -69,3 +69,21 @@
   font-weight: 700;
   border-radius: 50%;
 }
+
+.beneficios__frase-sacola {
+  margin-top: 2rem;
+  padding: 1.25rem 1rem;
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-leaf) 100%);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .beneficios__frase-sacola {
+    font-size: 1.2rem;
+  }
+}

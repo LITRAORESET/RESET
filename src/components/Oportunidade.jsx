@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SwooshBottom } from './Swoosh'
+import { FRASE_OFICIAL_RECRUTAMENTO } from '../data/areaMembrosEstrutura'
 import { VIDEO_OPORTUNIDADE, CAPA_VIDEO_OPORTUNIDADE } from '../constants'
 import './Oportunidade.css'
 
@@ -35,6 +36,7 @@ export default function Oportunidade() {
           <li>Suporte e materiais para divulgação</li>
           <li>Comunidade de distribuidores e liderança</li>
         </ul>
+        <p className="oportunidade__frase-recrutamento">{FRASE_OFICIAL_RECRUTAMENTO}</p>
         <div className="oportunidade__actions">
           <Link to="/login" className="oportunidade__btn">
             Acessar Área de Membros
