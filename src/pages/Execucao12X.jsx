@@ -35,6 +35,14 @@ function getISOWeek(d) {
   return { year: date.getFullYear(), weekNumber: weekNo }
 }
 
+/** Retorna data no formato YYYY-MM-DD no fuso horário LOCAL do usuário (evita problema à noite com UTC) */
+function getLocalDateString(d = new Date()) {
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
 /** Retorna início e fim da semana ISO (para query: created_at >= start e < end) */
 function getISOWeekRange(year, weekNumber) {
   const jan4 = new Date(year, 0, 4)
@@ -72,7 +80,7 @@ export default function Execucao12X() {
     health_training_invite_done: false
   })
 
-  const today = new Date().toISOString().slice(0, 10)
+  const today = getLocalDateString()
 
   useEffect(() => {
     let cancelled = false
@@ -105,7 +113,7 @@ export default function Execucao12X() {
       }
       const start = new Date()
       start.setDate(start.getDate() - 6)
-      const startStr = start.toISOString().slice(0, 10)
+      const startStr = getLocalDateString(start)
       const { data: logs } = await supabase
         .from('execution_logs')
         .select('date, status, points_earned')
@@ -116,7 +124,7 @@ export default function Execucao12X() {
       setHistory(logs || [])
 
       const now = new Date()
-      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10)
+      const firstDay = getLocalDateString(new Date(now.getFullYear(), now.getMonth(), 1))
       const { data: monthLogs } = await supabase
         .from('execution_logs')
         .select('points_earned')
@@ -130,7 +138,7 @@ export default function Execucao12X() {
       for (let i = 0; i < 7; i++) {
         const d = new Date()
         d.setDate(d.getDate() - i)
-        const dateStr = d.toISOString().slice(0, 10)
+        const dateStr = getLocalDateString(d)
         const log = sorted.find((r) => r.date === dateStr)
         if (!log || log.status !== 'complete') break
         current++
