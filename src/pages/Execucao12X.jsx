@@ -280,10 +280,13 @@ export default function Execucao12X() {
         <p className="execucao12x__sucesso" role="status">Dia registrado com sucesso.</p>
       )}
 
-      {todayLog ? (
+      {todayLog && !editing ? (
         <div className="execucao12x__bloqueado">
           <p>Você já registrou sua execução hoje.</p>
           <p className="execucao12x__bloqueado-pontos">Pontos de hoje: {todayLog.points_earned} · Status: {todayLog.status === 'complete' ? 'Dia completo' : 'Dia parcial'}</p>
+          <button type="button" className="execucao12x__btn execucao12x__btn--secondary" onClick={() => setEditing(true)}>
+            Editar
+          </button>
         </div>
       ) : (
         <form className="execucao12x__form" onSubmit={handleSubmit}>
@@ -309,9 +312,16 @@ export default function Execucao12X() {
               {pergunta && <p className="execucao12x__check-pergunta">{pergunta}</p>}
             </div>
           ))}
-          <button type="submit" className="execucao12x__btn" disabled={saving}>
-            {saving ? 'Salvando…' : 'Salvar execução de hoje'}
-          </button>
+          <div className="execucao12x__form-actions">
+            <button type="submit" className="execucao12x__btn" disabled={saving}>
+              {saving ? 'Salvando…' : 'Salvar execução de hoje'}
+            </button>
+            {todayLog && (
+              <button type="button" className="execucao12x__btn execucao12x__btn--secondary" onClick={() => setEditing(false)} disabled={saving}>
+                Cancelar
+              </button>
+            )}
+          </div>
         </form>
       )}
 
