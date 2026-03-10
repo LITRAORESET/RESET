@@ -249,7 +249,7 @@ export default function ClubeOuro() {
           <img src="/images/treinamentos/clube-prata.png" alt="Reset Metabólico – Clube Prata – Treinamento Base" className="clube-ouro__treino-img" />
           <div className="clube-ouro__treino-texto">
             <strong>Treinamento Clube Prata</strong>
-            <p className="clube-ouro__treino-horario">Segunda-feira, 8h — todas as semanas.</p>
+            <p className="clube-ouro__treino-horario">Segunda-feira, 7h — todas as semanas.</p>
             <p>Aberto a todos os cadastrados no sistema.</p>
             {CLUBE_PRATA_ZOOM_URL ? (
               <p className="clube-ouro__acesso">
@@ -270,7 +270,7 @@ export default function ClubeOuro() {
           <img src="/images/treinamentos/clube-ouro.png" alt="Reset Metabólico – Clube Ouro – Treinamento Exclusivo" className="clube-ouro__treino-img" />
           <div className="clube-ouro__treino-texto">
             <strong>Treinamento Clube Ouro</strong>
-            <p className="clube-ouro__treino-horario">Quarta-feira, 8h — todas as semanas.</p>
+            <p className="clube-ouro__treino-horario">Quarta-feira, 7h — todas as semanas.</p>
             <p>Acesso para quem atingiu 12 sacolas e 1 novo distribuidor na semana (após validação do admin).</p>
             {statusClubeOuroSemana ? (
               <p className="clube-ouro__acesso clube-ouro__acesso--ok">Você está qualificado esta semana.</p>

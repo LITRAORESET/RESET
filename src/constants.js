@@ -48,6 +48,6 @@ export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 // E-mail do admin (pode cadastrar sem solicitação aprovada)
 export const ADMIN_EMAIL = (import.meta.env.VITE_ADMIN_EMAIL || 'faulaandre@gmail.com').toLowerCase()
 
-// Sala Zoom do Clube Prata (segunda 8h) — mesma sala do Afiando Machado, só mudou o nome
+// Sala Zoom do Clube Prata (segunda 7h)
 // Defina em .env.local como VITE_CLUBE_PRATA_ZOOM_URL ou preencha aqui
-export const CLUBE_PRATA_ZOOM_URL = import.meta.env.VITE_CLUBE_PRATA_ZOOM_URL || ''
+export const CLUBE_PRATA_ZOOM_URL = import.meta.env.VITE_CLUBE_PRATA_ZOOM_URL || 'https://us02web.zoom.us/j/88212513126?pwd=8KROrQtFJacJKRaaCwSsAM2avjeWfs.1'

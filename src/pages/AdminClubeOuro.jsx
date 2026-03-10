@@ -316,7 +316,7 @@ export default function AdminClubeOuro() {
       {/* Qualificados Clube Ouro esta semana */}
       <section className="admin-clube__section">
         <h2>Qualificados Clube Ouro esta semana</h2>
-        <p className="admin-clube__subtitulo-secao">Quem atinge 12 sacolas + 1 novo distribuidor (validado) tem acesso ao treinamento de quarta 8h.</p>
+        <p className="admin-clube__subtitulo-secao">Quem atinge 12 sacolas + 1 novo distribuidor (validado) tem acesso ao treinamento de quarta 7h.</p>
         {qualificadosClubeOuroSemana.length === 0 ? (
           <p className="admin-clube__vazio">Ninguém qualificado nesta semana ainda.</p>
         ) : (

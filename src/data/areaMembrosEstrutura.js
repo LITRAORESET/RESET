@@ -103,7 +103,7 @@ export const PILARES = [
     descricao: 'Horários das apresentações do negócio e dos treinamentos oficiais. Seu trabalho é colocar pessoas nas apresentações.',
     itens: [
       { tipo: 'pdf', titulo: 'Horários de Apresentação do Negócio', arquivo: 'agenda-apresentacoes.html', descricao: 'Segunda 10h e 15h, Terça 8h30 e 15h, Quarta 20h, Quinta 15h, Sexta 8h30.' },
-      { tipo: 'pdf', titulo: 'Treinamentos Oficiais', arquivo: 'treinamentos-oficiais.html', descricao: 'Segunda 8h Mentalidade; Seg-Sex 9h-9h30 clientes e produto.' },
+      { tipo: 'pdf', titulo: 'Treinamentos Oficiais', arquivo: 'treinamentos-oficiais.html', descricao: 'Segunda 7h Mentalidade; Qua 7h Clube Ouro; Seg-Sex 9h-9h30 clientes e produto.' },
     ],
   },
   {
