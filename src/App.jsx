@@ -13,6 +13,7 @@ import ClubeOuro from './pages/ClubeOuro'
 import Admin from './pages/Admin'
 import AdminClubeOuro from './pages/AdminClubeOuro'
 import PainelExecucao from './pages/PainelExecucao'
+import AdminExecucao from './pages/AdminExecucao'
 import OportunidadePage from './pages/OportunidadePage'
 import MinhaOportunidade from './pages/MinhaOportunidade'
 import MinhaQuiz from './pages/MinhaQuiz'
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="admin" element={<Admin />} />
         <Route path="admin-clube-ouro" element={<AdminClubeOuro />} />
         <Route path="painel-execucao" element={<PainelExecucao />} />
+        <Route path="admin-execucao-analitica" element={<AdminExecucao />} />
       </Route>
     </Routes>
   )
