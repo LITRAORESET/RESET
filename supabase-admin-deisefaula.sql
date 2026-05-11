@@ -2,6 +2,9 @@
 -- Segunda administradora (deisefaula@gmail.com): mesmo acesso que o admin principal
 -- (área /admin, análise de execução /admin-execucao-analitica, aprovações, etc.)
 --
+-- ANTES deste ficheiro: execute supabase-schema.sql neste mesmo projeto (cria public.perfil e public.membros).
+-- Se aparecer "relation perfil does not exist" (42P01), o schema base ainda não foi aplicado ou o projeto Supabase não é o do site.
+--
 -- Pré-requisito: ela já deve existir em auth.users (cadastro em "Solicitar acesso" ou convite).
 -- Se ainda não cadastrou, peça para concluir o cadastro com esse e-mail e rode este script depois.
 
