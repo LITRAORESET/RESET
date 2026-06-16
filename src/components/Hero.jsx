@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { SwooshBottom } from './Swoosh'
 import { LOGO_RESET_METABOLICO } from '../constants'
 import './Hero.css'
@@ -35,7 +34,6 @@ export default function Hero() {
         <div className="hero__actions">
           <a href="#bebida" className="hero__btn hero__btn--primary">Conhecer a Bebida</a>
           <a href="#oportunidade" className="hero__btn hero__btn--secondary">Ver Oportunidade</a>
-          <Link to="/login" className="hero__btn hero__btn--outline">Área de Membros</Link>
         </div>
       </div>
     </section>

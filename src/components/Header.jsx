@@ -51,8 +51,6 @@ export default function Header() {
                 <a href="#oportunidade" className="header__link">Oportunidade</a>
               </>
             )}
-            <Link to="/login" className="header__link">Área de Membros</Link>
-            <Link to="/login" className="header__cta">Entrar</Link>
           </nav>
         )}
       </div>
@@ -66,8 +64,6 @@ export default function Header() {
               <a href="#oportunidade" onClick={() => setMenuOpen(false)}>Oportunidade</a>
             </>
           )}
-          <Link to="/login" onClick={() => setMenuOpen(false)}>Área de Membros</Link>
-          <Link to="/login" className="header__mobile-cta" onClick={() => setMenuOpen(false)}>Entrar</Link>
         </div>
       )}
     </header>
