@@ -38,7 +38,9 @@ export default function LayoutMembros() {
   useEffect(() => {
     if (loading) return
     if (!session) navigate('/', { replace: true })
-    else if (perfil && perfil.role === 'membro' && !perfil.aprovado) navigate('/', { replace: true })
+    else if (perfil?.role === 'membro') {
+      signOut().finally(() => navigate('/', { replace: true }))
+    }
   }, [loading, session, perfil, navigate])
 
   async function handleSair() {
@@ -56,7 +58,7 @@ export default function LayoutMembros() {
     )
   }
 
-  if (!session) return null
+  if (!session || perfil?.role === 'membro') return null
 
   return (
     <div className="area-membros">
