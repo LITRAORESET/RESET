@@ -86,11 +86,9 @@ export default function Solicitar() {
           </div>
           <p className="login__sucesso">
             Sua conta foi criada. Aguarde a aprovação da nossa equipe para acessar a área de membros. 
-            Você já pode fazer login para ver o status.
+            Nossa equipe avisará quando o acesso estiver liberado.
           </p>
           <p className="login__footer">
-            <Link to="/login">Fazer login</Link>
-            <br />
             <Link to="/">← Voltar ao início</Link>
           </p>
         </div>
@@ -182,8 +180,6 @@ export default function Solicitar() {
         </form>
 
         <p className="login__footer">
-          Já tem conta? <Link to="/login">Fazer login</Link>
-          <br />
           <Link to="/">← Voltar ao início</Link>
         </p>
       </div>

@@ -95,7 +95,7 @@ export default function AdminClubeOuro() {
 
   useEffect(() => {
     if (loading) return
-    if (role !== 'admin') navigate('/login', { replace: true })
+    if (role !== 'admin') navigate('/admin-login', { replace: true })
   }, [loading, role, navigate])
 
   /** Gera e baixa o flyer de um membro (admin). Só o admin usa; cada membro baixa o próprio na página Clube Ouro. */
@@ -197,7 +197,7 @@ export default function AdminClubeOuro() {
     return (
       <div className="admin-clube">
         <p className="admin-clube__negado">Acesso negado. Faça login como administrador.</p>
-        <Link to="/login">Ir para login</Link>
+        <Link to="/admin-login">Ir para login</Link>
       </div>
     )
   }

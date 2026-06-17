@@ -37,13 +37,13 @@ export default function LayoutMembros() {
 
   useEffect(() => {
     if (loading) return
-    if (!session) navigate('/login', { replace: true })
-    else if (perfil && perfil.role === 'membro' && !perfil.aprovado) navigate('/login', { replace: true })
+    if (!session) navigate('/', { replace: true })
+    else if (perfil && perfil.role === 'membro' && !perfil.aprovado) navigate('/', { replace: true })
   }, [loading, session, perfil, navigate])
 
   async function handleSair() {
     await signOut()
-    navigate('/login')
+    navigate('/')
   }
 
   if (loading) {

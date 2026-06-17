@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { SwooshTop, SwooshBottom } from '../components/Swoosh'
 import { LOGO_RESET_METABOLICO, ADMIN_EMAIL } from '../constants'
 import { supabase } from '../lib/supabase'
-import { getSession, getPerfil } from '../lib/auth'
+import { getSession, getPerfil, signOut } from '../lib/auth'
 import './Login.css'
 
 export default function Login() {
@@ -13,7 +13,6 @@ export default function Login() {
   const [senha, setSenha] = useState('')
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [erro, setErro] = useState('')
-  const [statusMsg, setStatusMsg] = useState(null) // 'aguardando' | 'rejeitado'
   const [loading, setLoading] = useState(false)
   const [adminEscolha, setAdminEscolha] = useState(false) // true = logou como admin, mostrar opção de ir pra admin ou membros
   const [checandoSessao, setChecandoSessao] = useState(true) // evita flash do formulário enquanto verifica se já está logado como admin
@@ -24,7 +23,7 @@ export default function Login() {
     if (message) setErro('')
   }, [message])
 
-  // Se já estiver logado como admin, mostrar escolha (Admin ou Área de membros) sem pedir senha de novo
+  // Se já estiver logado como admin/equipe, mostrar escolha sem pedir senha de novo.
   useEffect(() => {
     let cancelled = false
     async function checkSession() {
@@ -41,8 +40,14 @@ export default function Login() {
       const perfil = await getPerfil()
       if (cancelled) return
       const email = data.session.user?.email?.toLowerCase()
-      const ehAdmin = email === ADMIN_EMAIL || perfil?.role === 'admin'
-      if (ehAdmin) setAdminEscolha(true)
+      const ehEquipe = email === ADMIN_EMAIL || perfil?.role === 'admin' || perfil?.role === 'leader'
+      if (ehEquipe) {
+        setAdminEscolha(true)
+      } else {
+        await signOut()
+        navigate('/', { replace: true })
+        return
+      }
       setChecandoSessao(false)
     }
     checkSession()
@@ -52,7 +57,6 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault()
     setErro('')
-    setStatusMsg(null)
     if (!email.trim() || !senha.trim()) {
       setErro('Preencha e-mail e senha.')
       return
@@ -85,20 +89,13 @@ export default function Login() {
     const emailLogado = data?.user?.email?.toLowerCase()
     const ehAdminPorEmail = emailLogado === ADMIN_EMAIL
     const perfil = await getPerfil()
-    const ehAdminPorPerfil = perfil?.role === 'admin'
-    if (ehAdminPorEmail || ehAdminPorPerfil) {
+    const ehEquipePorPerfil = perfil?.role === 'admin' || perfil?.role === 'leader'
+    if (ehAdminPorEmail || ehEquipePorPerfil) {
       setAdminEscolha(true)
       return
     }
-    if (perfil?.rejeitado) {
-      setStatusMsg('rejeitado')
-      return
-    }
-    if (!perfil?.aprovado) {
-      setStatusMsg('aguardando')
-      return
-    }
-    navigate('/membros')
+    await signOut()
+    setErro('Este acesso é reservado para admin/equipe.')
   }
 
   if (adminEscolha) {
@@ -116,7 +113,7 @@ export default function Login() {
               <span className="login__title-sub">Onde deseja entrar?</span>
             </h1>
             <SwooshBottom className="swoosh--large" />
-            <p className="login__desc">Você está logado como administrador. Escolha a área:</p>
+            <p className="login__desc">Você está logado como admin/equipe. Escolha a área:</p>
           </div>
           <div className="login__admin-escolha">
             <button
@@ -170,25 +167,15 @@ export default function Login() {
               alt="Litrão - Reset Metabólico"
               className="login__logo-img"
             />
-            <span className="login__title-sub">Área de Membros</span>
+            <span className="login__title-sub">Acesso administrativo</span>
           </h1>
           <SwooshBottom className="swoosh--large" />
-          <p className="login__desc">Acesso ao conteúdo exclusivo do projeto.</p>
+          <p className="login__desc">Entrada reservada para admin/equipe do projeto.</p>
         </div>
 
         <form className="login__form" onSubmit={handleSubmit}>
           {message && <p className="login__sucesso" role="status">{message}</p>}
           {erro && <p className="login__erro" role="alert">{erro}</p>}
-          {statusMsg === 'rejeitado' && (
-            <p className="login__erro" role="alert">
-              Seu acesso ainda não foi aprovado. Entre em contato com seu patrocinador ou líder se achar que houve engano.
-            </p>
-          )}
-          {statusMsg === 'aguardando' && (
-            <p className="login__aviso" role="status">
-              Seu cadastro está aguardando aprovação. Assim que seu patrocinador ou líder liberar, você poderá acessar a área de membros.
-            </p>
-          )}
           <label className="login__label">
             E-mail
             <input
@@ -235,14 +222,6 @@ export default function Login() {
           <button type="submit" className="login__btn" disabled={loading}>
             {loading ? 'Entrando…' : 'Entrar'}
           </button>
-
-          <div className="login__solicitar-box">
-            <p className="login__solicitar-texto">Ainda não tem conta?</p>
-            <Link to="/solicitar" className="login__btn login__btn--solicitar">
-              Solicitar acesso (cadastrar)
-            </Link>
-            <p className="login__solicitar-dica">Preencha seus dados e aguarde a aprovação.</p>
-          </div>
         </form>
 
         <p className="login__footer">

@@ -44,7 +44,7 @@ export default function Admin() {
 
   async function handleSair() {
     await signOut()
-    navigate('/login')
+    navigate('/admin-login')
   }
 
   async function handleAprovar(userId) {
@@ -192,7 +192,7 @@ Qualquer dúvida, é só falar!`
       <div className="admin">
         <div className="admin__container">
           <p className="admin__negado">Acesso negado. Faça login como administrador.</p>
-          <Link to="/login" className="admin__link">Ir para login</Link>
+          <Link to="/admin-login" className="admin__link">Ir para login</Link>
         </div>
       </div>
     )
